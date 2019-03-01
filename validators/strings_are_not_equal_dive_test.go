@@ -14,19 +14,19 @@ func Test_StringAreNotEqualDive(t *testing.T) {
 
 	sl := []string{"Foo", "Bar", "Bob", "What?"}
 
-	e := validator.NewErrorsP()
 	v := StringSliceDive{
 		Validator: &StringsAreEqual{Name: "Slice", ComparedField: "Bar"},
 		Field:     sl,
 	}
+	e := validator.NewErrorsP()
 	v.Validate(e)
 	r.Equal(3, e.Count())
 
-	e = validator.NewErrors()
 	v = StringSliceDive{
 		Validator: &StringsAreEqual{Name: "Slice", ComparedField: "Bar"},
 		Field:     []string{"Bar", "Bar", "bar", ""},
 	}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(2, e.Count())
 }

@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func Test_StringIsDir(t *testing.T) {
+func Test_StringIsNotDir(t *testing.T) {
 
 	r := require.New(t)
 
@@ -19,33 +19,33 @@ func Test_StringIsDir(t *testing.T) {
 	err = fd.Close()
 	r.Nil(err)
 
-	v := StringIsDir{Name: "Name", Field: "/tmp/test"}
+	v := StringIsNotDir{Name: "Name", Field: "/tmp/test"}
 	e := validator.NewErrors()
 	v.Validate(e)
-	r.Equal(1, e.Count())
+	r.Equal(0, e.Count())
 
 	err = os.Remove("/tmp/test")
 	r.Nil(err)
 
-	v = StringIsDir{Name: "Name", Field: "/tmp/test"}
-	e = validator.NewErrors()
-	v.Validate(e)
-	r.Equal(1, e.Count())
-
-	err = os.MkdirAll("/tmp/test_dir", 0666)
-	r.Nil(err)
-
-	v = StringIsDir{Name: "Name", Field: "/tmp/test_dir"}
+	v = StringIsNotDir{Name: "Name", Field: "/tmp/test"}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
-	err = os.Remove("/tmp/test_dir")
+	err = os.MkdirAll("/tmp/test_dir", 0666)
 	r.Nil(err)
 
-	v = StringIsDir{Name: "Name", Field: "/tmp/test_dir"}
+	v = StringIsNotDir{Name: "Name", Field: "/tmp/test_dir"}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
-	r.Equal([]string{"path '/tmp/test_dir' is not a dir"}, e.Get("Name"))
+	r.Equal([]string{"path '/tmp/test_dir' is a dir"}, e.Get("Name"))
+
+	err = os.RemoveAll("/tmp/test_dir")
+	r.Nil(err)
+
+	v = StringIsNotDir{Name: "Name", Field: "/tmp/test_dir"}
+	e = validator.NewErrors()
+	v.Validate(e)
+	r.Equal(0, e.Count())
 }

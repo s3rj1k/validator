@@ -30,18 +30,19 @@ func Test_StringIsNoPath(t *testing.T) {
 	r.Equal(0, e.Count())
 
 	v = StringIsNoPath{Name: "Name", Field: "/tmp/test"}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{"path '/tmp/test' must not exist"}, e.Get("Name"))
 
-	e = validator.NewErrors()
 	v = StringIsNoPath{Name: "Name", Field: "/tmp/test"}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{"path '/tmp/test' must not exist"}, e.Get("Name"))
 
-	e = validator.NewErrors()
 	v = StringIsNoPath{"Name", "/tmp/test"}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{"path '/tmp/test' must not exist"}, e.Get("Name"))

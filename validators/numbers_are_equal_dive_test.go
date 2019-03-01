@@ -15,7 +15,6 @@ func Test_NumbersAreEqualDive(t *testing.T) {
 	field := []interface{}{int(99), int8(99), int16(99), int32(99)}
 	compared := 99
 
-	e := validator.NewErrors()
 	v := NumberSliceDive{
 		Validator: &NumbersAreEqual{
 			Name:          "MySlice",
@@ -23,6 +22,7 @@ func Test_NumbersAreEqualDive(t *testing.T) {
 		},
 		Field: field,
 	}
+	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
@@ -40,7 +40,6 @@ func Test_NumbersAreEqualDive(t *testing.T) {
 
 	compared = 25
 
-	e = validator.NewErrors()
 	v = NumberSliceDive{
 		Validator: &NumbersAreEqual{
 			Name:          "MySlice",
@@ -48,12 +47,12 @@ func Test_NumbersAreEqualDive(t *testing.T) {
 		},
 		Field: field,
 	}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(4, e.Count())
 
 	field = []interface{}{int(25), int8(25), uint16(25), uint32(25)} // cant compare uint and int
 
-	e = validator.NewErrors()
 	v = NumberSliceDive{
 		Validator: &NumbersAreEqual{
 			Name:          "MySlice",
@@ -61,12 +60,12 @@ func Test_NumbersAreEqualDive(t *testing.T) {
 		},
 		Field: field,
 	}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(2, e.Count())
 
 	field = []interface{}{nil}
 
-	e = validator.NewErrors()
 	v = NumberSliceDive{
 		Validator: &NumbersAreEqual{
 			Name:          "MySlice",
@@ -74,11 +73,11 @@ func Test_NumbersAreEqualDive(t *testing.T) {
 		},
 		Field: field,
 	}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
 
 	field = []interface{}{"bad type"}
-	e = validator.NewErrors()
 	v = NumberSliceDive{
 		Validator: &NumbersAreEqual{
 			Name:          "MySlice",
@@ -86,6 +85,7 @@ func Test_NumbersAreEqualDive(t *testing.T) {
 		},
 		Field: field,
 	}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
 }

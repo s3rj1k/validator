@@ -18,10 +18,12 @@ func Test_Int64ArrayIsPresent(t *testing.T) {
 	r.Equal(0, e.Count())
 
 	v = Int64ArrayIsPresent{Name: "Name", Field: make([]int64, 1)}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
 	v = Int64ArrayIsPresent{Name: "Name", Field: []int64{}}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{"Name can not be empty"}, e.Get("Name"))

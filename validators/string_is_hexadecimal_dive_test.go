@@ -14,25 +14,25 @@ func Test_StringIsHexadecimalDive(t *testing.T) {
 
 	field := []string{"123456789", "abcdef", "ABCDEF"}
 
-	e := validator.NewErrors()
 	v := StringSliceDive{
 		Validator: &StringIsHexadecimal{
 			Name: "MySlice",
 		},
 		Field: field,
 	}
+	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
 	field = []string{"123456789", "abcdef", "ABCDEF", " a", "", "Z", "  "}
 
-	e = validator.NewErrors()
 	v = StringSliceDive{
 		Validator: &StringIsHexadecimal{
 			Name: "MySlice",
 		},
 		Field: field,
 	}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(4, e.Count())
 }

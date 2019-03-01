@@ -14,25 +14,25 @@ func Test_StringIsIntDive(t *testing.T) {
 
 	field := []string{"1", "+1", "0", "-12"}
 
-	e := validator.NewErrors()
 	v := StringSliceDive{
 		Validator: &StringIsInt{
 			Name: "MySlice",
 		},
 		Field: field,
 	}
+	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
 	field = []string{"11", "12.5", "a", " 11", "1 1", " ", ""}
 
-	e = validator.NewErrors()
 	v = StringSliceDive{
 		Validator: &StringIsInt{
 			Name: "MySlice",
 		},
 		Field: field,
 	}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(5, e.Count())
 }

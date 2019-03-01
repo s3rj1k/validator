@@ -15,7 +15,6 @@ func Test_StringMatchRegexDive(t *testing.T) {
 	regex := Email
 	field := []string{"abc@test.com", "aaa@good.too", "here@also.nice.very"}
 
-	e := validator.NewErrors()
 	v := StringSliceDive{
 		Validator: &StringMatchRegex{
 			Name:  "MySlice",
@@ -23,6 +22,7 @@ func Test_StringMatchRegexDive(t *testing.T) {
 		},
 		Field: field,
 	}
+	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
@@ -35,6 +35,7 @@ func Test_StringMatchRegexDive(t *testing.T) {
 		},
 		Field: field,
 	}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(6, e.Count())
 

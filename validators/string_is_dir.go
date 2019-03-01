@@ -22,7 +22,7 @@ func (v *StringIsDir) Validate(e *validator.Errors) {
 		}
 	}
 
-	e.Add(v.Name, fmt.Sprintf("path '%s' is not dir", v.Field))
+	e.Add(v.Name, fmt.Sprintf("path '%s' is not a dir", v.Field))
 }
 
 // SetField sets validator field.

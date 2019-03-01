@@ -21,39 +21,39 @@ func Test_StringIsNoPathDive(t *testing.T) {
 
 	field := []string{"/tmp/test_dir", "/tmp/test_dir2"}
 
-	e := validator.NewErrors()
 	v := StringSliceDive{
 		Validator: &StringIsNoPath{
 			Name: "MySlice",
 		},
 		Field: field,
 	}
+	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(2, e.Count())
 
 	err = os.Remove("/tmp/test_dir")
 	r.Nil(err)
 
-	e = validator.NewErrors()
 	v = StringSliceDive{
 		Validator: &StringIsNoPath{
 			Name: "MySlice",
 		},
 		Field: field,
 	}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
 
 	err = os.Remove("/tmp/test_dir2")
 	r.Nil(err)
 
-	e = validator.NewErrors()
 	v = StringSliceDive{
 		Validator: &StringIsNoPath{
 			Name: "MySlice",
 		},
 		Field: field,
 	}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 }

@@ -18,12 +18,13 @@ func Test_UintArrayIsPresent(t *testing.T) {
 	r.Equal(0, e.Count())
 
 	v = UintArrayIsPresent{Name: "Name", Field: []uint{}}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{"Name can not be empty"}, e.Get("Name"))
 
-	e = validator.NewErrors()
 	v = UintArrayIsPresent{"Name", []uint{}}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{"Name can not be empty"}, e.Get("Name"))

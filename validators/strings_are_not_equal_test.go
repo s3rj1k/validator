@@ -85,19 +85,3 @@ func Test_StringsAreNotIEqual(t *testing.T) {
 	r.Equal(1, e.Count())
 	r.Equal([]string{"test is iequal to test"}, e.Get("strings"))
 }
-
-func BenchmarkStringsAreNotEqual_Valid(b *testing.B) {
-	e := validator.NewErrors()
-	for i := 0; i <= b.N; i++ {
-		v := StringsAreNotEqual{Name: "strings", Field: " Some string ", ComparedField: " Some string "}
-		v.Validate(e)
-	}
-}
-
-func BenchmarkStringsAreNotEqual_InValid(b *testing.B) {
-	e := validator.NewErrors()
-	for i := 0; i <= b.N; i++ {
-		v := StringsAreNotEqual{Name: "strings", Field: " Some string ", ComparedField: " Some string failure"}
-		v.Validate(e)
-	}
-}

@@ -14,25 +14,25 @@ func Test_StringIsUpperCaseDive(t *testing.T) {
 
 	field := []string{"NEED", "ONLY", "UPPER CASES", "  ", ""}
 
-	e := validator.NewErrors()
 	v := StringSliceDive{
 		Validator: &StringIsUpperCase{
 			Name: "MySlice",
 		},
 		Field: field,
 	}
+	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
 	field = []string{"These", "HAVE", "some", "Lowers", "", " "}
 
-	e = validator.NewErrors()
 	v = StringSliceDive{
 		Validator: &StringIsUpperCase{
 			Name: "MySlice",
 		},
 		Field: field,
 	}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(3, e.Count())
 }

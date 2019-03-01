@@ -14,25 +14,25 @@ func Test_StringIsJSONDive(t *testing.T) {
 
 	field := []string{"{\"test\": \"sure\"}", "   {\"test\": \"sure\"}    ", "123"}
 
-	e := validator.NewErrors()
 	v := StringSliceDive{
 		Validator: &StringIsJSON{
 			Name: "MySlice",
 		},
 		Field: field,
 	}
+	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
 	field = []string{" ", "abc", ""}
 
-	e = validator.NewErrors()
 	v = StringSliceDive{
 		Validator: &StringIsJSON{
 			Name: "MySlice",
 		},
 		Field: field,
 	}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(3, e.Count())
 }

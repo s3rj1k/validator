@@ -18,10 +18,12 @@ func Test_IntArrayIsPresent(t *testing.T) {
 	r.Equal(0, e.Count())
 
 	v = IntArrayIsPresent{Name: "Name", Field: make([]int, 1)}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
 	v = IntArrayIsPresent{Name: "Name", Field: []int{}}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{"Name can not be empty"}, e.Get("Name"))

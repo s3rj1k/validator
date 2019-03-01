@@ -14,25 +14,25 @@ func Test_StringIsUTFLetterNumDive(t *testing.T) {
 
 	field := []string{"Need", "0nlY", "Letters", "And", "Numb3r5", "", "No", "whitespac3s"} // 0 errors
 
-	e := validator.NewErrors()
 	v := StringSliceDive{
 		Validator: &StringIsUTFLetterNum{
 			Name: "MySlice",
 		},
 		Field: field,
 	}
+	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
 	field = []string{"These", "HAV#", "s0m3", "oth&r", "sym bols", " also", ""} // 4 errors
 
-	e = validator.NewErrors()
 	v = StringSliceDive{
 		Validator: &StringIsUTFLetterNum{
 			Name: "MySlice",
 		},
 		Field: field,
 	}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(4, e.Count())
 }

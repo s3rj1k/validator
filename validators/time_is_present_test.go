@@ -19,12 +19,13 @@ func Test_TimeIsPresent(t *testing.T) {
 	r.Equal(0, e.Count())
 
 	v = TimeIsPresent{Name: "CreatedAt", Field: time.Time{}}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{"CreatedAt can not be blank"}, e.Get("CreatedAt"))
 
-	e = validator.NewErrors()
 	v = TimeIsPresent{"CreatedAt", time.Time{}}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{"CreatedAt can not be blank"}, e.Get("CreatedAt"))

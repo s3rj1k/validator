@@ -12,28 +12,30 @@ func Test_StringIsAlphaNum(t *testing.T) {
 
 	r := require.New(t)
 
-	e := validator.NewErrors()
 	v := StringIsAlphaNum{Name: "Name", Field: "ASfgg5452"}
+	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
 	v = StringIsAlphaNum{Name: "Name", Field: ""} // empty string is valid
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
 	v = StringIsAlphaNum{Name: "Name", Field: "ы$^"} // any other characters except for a-zA-Z are invalid
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{"Name must contain only numbers and/or letters"}, e.Get("Name"))
 
-	e = validator.NewErrors()
 	v = StringIsAlphaNum{Name: "Name", Field: " wh1t3 spaces "} // inner/outer whitespaces are not allowed
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{"Name must contain only numbers and/or letters"}, e.Get("Name"))
 
-	e = validator.NewErrors()
 	v = StringIsAlphaNum{Name: "Name", Field: "   "} // only whitespaces are not allowed
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{"Name must contain only numbers and/or letters"}, e.Get("Name"))

@@ -16,7 +16,6 @@ func Test_StringLengthInRangeDive(t *testing.T) {
 	max := 10
 	field := []string{"22", "1010101010", "also", "good", "        ", "あいうえお"}
 
-	e := validator.NewErrors()
 	v := StringSliceDive{
 		Validator: &StringLengthInRange{
 			Name: "MySlice",
@@ -25,6 +24,7 @@ func Test_StringLengthInRangeDive(t *testing.T) {
 		},
 		Field: field,
 	}
+	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
@@ -35,6 +35,7 @@ func Test_StringLengthInRangeDive(t *testing.T) {
 		},
 		Field: field,
 	}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
@@ -45,6 +46,7 @@ func Test_StringLengthInRangeDive(t *testing.T) {
 		},
 		Field: field,
 	}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
@@ -58,10 +60,10 @@ func Test_StringLengthInRangeDive(t *testing.T) {
 		},
 		Field: field,
 	}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(3, e.Count())
 
-	e = validator.NewErrors()
 	v = StringSliceDive{
 		Validator: &StringLengthInRange{
 			Name: "MySlice",
@@ -69,10 +71,10 @@ func Test_StringLengthInRangeDive(t *testing.T) {
 		},
 		Field: field,
 	}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(2, e.Count())
 
-	e = validator.NewErrors()
 	v = StringSliceDive{
 		Validator: &StringLengthInRange{
 			Name: "MySlice",
@@ -80,6 +82,7 @@ func Test_StringLengthInRangeDive(t *testing.T) {
 		},
 		Field: field,
 	}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
 }
