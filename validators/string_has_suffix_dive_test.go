@@ -20,5 +20,5 @@ func Test_StringHasSuffixDive(t *testing.T) {
 		Field:     sl,
 	}
 	v.Validate(e)
-	r.Equal(1, e.Count()) // 1 strings in sl that do not have matched suffix
+	r.Equal(3, e.Count()) // 3 strings in sl that do not have matched suffix
 }
