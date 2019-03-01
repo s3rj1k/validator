@@ -11,7 +11,7 @@ const (
 	Alpha          string = "^[a-zA-Z]+$"
 	Alphanumeric   string = "^[a-zA-Z0-9]+$"
 	Numeric        string = "^[0-9]+$"
-	Int            string = "^(?:[-+]?(?:0|[1-9][0-9]*))$"
+	Integer        string = "^(?:[-+]?(?:0|[1-9][0-9]*))$"
 	Float          string = "^(?:[-+]?(?:[0-9]+))?(?:\\.[0-9]*)?(?:[eE][\\+\\-]?(?:[0-9]+))?$"
 	Hexadecimal    string = "^[0-9a-fA-F]+$"
 	Hexcolor       string = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
@@ -29,7 +29,7 @@ var (
 	rxAlpha          = regexp.MustCompile(Alpha)
 	rxAlphanumeric   = regexp.MustCompile(Alphanumeric)
 	rxNumeric        = regexp.MustCompile(Numeric)
-	rxInt            = regexp.MustCompile(Int)
+	rxInteger        = regexp.MustCompile(Integer)
 	rxFloat          = regexp.MustCompile(Float)
 	rxHexadecimal    = regexp.MustCompile(Hexadecimal)
 	rxHexcolor       = regexp.MustCompile(Hexcolor)

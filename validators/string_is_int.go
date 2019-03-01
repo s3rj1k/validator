@@ -23,7 +23,7 @@ func (v *StringIsInt) Validate(e *validator.Errors) {
 	}
 
 	// Int is valid
-	if rxInt.MatchString(v.Field) {
+	if rxInteger.MatchString(v.Field) {
 		return
 	}
 
