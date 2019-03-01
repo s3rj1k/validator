@@ -14,25 +14,25 @@ func Test_StringIsLowerCaseDive(t *testing.T) {
 
 	field := []string{"each", " is ", "lower case", "", " "} // 0 errors
 
-	e := validator.NewErrors()
 	v := StringSliceDive{
 		Validator: &StringIsLowerCase{
 			Name: "MySlice",
 		},
 		Field: field,
 	}
+	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
 	field = []string{"TWO", "UPPERCASED", "oh", "no", "Three", ""} // 2 errors
 
-	e = validator.NewErrors()
 	v = StringSliceDive{
 		Validator: &StringIsLowerCase{
 			Name: "MySlice",
 		},
 		Field: field,
 	}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(3, e.Count())
 }

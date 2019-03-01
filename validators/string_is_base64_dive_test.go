@@ -14,25 +14,25 @@ func Test_StringIsBase64Dive(t *testing.T) {
 
 	field := []string{"xoP4nZV8Gv9ceg==", "n/GNBg=="} // 0 errors
 
-	e := validator.NewErrors()
 	v := StringSliceDive{
 		Validator: &StringIsBase64{
 			Name: "MySlice",
 		},
 		Field: field,
 	}
+	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
 	field = []string{"xoP4nZV8Gv9ceg==", "n/GNBg==", "xoP4nZ V8Gv9ceg==", " n/GNBg==", " ", ""} // 4 errors
 
-	e = validator.NewErrors()
 	v = StringSliceDive{
 		Validator: &StringIsBase64{
 			Name: "MySlice",
 		},
 		Field: field,
 	}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(4, e.Count())
 }

@@ -14,11 +14,11 @@ func Test_StringsArePathsInTheSameDirDive(t *testing.T) {
 
 	sl := []string{"Foo", "/Bar", "/tmp/Bob", "//bin//What?"}
 
-	e := validator.NewErrorsP()
 	v := StringSliceDive{
 		Validator: &StringsArePathsInTheSameDir{Name: "Paths", ComparedField: "Bar"},
 		Field:     sl,
 	}
+	e := validator.NewErrorsP()
 	v.Validate(e)
 	r.Equal(3, e.Count())
 }

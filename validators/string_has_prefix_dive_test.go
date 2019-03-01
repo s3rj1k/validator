@@ -14,11 +14,11 @@ func Test_StringHasPrefixDive(t *testing.T) {
 
 	sl := []string{"Foo", "Bar", "Bob", "What?"}
 
-	e := validator.NewErrorsP()
 	v := StringSliceDive{
 		Validator: &StringHasPrefix{Name: "Slice", ComparedField: "W"},
 		Field:     sl,
 	}
+	e := validator.NewErrorsP()
 	v.Validate(e)
 	r.Equal(3, e.Count()) // 4(total) - 1 strings in sl that have matched prefix
 }

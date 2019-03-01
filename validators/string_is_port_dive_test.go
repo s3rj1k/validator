@@ -14,25 +14,25 @@ func Test_StringIsPortDive(t *testing.T) {
 
 	field := []string{"1", "123", "65535"}
 
-	e := validator.NewErrors()
 	v := StringSliceDive{
 		Validator: &StringIsPort{
 			Name: "MySlice",
 		},
 		Field: field,
 	}
+	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
 	field = []string{"1", "123", "65535", "1 ", "65536", " ", ""}
 
-	e = validator.NewErrors()
 	v = StringSliceDive{
 		Validator: &StringIsPort{
 			Name: "MySlice",
 		},
 		Field: field,
 	}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(4, e.Count())
 }

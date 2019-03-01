@@ -18,13 +18,13 @@ func Test_StringIsURLDive(t *testing.T) {
 		"https://golang.Org",
 		"https://invalid#$%#$@.Org"}
 
-	e := validator.NewErrors()
 	v := StringSliceDive{
 		Validator: &StringIsURL{
 			Name: "MySlice",
 		},
 		Field: field,
 	}
+	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(7, e.Count())
 }

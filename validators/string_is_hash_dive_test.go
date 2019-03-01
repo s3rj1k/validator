@@ -25,7 +25,6 @@ func Test_StringIsHashDive(t *testing.T) {
 
 	field := []string{hs, hs, hs}
 
-	e := validator.NewErrors()
 	v := StringSliceDive{
 		Validator: &StringIsHash{
 			Algorithm: "sha256",
@@ -33,12 +32,12 @@ func Test_StringIsHashDive(t *testing.T) {
 		},
 		Field: field,
 	}
+	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
 	field = []string{hs, hs + " ", "", " ", "as30"}
 
-	e = validator.NewErrors()
 	v = StringSliceDive{
 		Validator: &StringIsHash{
 			Algorithm: "sha256",
@@ -46,6 +45,7 @@ func Test_StringIsHashDive(t *testing.T) {
 		},
 		Field: field,
 	}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(4, e.Count())
 }

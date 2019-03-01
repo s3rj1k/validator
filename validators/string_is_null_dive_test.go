@@ -14,25 +14,25 @@ func Test_StringIsNullDive(t *testing.T) {
 
 	field := []string{"", "", ""}
 
-	e := validator.NewErrors()
 	v := StringSliceDive{
 		Validator: &StringIsNull{
 			Name: "MySlice",
 		},
 		Field: field,
 	}
+	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
 	field = []string{"", " 12.5", "   ", "a", " ", ""}
 
-	e = validator.NewErrors()
 	v = StringSliceDive{
 		Validator: &StringIsNull{
 			Name: "MySlice",
 		},
 		Field: field,
 	}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(4, e.Count())
 }

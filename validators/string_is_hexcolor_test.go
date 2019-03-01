@@ -12,34 +12,36 @@ func Test_StringIsHexcolor(t *testing.T) {
 
 	r := require.New(t)
 
-	e := validator.NewErrors()
 	v := StringIsHexcolor{Name: "Name", Field: "#b8f2b2"} // hexcolor here
+	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
 	v = StringIsHexcolor{Name: "Name", Field: "#f00"} // hexcolor here also (3-6 0-F chars)
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
 	v = StringIsHexcolor{Name: "Name", Field: "f00"} // must start with #
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{"Name must be a hexadecimal color"}, e.Get("Name"))
 
-	e = validator.NewErrors()
 	v = StringIsHexcolor{Name: "Name", Field: ""} // empty string is invalid
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{"Name must be a hexadecimal color"}, e.Get("Name"))
 
-	e = validator.NewErrors()
 	v = StringIsHexcolor{Name: "Name", Field: "    "} // whitespaces are invalid
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{"Name must be a hexadecimal color"}, e.Get("Name"))
 
-	e = validator.NewErrors()
 	v = StringIsHexcolor{Name: "Name", Field: "ffd762 "} // whitespaces are not trimmed
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{"Name must be a hexadecimal color"}, e.Get("Name"))

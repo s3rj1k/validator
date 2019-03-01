@@ -14,25 +14,25 @@ func Test_StringIsPrintableASCIIDive(t *testing.T) {
 
 	field := []string{"asd456", "0nlY", " ASC11", "!$#%()-=<>etc...,@", " ", ""}
 
-	e := validator.NewErrors()
 	v := StringSliceDive{
 		Validator: &StringIsPrintableASCII{
 			Name: "MySlice",
 		},
 		Field: field,
 	}
+	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
 	field = []string{"тут", "ошибочка", " s0m3", "oth &r", "sym bols", " ", "", string(rune(10))}
 
-	e = validator.NewErrors()
 	v = StringSliceDive{
 		Validator: &StringIsPrintableASCII{
 			Name: "MySlice",
 		},
 		Field: field,
 	}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(3, e.Count())
 }

@@ -15,7 +15,6 @@ func Test_StringInclusionDive(t *testing.T) {
 	whitel := []string{"This", "is", "good", "this", "Dont", "ne ed", "", "need"}
 	field := []string{"This", "is", "good", "this", "Dont", "ne ed", "", "need"} // 0 errors
 
-	e := validator.NewErrors()
 	v := StringSliceDive{
 		Validator: &StringInclusion{
 			Name:      "MySlice",
@@ -23,13 +22,13 @@ func Test_StringInclusionDive(t *testing.T) {
 		},
 		Field: field,
 	}
+	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
 	whitel = []string{"Only", "These"}
 	field = []string{"These", "Only", "good", "Only", "These", "", "need"} // 3 errors
 
-	e = validator.NewErrors()
 	v = StringSliceDive{
 		Validator: &StringInclusion{
 			Name:      "MySlice",
@@ -37,6 +36,7 @@ func Test_StringInclusionDive(t *testing.T) {
 		},
 		Field: field,
 	}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(3, e.Count())
 }

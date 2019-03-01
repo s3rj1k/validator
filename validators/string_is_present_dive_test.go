@@ -14,25 +14,25 @@ func Test_StringIsPresentDive(t *testing.T) {
 
 	field := []string{"abc", " a", "3  3"}
 
-	e := validator.NewErrors()
 	v := StringSliceDive{
 		Validator: &StringIsPresent{
 			Name: "MySlice",
 		},
 		Field: field,
 	}
+	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
 	field = []string{"", "   ", "1", "a"}
 
-	e = validator.NewErrors()
 	v = StringSliceDive{
 		Validator: &StringIsPresent{
 			Name: "MySlice",
 		},
 		Field: field,
 	}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(2, e.Count())
 }

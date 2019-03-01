@@ -14,25 +14,25 @@ func Test_StringIsRGBColorDive(t *testing.T) {
 
 	field := []string{"rgb(0,0,0)", "rgb(255,255,255)"}
 
-	e := validator.NewErrors()
 	v := StringSliceDive{
 		Validator: &StringIsRGBcolor{
 			Name: "MySlice",
 		},
 		Field: field,
 	}
+	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
 	field = []string{"rgb(0,0,0)", "rgb(255,255,255)", "RGB(255,255,255)", "RGB(256,255,255)", "RGB(,255,255)", " ", "", "rgb(0,0,0) "}
 
-	e = validator.NewErrors()
 	v = StringSliceDive{
 		Validator: &StringIsRGBcolor{
 			Name: "MySlice",
 		},
 		Field: field,
 	}
+	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(6, e.Count())
 }
