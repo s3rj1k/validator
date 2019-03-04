@@ -11,34 +11,51 @@ func Test_NumbersAreEqual(t *testing.T) {
 
 	r := require.New(t)
 
-	for _, n := range nonzeros2 {
-		v := &NumbersAreEqual{Name: "Number", Field: n, ComparedField: n}
+	f := []int32{100, 100, 100}
+	c := int32(100)
+
+	for _, i := range f {
+		v := &NumbersAreEqual{Name: "Number", Field: i, ComparedField: c}
 		e := validator.NewErrors()
 		v.Validate(e)
 		r.Equal(0, e.Count())
 	}
 
-	for i := range nonzeros2 {
-		v := &NumbersAreEqual{Name: "Number", Field: nonzeros2[i], ComparedField: nonzeros10[i]}
+	c2 := int16(100) // this also works
+
+	for _, i := range f {
+		v := &NumbersAreEqual{Name: "Number", Field: i, ComparedField: c2}
 		e := validator.NewErrors()
 		v.Validate(e)
-		r.Equal(1, e.Count())
-		r.Equal([]string{NumbersAreEqualError(v)}, e.Get("Number"))
+		r.Equal(0, e.Count())
 	}
 
-	for _, n := range randomTypes {
-		v := &NumbersAreEqual{Name: "Number", Field: n}
+	c3 := uint(100) // this will not
+
+	for _, i := range f {
+		v := &NumbersAreEqual{Name: "Number", Field: i, ComparedField: c3}
 		e := validator.NewErrors()
 		v.Validate(e)
-		r.Equal(1, e.Count())
-		r.Equal([]string{"Number nil fields are forbidden"}, e.Get("Number"))
+		r.Equal(0, e.Count())
 	}
 
-	for _, n := range randomTypes {
-		v := &NumbersAreEqual{Name: "Number", Field: n, ComparedField: n}
+	f2 := []interface{}{} // obviously not
+
+	for _, i := range f2 {
+		v := &NumbersAreEqual{Name: "Number", Field: i, ComparedField: c3}
 		e := validator.NewErrors()
 		v.Validate(e)
 		r.Equal(1, e.Count())
-		r.Equal([]string{"Number types cannot be compared"}, e.Get("Number"))
+		r.Equal([]string{ErrBadNumType.Error()}, e.Get("Number"))
+	}
+
+	f3 := []string{"world"} // also not
+
+	for _, i := range f3 {
+		v := &NumbersAreEqual{Name: "Number", Field: i, ComparedField: c3}
+		e := validator.NewErrors()
+		v.Validate(e)
+		r.Equal(1, e.Count())
+		r.Equal([]string{ErrBadNumType.Error()}, e.Get("Number"))
 	}
 }
