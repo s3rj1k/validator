@@ -23,6 +23,7 @@ func (v *NumberSliceDive) Validate(e *validator.Errors) {
 
 	if v.Field == nil {
 		e.Add(v.Validator.GetName(), ErrNilValue.Error())
+
 		return
 	}
 

@@ -27,12 +27,14 @@ func (v *NumbersAreNotEqual) Validate(e *validator.Errors) {
 	fNum, err := cast(v.Field)
 	if err != nil {
 		e.Add(v.Name, err.Error())
+
 		return
 	}
 
 	cfNum, err := cast(v.ComparedField)
 	if err != nil {
 		e.Add(v.Name, err.Error())
+
 		return
 	}
 
