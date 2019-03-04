@@ -25,6 +25,7 @@ func (v *NumberIsNotZero) Validate(e *validator.Errors) {
 	fNum, err := cast(v.Field)
 	if err != nil {
 		e.Add(v.Name, err.Error())
+
 		return
 	}
 

@@ -28,12 +28,14 @@ func (v *NumberIsLess) Validate(e *validator.Errors) {
 	fNum, err := cast(v.Field)
 	if err != nil {
 		e.Add(v.Name, err.Error())
+
 		return
 	}
 
 	cfNum, err := cast(v.ComparedField)
 	if err != nil {
 		e.Add(v.Name, err.Error())
+
 		return
 	}
 
@@ -73,5 +75,6 @@ func isLess(x, y *Number, checkEqual bool) bool {
 	if checkEqual {
 		return x.Value <= y.Value
 	}
+
 	return x.Value < y.Value
 }
