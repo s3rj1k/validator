@@ -61,7 +61,7 @@ func (v *NumberIsLess) GetName() string {
 	return v.Name
 }
 
-// isLess returns true if x < y
+// isLess returns true if x < y or x<=y if checkEqual is true
 func isLess(x, y *Number, checkEqual bool) bool {
 
 	if x.isNegative && !y.isNegative {
