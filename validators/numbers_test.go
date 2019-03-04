@@ -1,197 +1,177 @@
 package validators
 
-import (
-	"fmt"
-	"math"
-	"testing"
-)
+// func Test_cast(t *testing.T) {
+// 	var f1, f2 interface{}
+// 	var oldf1, oldf2 interface{}
 
-// slice of zero values of each integer type for testing purposes
-var zeros = []interface{}{int(0), int8(0), int16(0), int32(0), int64(0),
-	uint(0), uint8(0), uint16(0), uint32(0), uint64(0),
-	uintptr(0), rune(0), byte(0)}
+// 	// cast is OK
+// 	f1 = int8(math.MaxInt8)
+// 	f2 = int16(math.MaxInt16)
+// 	oldf1 = f1
+// 	oldf2 = f2
 
-// slice of nonzero (2) values of each integer type for testing purposes
-var nonzeros2 = []interface{}{
-	int(2), int8(2), int16(2), int32(2), int64(2),
-	uint(2), uint8(2), uint16(2), uint32(2), uint64(2), uintptr(2),
-	rune(2), byte(2)}
+// 	isSigned, err := castOld(&f1, &f2)
+// 	if err != nil {
+// 		t.Errorf("unexpected error")
+// 	}
+// 	if isSigned != true {
+// 		t.Errorf("sign identification error")
+// 	}
+// 	if valuesDiffer(f1, oldf1) || valuesDiffer(f2, oldf2) {
+// 		t.Errorf("values changed during casting")
+// 	}
 
-// slice of nonzero (22) values of each integer type for testing purposes
-var nonzeros10 = []interface{}{
-	int(22), int8(22), int16(22), int32(22), int64(22),
-	uint(22), uint8(22), uint16(22), uint32(22), uint64(22), uintptr(22),
-	rune(22), byte(22)}
+// 	// cast is OK
+// 	f1 = uint32(math.MaxUint32)
+// 	f2 = uint16(math.MaxUint16)
+// 	oldf1 = f1
+// 	oldf2 = f2
 
-// slice of random types for testing purposes
-var randomTypes = []interface{}{
-	"string",
-	true,
-	[]int{1, 2, 3},
-	struct{}{},
-}
+// 	isSigned, err = castOld(&f1, &f2)
+// 	if err != nil {
+// 		t.Errorf("unexpected error")
+// 	}
+// 	if isSigned != false {
+// 		t.Errorf("sign identification error")
+// 	}
+// 	if valuesDiffer(f1, oldf1) || valuesDiffer(f2, oldf2) {
+// 		t.Errorf("values changed during casting")
+// 	}
 
-func Test_IsNil(t *testing.T) {
+// 	// cast error: different signs
+// 	f1 = int8(math.MinInt8)
+// 	f2 = uint16(math.MaxUint16)
+// 	isSigned, err = castOld(&f1, &f2)
+// 	if err == nil {
+// 		t.Errorf("expecting ErrDiffSigns not returned")
+// 	}
 
-	var a interface{} // obviously nil
+// 	// cast OK
+// 	f1 = []int{11, 24}
+// 	f2 = int64(math.MaxInt64)
+// 	isSigned, err = castOld(&f1, &f2)
+// 	if err != nil {
+// 		t.Errorf("unexpected error")
+// 	}
+// 	if isSigned != true {
+// 		t.Errorf("sign identification error")
+// 	}
 
-	if !isNil(a) {
-		t.Errorf("interface is not identified as nil")
-	}
+// 	// cast error: different signs
+// 	f1 = []uint{11, 24}
+// 	f2 = int64(math.MaxInt64)
+// 	isSigned, err = castOld(&f1, &f2)
+// 	if err == nil {
+// 		t.Errorf("expecting ErrDiffSigns not returned")
+// 	}
 
-	a = new(uintptr) // not nil
+// }
 
-	if isNil(a) {
-		t.Errorf("interface is mistakenly identified as nil")
-	}
+// func Test_casted(t *testing.T) {
 
-	a = 0 // not nil
+// 	var a, b, casteda, castedb interface{}
+// 	var err error
 
-	if isNil(a) {
-		t.Errorf("interface is mistakenly identified as nil")
-	}
+// 	a = int8(math.MinInt8)
+// 	b = int8(math.MaxInt8)
 
-	var b struct {
-		a int
-	}
+// 	casteda, _, err = castedOld(a)
+// 	if err != nil {
+// 		t.Errorf("unexpected error %s", err)
+// 	}
 
-	a = b.a // not nil
+// 	castedb, _, err = castedOld(b)
+// 	if err != nil {
+// 		t.Errorf("unexpected error %s", err)
+// 	}
 
-	if isNil(a) {
-		t.Errorf("interface is mistakenly identified as nil")
-	}
-}
+// 	if valuesDiffer(a, casteda) || valuesDiffer(b, castedb) {
+// 		t.Errorf("values modified during casting")
+// 	}
 
-func Test_AreComparable(t *testing.T) {
+// 	a = int16(math.MinInt16)
+// 	b = int16(math.MaxInt16)
 
-	var a, b interface{}
+// 	casteda, _, err = castedOld(a)
+// 	if err != nil {
+// 		t.Errorf("unexpected error %s", err)
+// 	}
 
-	a = int(10) // signed integers are comparable
-	b = int16(-99)
+// 	castedb, _, err = castedOld(b)
+// 	if err != nil {
+// 		t.Errorf("unexpected error %s", err)
+// 	}
 
-	if !areComparable(a, b) {
-		t.Errorf("values are comparable but identified as not")
-	}
+// 	if valuesDiffer(a, casteda) || valuesDiffer(b, castedb) {
+// 		t.Errorf("values modified during casting")
+// 	}
 
-	a = uintptr(10) // unsigned integers are comparable
-	b = uint32(99)
+// 	a = int32(math.MinInt32)
+// 	b = int32(math.MaxInt32)
 
-	if !areComparable(a, b) {
-		t.Errorf("values are comparable but identified as not")
-	}
+// 	casteda, _, err = castedOld(a)
+// 	if err != nil {
+// 		t.Errorf("unexpected error %s", err)
+// 	}
 
-	a = int(10) // singed cannot be compared with unsigned
-	b = uint32(99)
+// 	castedb, _, err = castedOld(b)
+// 	if err != nil {
+// 		t.Errorf("unexpected error %s", err)
+// 	}
 
-	if areComparable(a, b) {
-		t.Errorf("values are not comparable but identified as such")
-	}
+// 	if valuesDiffer(a, casteda) || valuesDiffer(b, castedb) {
+// 		t.Errorf("values modified during casting")
+// 	}
 
-	a = nil // nil is not comparable
-	b = 1
+// 	a = uint8(math.MaxUint8)
+// 	b = uint16(math.MaxUint16)
 
-	if areComparable(a, b) {
-		t.Errorf("values are not comparable but identified as such")
-	}
+// 	casteda, _, err = castedOld(a)
+// 	if err != nil {
+// 		t.Errorf("unexpected error %s", err)
+// 	}
 
-	a = 2 // string is not comparable
-	b = "asd"
+// 	castedb, _, err = castedOld(b)
+// 	if err != nil {
+// 		t.Errorf("unexpected error %s", err)
+// 	}
 
-	if areComparable(a, b) {
-		t.Errorf("values are not comparable but identified as such")
-	}
-}
+// 	if valuesDiffer(a, casteda) || valuesDiffer(b, castedb) {
+// 		t.Errorf("values modified during casting")
+// 	}
 
-func Test_AreSameTypeNumbers(t *testing.T) {
+// 	a = uint32(math.MaxUint32)
+// 	b = uintptr(math.MaxUint64)
 
-	var a, b interface{}
+// 	casteda, _, err = castedOld(a)
+// 	if err != nil {
+// 		t.Errorf("unexpected error %s", err)
+// 	}
 
-	a = 1 // same type
-	b = 2
+// 	castedb, _, err = castedOld(b)
+// 	if err != nil {
+// 		t.Errorf("unexpected error %s", err)
+// 	}
 
-	if !areSameTypeNumbers(a, b) {
-		t.Errorf("values are of same type but identified as not")
-	}
+// 	if valuesDiffer(a, casteda) || valuesDiffer(b, castedb) {
+// 		t.Errorf("values modified during casting")
+// 	}
 
-	a = "asd" // same type
-	b = "43666"
+// 	a = nil
+// 	b = "bad type"
 
-	if !areSameTypeNumbers(a, b) {
-		t.Errorf("values are of same type but identified as not")
-	}
+// 	casteda, _, err = castedOld(a)
+// 	if err == nil {
+// 		t.Errorf("expected error for nil value, not returned")
+// 	}
 
-	a = "asd"      // this function can distinct only between number types
-	b = struct{}{} // this will return true
+// 	castedb, _, err = castedOld(b)
+// 	if err == nil {
+// 		t.Errorf("expected error for wrong type, not returned")
+// 	}
 
-	if !areSameTypeNumbers(a, b) {
-		t.Errorf("values are not of number types and expected to be identified as the same")
-	}
+// }
 
-	a = int16(1)
-	b = int8(4)
-
-	if areSameTypeNumbers(a, b) {
-		t.Errorf("values are not of the same type but identifed as such")
-	}
-
-	a = 2
-	b = nil
-
-	if areSameTypeNumbers(a, b) {
-		t.Errorf("values are not of the same type but identifed as such")
-	}
-}
-
-func Test_Cast(t *testing.T) {
-
-	var a, b, casteda, castedb interface{}
-
-	a = int8(math.MinInt8)
-	b = int8(math.MaxInt8)
-
-	casteda, castedb = castBoth(a, b)
-
-	if valuesDiffer(a, casteda) || valuesDiffer(b, castedb) {
-		t.Errorf("values modified during casting")
-	}
-
-	a = int16(math.MinInt16)
-	b = int16(math.MaxInt16)
-
-	casteda, castedb = castBoth(a, b)
-
-	if valuesDiffer(a, casteda) || valuesDiffer(b, castedb) {
-		t.Errorf("values modified during casting")
-	}
-
-	a = int32(math.MinInt32)
-	b = int32(math.MaxInt32)
-
-	casteda, castedb = castBoth(a, b)
-
-	if valuesDiffer(a, casteda) || valuesDiffer(b, castedb) {
-		t.Errorf("values modified during casting")
-	}
-
-	a = uint8(math.MaxUint8)
-	b = uint16(math.MaxUint16)
-
-	casteda, castedb = castBoth(a, b)
-
-	if valuesDiffer(a, casteda) || valuesDiffer(b, castedb) {
-		t.Errorf("values modified during casting")
-	}
-
-	a = uint32(math.MaxUint32)
-	b = uintptr(math.MaxUint64)
-
-	casteda, castedb = castBoth(a, b)
-
-	if valuesDiffer(a, casteda) || valuesDiffer(b, castedb) {
-		t.Errorf("values modified during casting")
-	}
-}
-
-func valuesDiffer(a, b interface{}) bool {
-	return fmt.Sprintf("%d", a) != fmt.Sprintf("%d", b)
-}
+// func valuesDiffer(a, b interface{}) bool {
+// 	return fmt.Sprintf("%d", a) != fmt.Sprintf("%d", b)
+// }

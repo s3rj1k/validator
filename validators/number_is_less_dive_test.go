@@ -1,6 +1,7 @@
 package validators
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/s3rj1k/validator"
@@ -10,69 +11,66 @@ import (
 
 func Test_NumberIsLessDive(t *testing.T) {
 
+	testCases := []numTestCase{
+		{
+			name:          "SliceOne",
+			field:         []int{-10000, -9000, 0, 1, 1000},
+			comparedField: int(1001),
+		},
+		{
+			name:          "SliceTwo",
+			field:         []int32{-1000, -100, 0, 1, 1000},
+			comparedField: int16(0),
+			errNum:        3, // -1000, -100 and 0 are not less than 0
+		},
+		{
+			name:          "SliceThree",
+			field:         []int16{-200, -100, 0, 1, 20, 1000, 2000, 200, 200, 200, 200},
+			comparedField: uint8(200),
+			checkEqual:    true,
+			errNum:        2, /// 1000, 2000 are not less than 200
+		},
+		{
+			name:          "SliceFour",
+			field:         nil, // nil field is wrong
+			comparedField: int16(0),
+			errNum:        1,
+		},
+		{
+			name:          "SliceFive",
+			field:         []int32{-1000, -1, 0, 1, 1000},
+			comparedField: nil, // nil comparedField is wrong. will add error for each value in field
+			errNum:        5,
+		},
+		{
+			name:          "SliceFour",
+			field:         "bad type", // other than nubmer types is wrong
+			comparedField: int16(0),
+			errNum:        1,
+		},
+		{
+			name:          "SliceFive",
+			field:         []int32{-1000, -1, 0, 1, 1000},
+			comparedField: "bad type", // other than nubmer types is wrong. will add error for each value in field
+			errNum:        5,
+		},
+	}
+
 	r := require.New(t)
 
-	field := []interface{}{int(10), int8(33), int64(345), int16(-50)}
-	compared := 999
+	for index, tc := range testCases {
 
-	v := NumberSliceDive{
-		Validator: &NumberIsLess{
-			Name:          "MySlice",
-			ComparedField: compared,
-		},
-		Field: field,
+		v := NumberSliceDive{
+			Validator: &NumberIsLess{
+				Name:          tc.name,
+				ComparedField: tc.comparedField,
+				CheckEqual:    tc.checkEqual,
+			},
+			Field: tc.field,
+		}
+
+		e := validator.NewErrors()
+		v.Validate(e)
+		r.Equal(tc.errNum, e.Count(), fmt.Sprintf("tc %d number of errors is wrong %v", index, e))
 	}
-	e := validator.NewErrors()
-	v.Validate(e)
-	r.Equal(0, e.Count())
-
-	v = NumberSliceDive{
-		Validator: &NumberIsLess{
-			Name:             "MySlice",
-			ComparedField:    compared,
-			ValidateSameType: true, // now need only the same type
-		},
-		Field: field,
-	}
-	e = validator.NewErrors()
-	v.Validate(e)
-	r.Equal(3, e.Count())
-
-	compared = 25
-
-	v = NumberSliceDive{
-		Validator: &NumberIsLess{
-			Name:          "MySlice",
-			ComparedField: compared,
-		},
-		Field: field,
-	}
-	e = validator.NewErrors()
-	v.Validate(e)
-	r.Equal(2, e.Count())
-
-	field = []interface{}{nil}
-
-	v = NumberSliceDive{
-		Validator: &NumberIsLess{
-			Name:          "MySlice",
-			ComparedField: compared,
-		},
-		Field: field,
-	}
-	e = validator.NewErrors()
-	v.Validate(e)
-	r.Equal(1, e.Count())
-
-	field = []interface{}{"bad type"}
-	v = NumberSliceDive{
-		Validator: &NumberIsLess{
-			Name:          "MySlice",
-			ComparedField: compared,
-		},
-		Field: field,
-	}
-	e = validator.NewErrors()
-	v.Validate(e)
-	r.Equal(1, e.Count())
 }

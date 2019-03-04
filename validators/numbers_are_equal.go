@@ -8,39 +8,35 @@ import (
 )
 
 // NumbersAreEqualError is a function that defines error message returned by NumbersAreEqual validator.
+// nolint: gochecknoglobals
 var NumbersAreEqualError = func(v *NumbersAreEqual) string {
 	return fmt.Sprintf("%d is not equal to %d", v.Field, v.ComparedField)
 }
 
 // NumbersAreEqual is a validator object.
 type NumbersAreEqual struct {
-	Name             string
-	Field            interface{}
-	ComparedName     string
-	ComparedField    interface{}
-	ValidateSameType bool
+	Name          string
+	Field         interface{}
+	ComparedName  string
+	ComparedField interface{}
 }
 
 // Validate adds an error if the Field is not equal to the ComparedField.
 func (v *NumbersAreEqual) Validate(e *validator.Errors) {
 
-	err := checkNums(v.Field, v.ComparedField, v.ValidateSameType)
+	fNum, err := cast(v.Field)
 	if err != nil {
-		e.Add(v.Name, fmt.Sprintf("%s %s", v.Name, err))
+		e.Add(v.Name, err.Error())
 		return
 	}
 
-	switch field, comparedField := castBoth(v.Field, v.ComparedField); field.(type) {
-	case int64:
-		if field.(int64) == comparedField.(int64) {
-			return
-		}
-	case uint64:
-		if field.(uint64) == comparedField.(uint64) {
-			return
-		}
-	default:
-		e.Add(v.Name, fmt.Sprintf("%s %s", v.Name, ErrUnsupportedNumberType))
+	cfNum, err := cast(v.ComparedField)
+	if err != nil {
+		e.Add(v.Name, err.Error())
+		return
+	}
+
+	if fNum.Value == cfNum.Value {
 		return
 	}
 
@@ -55,4 +51,9 @@ func (v *NumbersAreEqual) SetField(s interface{}) {
 // SetNameIndex sets index of slice element on Name.
 func (v *NumbersAreEqual) SetNameIndex(i int) {
 	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+}
+
+// GetName is a getter on Name field.
+func (v *NumbersAreEqual) GetName() string {
+	return v.Name
 }

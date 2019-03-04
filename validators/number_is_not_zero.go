@@ -8,6 +8,7 @@ import (
 )
 
 // NumberIsNotZeroError is a function that defines error message returned by NumberIsNotZero validator.
+// nolint: gochecknoglobals
 var NumberIsNotZeroError = func(v *NumberIsNotZero) string {
 	return fmt.Sprintf("%s must not be equal to 0", v.Name)
 }
@@ -21,24 +22,13 @@ type NumberIsNotZero struct {
 // Validate adds an error if the Field equals to 0.
 func (v *NumberIsNotZero) Validate(e *validator.Errors) {
 
-	if isNil(v.Field) {
-		e.Add(v.Name, fmt.Sprintf("%s %s", v.Name, ErrNilFields))
+	fNum, err := cast(v.Field)
+	if err != nil {
+		e.Add(v.Name, err.Error())
 		return
 	}
 
-	value, _, _ := cast(v.Field)
-
-	switch value.(type) {
-	case int64:
-		if value.(int64) != int64(0) {
-			return
-		}
-	case uint64:
-		if value.(uint64) != uint64(0) {
-			return
-		}
-	default:
-		e.Add(v.Name, fmt.Sprintf("%s %s", v.Name, ErrUnsupportedNumberType))
+	if fNum.Value != uint64(0) {
 		return
 	}
 
@@ -53,4 +43,9 @@ func (v *NumberIsNotZero) SetField(s interface{}) {
 // SetNameIndex sets index of slice element on Name.
 func (v *NumberIsNotZero) SetNameIndex(i int) {
 	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+}
+
+// GetName is a getter on Name field.
+func (v *NumberIsNotZero) GetName() string {
+	return v.Name
 }
