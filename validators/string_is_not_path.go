@@ -8,6 +8,12 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// StringIsNotPathError is a function that defines error message returned by StringIsNotPath validator.
+// nolint: gochecknoglobals
+var StringIsNotPathError = func(v *StringIsNotPath) string {
+	return fmt.Sprintf("path '%s' must not exist", v.Field)
+}
+
 // StringIsNotPath is a validator object
 type StringIsNotPath struct {
 	Name  string
@@ -20,7 +26,7 @@ func (v *StringIsNotPath) Validate(e *validator.Errors) {
 		return
 	}
 
-	e.Add(v.Name, fmt.Sprintf("path '%s' must not exist", v.Field))
+	e.Add(v.Name, StringIsNotPathError(v))
 }
 
 // SetField sets validator field.
