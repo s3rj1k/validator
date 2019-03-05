@@ -7,6 +7,12 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// StringIsFloatError is a function that defines error message returned by StringIsFloat validator.
+// nolint: gochecknoglobals
+var StringIsFloatError = func(v *StringIsFloat) string {
+	return fmt.Sprintf("%s must be a float", v.Name)
+}
+
 // StringIsFloat is a validator object.
 type StringIsFloat struct {
 	Name  string
@@ -26,7 +32,7 @@ func (v *StringIsFloat) Validate(e *validator.Errors) {
 		return
 	}
 
-	e.Add(v.Name, fmt.Sprintf("%s must be a float", v.Name))
+	e.Add(v.Name, StringIsFloatError(v))
 }
 
 // SetField sets validator field.

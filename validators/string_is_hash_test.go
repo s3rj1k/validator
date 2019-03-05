@@ -22,7 +22,7 @@ func Test_StringIsHash(t *testing.T) {
 		t.Fatalf("unexpected error %s", err)
 	}
 
-	v := StringIsHash{Name: "Name", Algorithm: "md5", Field: fmt.Sprintf("%x", h.Sum(nil))} // md5
+	v := &StringIsHash{Name: "Name", Algorithm: "md5", Field: fmt.Sprintf("%x", h.Sum(nil))} // md5
 	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
@@ -33,26 +33,26 @@ func Test_StringIsHash(t *testing.T) {
 		t.Fatalf("unexpected error %s", err)
 	}
 
-	v = StringIsHash{Name: "Name", Algorithm: "sha256", Field: fmt.Sprintf("%x", h.Sum(nil))} // sha256
+	v = &StringIsHash{Name: "Name", Algorithm: "sha256", Field: fmt.Sprintf("%x", h.Sum(nil))} // sha256
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
-	v = StringIsHash{Name: "Name", Algorithm: "", Field: fmt.Sprintf("%x", h.Sum(nil))} // empty algorithm is invalid
+	v = &StringIsHash{Name: "Name", Algorithm: "", Field: fmt.Sprintf("%x", h.Sum(nil))} // empty algorithm is invalid
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
-	r.Equal([]string{" is an unknown hash algorithm"}, e.Get("Name"))
+	r.Equal([]string{StringIsHashError(v)}, e.Get("Name"))
 
-	v = StringIsHash{Name: "Name", Algorithm: "unknown", Field: fmt.Sprintf("%x", h.Sum(nil))} // unknown algorithm is invalid
+	v = &StringIsHash{Name: "Name", Algorithm: "unknown", Field: fmt.Sprintf("%x", h.Sum(nil))} // unknown algorithm is invalid
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
-	r.Equal([]string{"unknown is an unknown hash algorithm"}, e.Get("Name"))
+	r.Equal([]string{StringIsHashError(v)}, e.Get("Name"))
 
-	v = StringIsHash{Name: "Name", Algorithm: "md5", Field: "whatisthis"} // random string is invalid
+	v = &StringIsHash{Name: "Name", Algorithm: "md5", Field: "whatisthis"} // random string is invalid
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
-	r.Equal([]string{"Name was not evaluated as valid md5 hash"}, e.Get("Name"))
+	r.Equal([]string{StringIsHashError(v)}, e.Get("Name"))
 }

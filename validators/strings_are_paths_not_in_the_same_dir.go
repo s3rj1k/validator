@@ -8,6 +8,16 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// StringsArePathsNotInTheSameDirError is a function that defines error message returned by StringsArePathsNotInTheSameDir validator.
+// nolint: gochecknoglobals
+var StringsArePathsNotInTheSameDirError = func(v *StringsArePathsNotInTheSameDir) string {
+	if len(v.ComparedName) == 0 {
+		return fmt.Sprintf("'%s' path is in the same dir with '%s'", v.Name, v.ComparedField)
+	}
+
+	return fmt.Sprintf("'%s' path is in the same dir with '%s'", v.Name, v.ComparedName)
+}
+
 // StringsArePathsNotInTheSameDir is a validator object
 type StringsArePathsNotInTheSameDir struct {
 	Name          string
@@ -29,11 +39,7 @@ func (v *StringsArePathsNotInTheSameDir) Validate(e *validator.Errors) {
 		return
 	}
 
-	if len(v.ComparedName) == 0 {
-		e.Add(v.Name, fmt.Sprintf("'%s' path is in the same dir with '%s'", v.Name, v.ComparedField))
-	} else {
-		e.Add(v.Name, fmt.Sprintf("'%s' path is in the same dir with '%s'", v.Name, v.ComparedName))
-	}
+	e.Add(v.Name, StringsArePathsNotInTheSameDirError(v))
 }
 
 // SetField sets validator field.

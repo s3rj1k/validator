@@ -7,6 +7,12 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// TimeIsBeforeTimeError is a function that defines error message returned by TimeIsBeforeTime validator.
+// nolint: gochecknoglobals
+var TimeIsBeforeTimeError = func(v *TimeIsBeforeTime) string {
+	return fmt.Sprintf("%s must be before %s", v.Name, v.ComparedName)
+}
+
 // TimeIsBeforeTime is a validator object.
 type TimeIsBeforeTime struct {
 	Name          string
@@ -21,5 +27,5 @@ func (v *TimeIsBeforeTime) Validate(e *validator.Errors) {
 		return
 	}
 
-	e.Add(v.Name, fmt.Sprintf("%s must be before %s", v.Name, v.ComparedName))
+	e.Add(v.Name, TimeIsBeforeTimeError(v))
 }

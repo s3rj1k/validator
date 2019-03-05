@@ -8,6 +8,12 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// StringIsEmailError is a function that defines error message returned by StringIsEmail validator.
+// nolint: gochecknoglobals
+var StringIsEmailError = func(v *StringIsEmail) string {
+	return fmt.Sprintf("%s does not match the email format", v.Name)
+}
+
 // StringIsEmail is a validator object.
 type StringIsEmail struct {
 	Name  string
@@ -20,7 +26,7 @@ func (v *StringIsEmail) Validate(e *validator.Errors) {
 		return
 	}
 
-	e.Add(v.Name, fmt.Sprintf("%s does not match the email format", v.Name))
+	e.Add(v.Name, StringIsEmailError(v))
 
 }
 
@@ -34,6 +40,12 @@ func (v *StringIsEmail) SetNameIndex(i int) {
 	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
 }
 
+// StringIsEmailLikeError is a function that defines error message returned by StringIsEmailLike validator.
+// nolint: gochecknoglobals
+var StringIsEmailLikeError = func(v *StringIsEmailLike) string {
+	return fmt.Sprintf("%s does not match the email format", v.Name)
+}
+
 // StringIsEmailLike is a validator object.
 type StringIsEmailLike struct {
 	Name  string
@@ -44,6 +56,7 @@ type StringIsEmailLike struct {
 // It also checks that domain has a domain zone (but does not check if the zone is valid).
 // Also allows inner and outer whitespaces.
 func (v *StringIsEmailLike) Validate(e *validator.Errors) {
+
 	var validStructure = false
 	var domainZonePresent = false
 
@@ -61,13 +74,8 @@ func (v *StringIsEmailLike) Validate(e *validator.Errors) {
 		}
 	}
 
-	if !validStructure {
-		e.Add(v.Name, fmt.Sprintf("%s does not match the email format", v.Name))
-		return
-	}
-
-	if !domainZonePresent {
-		e.Add(v.Name, fmt.Sprintf("%s does not match the email format (email domain)", v.Name))
+	if !validStructure || !domainZonePresent {
+		e.Add(v.Name, StringIsEmailLikeError(v))
 		return
 	}
 }

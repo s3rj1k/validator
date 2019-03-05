@@ -8,6 +8,12 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// StringIsAbsPathError is a function that defines error message returned by StringIsAbsPath validator.
+// nolint: gochecknoglobals
+var StringIsAbsPathError = func(v *StringIsAbsPath) string {
+	return fmt.Sprintf("path '%s' must be absolute", v.Field)
+}
+
 // StringIsAbsPath is a validator object
 type StringIsAbsPath struct {
 	Name  string
@@ -20,7 +26,7 @@ func (v *StringIsAbsPath) Validate(e *validator.Errors) {
 		return
 	}
 
-	e.Add(v.Name, fmt.Sprintf("path '%s' must be absolute", v.Field))
+	e.Add(v.Name, StringIsAbsPathError(v))
 }
 
 // SetField sets validator field.

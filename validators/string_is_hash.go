@@ -8,6 +8,12 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// StringIsHashError is a function that defines error message returned by StringIsHash validator.
+// nolint: gochecknoglobals
+var StringIsHashError = func(v *StringIsHash) string {
+	return fmt.Sprintf("%s was not evaluated as valid %s hash", v.Name, v.Algorithm)
+}
+
 // StringIsHash is a validator object.
 type StringIsHash struct {
 	Name      string
@@ -19,6 +25,8 @@ type StringIsHash struct {
 // Algorithm can be one of ['md4', 'md5', 'sha1', 'sha256', 'sha384', 'sha512', 'ripemd128',
 // 'ripemd160', 'tiger128', 'tiger160', 'tiger192', 'crc32', 'crc32b'].
 func (v *StringIsHash) Validate(e *validator.Errors) {
+
+	var invalidAlg = false
 
 	length := "0"
 	algo := strings.ToLower(v.Algorithm)
@@ -39,17 +47,16 @@ func (v *StringIsHash) Validate(e *validator.Errors) {
 	case "sha512":
 		length = "128"
 	default:
-		e.Add(v.Name, fmt.Sprintf("%s is an unknown hash algorithm", v.Algorithm))
-		return
+		invalidAlg = true
 	}
 
 	matched, err := regexp.MatchString("^[a-f0-9]{"+length+"}$", v.Field)
 
-	if matched && err == nil {
+	if matched && err == nil && !invalidAlg {
 		return
 	}
 
-	e.Add(v.Name, fmt.Sprintf("%s was not evaluated as valid %s hash", v.Name, v.Algorithm))
+	e.Add(v.Name, StringIsHashError(v))
 }
 
 // SetField sets validator field.

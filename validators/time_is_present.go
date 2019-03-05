@@ -7,6 +7,12 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// TimeIsPresentError is a function that defines error message returned by TimeIsPresent validator.
+// nolint: gochecknoglobals
+var TimeIsPresentError = func(v *TimeIsPresent) string {
+	return fmt.Sprintf("%s can not be blank", v.Name)
+}
+
 // TimeIsPresent is a validator object.
 type TimeIsPresent struct {
 	Name  string
@@ -20,5 +26,5 @@ func (v *TimeIsPresent) Validate(e *validator.Errors) {
 		return
 	}
 
-	e.Add(v.Name, fmt.Sprintf("%s can not be blank", v.Name))
+	e.Add(v.Name, TimeIsPresentError(v))
 }

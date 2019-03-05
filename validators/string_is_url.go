@@ -8,6 +8,12 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// StringIsURLError is a function that defines error message returned by StringIsURL validator.
+// nolint: gochecknoglobals
+var StringIsURLError = func(v *StringIsURL) string {
+	return fmt.Sprintf("%s is not a valid URL", v.Name)
+}
+
 // StringIsURL is a validator object
 type StringIsURL struct {
 	Name  string
@@ -17,21 +23,26 @@ type StringIsURL struct {
 // Validate adds an error if the Field is not a correctly formatted URL.
 func (v *StringIsURL) Validate(e *validator.Errors) {
 
+	var invalid = false
+
 	if v.Field == "http://" || v.Field == "https://" {
-		e.Add(v.Name, fmt.Sprintf("%s url is empty", v.Name))
-		return
+		invalid = true
 	}
 
 	parsedURI, err := url.ParseRequestURI(v.Field)
 	if err != nil {
-		e.Add(v.Name, fmt.Sprintf("%s does not match url format, %v", v.Name, err))
+		invalid = true
+	}
+
+	if parsedURI != nil && parsedURI.Scheme != "" && parsedURI.Scheme != "http" && parsedURI.Scheme != "https" {
+		invalid = true
+	}
+
+	if !invalid {
 		return
 	}
 
-	if parsedURI.Scheme != "" && parsedURI.Scheme != "http" && parsedURI.Scheme != "https" {
-		e.Add(v.Name, fmt.Sprintf("%s invalid url scheme", v.Name))
-		return
-	}
+	e.Add(v.Name, StringIsURLError(v))
 }
 
 // SetField sets validator field.

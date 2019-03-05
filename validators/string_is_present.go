@@ -8,6 +8,12 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// StringIsPresentError is a function that defines error message returned by StringIsPresent validator.
+// nolint: gochecknoglobals
+var StringIsPresentError = func(v *StringIsPresent) string {
+	return fmt.Sprintf("%s can not be blank", v.Name)
+}
+
 // StringIsPresent is a validator object.
 type StringIsPresent struct {
 	Name  string
@@ -21,7 +27,7 @@ func (v *StringIsPresent) Validate(e *validator.Errors) {
 		return
 	}
 
-	e.Add(v.Name, fmt.Sprintf("%s can not be blank", v.Name))
+	e.Add(v.Name, StringIsPresentError(v))
 }
 
 // SetField sets validator field.

@@ -8,6 +8,12 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// StringIsMACError is a function that defines error message returned by StringIsMAC validator.
+// nolint: gochecknoglobals
+var StringIsMACError = func(v *StringIsMAC) string {
+	return fmt.Sprintf("%s must be valid MAC address", v.Name)
+}
+
 // StringIsMAC is a validator object.
 type StringIsMAC struct {
 	Name  string
@@ -23,7 +29,7 @@ func (v *StringIsMAC) Validate(e *validator.Errors) {
 		return
 	}
 
-	e.Add(v.Name, fmt.Sprintf("%s must be valid MAC address", v.Name))
+	e.Add(v.Name, StringIsMACError(v))
 }
 
 // SetField sets validator field.

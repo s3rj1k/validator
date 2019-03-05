@@ -7,6 +7,12 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// StringIsASCIIError is a function that defines error message returned by StringIsASCII validator.
+// nolint: gochecknoglobals
+var StringIsASCIIError = func(v *StringIsASCII) string {
+	return fmt.Sprintf("%s must contain ASCII chars only", v.Name)
+}
+
 // StringIsASCII is a validator object
 type StringIsASCII struct {
 	Name  string
@@ -27,7 +33,7 @@ func (v *StringIsASCII) Validate(e *validator.Errors) {
 		return
 	}
 
-	e.Add(v.Name, fmt.Sprintf("%s must contain ASCII chars only", v.Name))
+	e.Add(v.Name, StringIsASCIIError(v))
 }
 
 // SetField sets validator field.

@@ -7,6 +7,12 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// StringIsNullError is a function that defines error message returned by StringIsNull validator.
+// nolint: gochecknoglobals
+var StringIsNullError = func(v *StringIsNull) string {
+	return fmt.Sprintf("%s must be empty", v.Name)
+}
+
 // StringIsNull is a validator object.
 type StringIsNull struct {
 	Name  string
@@ -30,7 +36,7 @@ func (v *StringIsNull) Validate(e *validator.Errors) {
 		return
 	}
 
-	e.Add(v.Name, fmt.Sprintf("%s must be empty", v.Name))
+	e.Add(v.Name, StringIsNullError(v))
 }
 
 // SetField sets validator field.

@@ -7,6 +7,12 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// StringIsPrintableASCIIError is a function that defines error message returned by StringIsPrintableASCII validator.
+// nolint: gochecknoglobals
+var StringIsPrintableASCIIError = func(v *StringIsPrintableASCII) string {
+	return fmt.Sprintf("%s must contain printable ASCII chars only", v.Name)
+}
+
 // StringIsPrintableASCII is a validator object.
 type StringIsPrintableASCII struct {
 	Name  string
@@ -27,7 +33,7 @@ func (v *StringIsPrintableASCII) Validate(e *validator.Errors) {
 		return
 	}
 
-	e.Add(v.Name, fmt.Sprintf("%s must contain printable ASCII chars only", v.Name))
+	e.Add(v.Name, StringIsPrintableASCIIError(v))
 }
 
 // SetField sets validator field.

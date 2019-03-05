@@ -6,6 +6,12 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// IntArrayIsPresentError is a function that defines error message returned by IntArrayIsPresent validator.
+// nolint: gochecknoglobals
+var IntArrayIsPresentError = func(v *IntArrayIsPresent) string {
+	return fmt.Sprintf("%s can not be empty", v.Name)
+}
+
 // IntArrayIsPresent is a validator object.
 type IntArrayIsPresent struct {
 	Name  string
@@ -18,5 +24,5 @@ func (v *IntArrayIsPresent) Validate(e *validator.Errors) {
 		return
 	}
 
-	e.Add(v.Name, fmt.Sprintf("%s can not be empty", v.Name))
+	e.Add(v.Name, IntArrayIsPresentError(v))
 }

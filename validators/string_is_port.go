@@ -8,6 +8,12 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// StringIsPortError is a function that defines error message returned by StringIsPort validator.
+// nolint: gochecknoglobals
+var StringIsPortError = func(v *StringIsPort) string {
+	return fmt.Sprintf("%s must represent a valid port", v.Name)
+}
+
 // StringIsPort is a validator object.
 type StringIsPort struct {
 	Name  string
@@ -21,7 +27,7 @@ func (v *StringIsPort) Validate(e *validator.Errors) {
 		return
 	}
 
-	e.Add(v.Name, fmt.Sprintf("%s must represent a valid port", v.Name))
+	e.Add(v.Name, StringIsPortError(v))
 }
 
 // SetField sets validator field.

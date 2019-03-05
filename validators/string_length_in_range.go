@@ -8,6 +8,20 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// StringLengthInRangeError is a function that defines error message returned by StringLengthInRange validator.
+// nolint: gochecknoglobals
+var StringLengthInRangeError = func(v *StringLengthInRange) string {
+	min := v.Min
+	max := v.Max
+
+	strLength := utf8.RuneCountInString(v.Field)
+	if max == 0 {
+		max = strLength
+	}
+
+	return fmt.Sprintf("%s not in range(%d, %d)", v.Name, min, max)
+}
+
 // StringLengthInRange is a validator object.
 type StringLengthInRange struct {
 	Name  string
@@ -32,7 +46,7 @@ func (v *StringLengthInRange) Validate(e *validator.Errors) {
 		return
 	}
 
-	e.Add(v.Name, fmt.Sprintf("%s not in range(%d, %d)", v.Name, min, max))
+	e.Add(v.Name, StringLengthInRangeError(v))
 }
 
 // SetField sets validator field.

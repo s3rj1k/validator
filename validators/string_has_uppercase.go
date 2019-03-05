@@ -7,6 +7,12 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// StringHasUpperCaseError is a function that defines error message returned by StringHasUpperCase validator.
+// nolint: gochecknoglobals
+var StringHasUpperCaseError = func(v *StringHasUpperCase) string {
+	return fmt.Sprintf("%s must contain at least 1 uppercase", v.Name)
+}
+
 // StringHasUpperCase is a validator object.
 type StringHasUpperCase struct {
 	Name  string
@@ -25,7 +31,7 @@ func (v *StringHasUpperCase) Validate(e *validator.Errors) {
 		return
 	}
 
-	e.Add(v.Name, fmt.Sprintf("%s must contain at least 1 uppercase", v.Name))
+	e.Add(v.Name, StringHasUpperCaseError(v))
 }
 
 // SetField sets validator field.

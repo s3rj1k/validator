@@ -8,6 +8,12 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// StringIsUTFLettersError is a function that defines error message returned by StringIsUTFLetters validator.
+// nolint: gochecknoglobals
+var StringIsUTFLettersError = func(v *StringIsUTFLetters) string {
+	return fmt.Sprintf("%s must contain only unicode letter characters", v.Name)
+}
+
 // StringIsUTFLetters is a validator object.
 type StringIsUTFLetters struct {
 	Name  string
@@ -33,7 +39,7 @@ func (v *StringIsUTFLetters) Validate(e *validator.Errors) {
 	}
 
 	if badRune {
-		e.Add(v.Name, fmt.Sprintf("%s must contain only unicode letter characters", v.Name))
+		e.Add(v.Name, StringIsUTFLettersError(v))
 	}
 }
 

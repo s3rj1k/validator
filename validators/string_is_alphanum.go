@@ -7,6 +7,12 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// StringIsAlphaNumError is a function that defines error message returned by StringIsAlphaNum validator.
+// nolint: gochecknoglobals
+var StringIsAlphaNumError = func(v *StringIsAlphaNum) string {
+	return fmt.Sprintf("%s must contain only numbers and/or letters", v.Name)
+}
+
 // StringIsAlphaNum is a validator object.
 type StringIsAlphaNum struct {
 	Name  string
@@ -27,7 +33,7 @@ func (v *StringIsAlphaNum) Validate(e *validator.Errors) {
 		return
 	}
 
-	e.Add(v.Name, fmt.Sprintf("%s must contain only numbers and/or letters", v.Name))
+	e.Add(v.Name, StringIsAlphaNumError(v))
 }
 
 // SetField sets validator field.
