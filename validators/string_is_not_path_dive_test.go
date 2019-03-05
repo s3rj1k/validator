@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func Test_StringIsNoPathDive(t *testing.T) {
+func Test_StringIsNotPathDive(t *testing.T) {
 
 	r := require.New(t)
 
@@ -22,7 +22,7 @@ func Test_StringIsNoPathDive(t *testing.T) {
 	field := []string{"/tmp/test_dir", "/tmp/test_dir2"}
 
 	v := StringSliceDive{
-		Validator: &StringIsNoPath{
+		Validator: &StringIsNotPath{
 			Name: "MySlice",
 		},
 		Field: field,
@@ -35,7 +35,7 @@ func Test_StringIsNoPathDive(t *testing.T) {
 	r.Nil(err)
 
 	v = StringSliceDive{
-		Validator: &StringIsNoPath{
+		Validator: &StringIsNotPath{
 			Name: "MySlice",
 		},
 		Field: field,
@@ -48,7 +48,7 @@ func Test_StringIsNoPathDive(t *testing.T) {
 	r.Nil(err)
 
 	v = StringSliceDive{
-		Validator: &StringIsNoPath{
+		Validator: &StringIsNotPath{
 			Name: "MySlice",
 		},
 		Field: field,
