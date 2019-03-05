@@ -1,17 +1,5 @@
 package validators
 
-import (
-	"errors"
-)
-
-var (
-	// ErrBadNumType is an error for unsupported type provided to number validators
-	ErrBadNumType = errors.New("unsupported type provided to number validator")
-
-	// ErrNilValue is an error for encountering nil in number validator
-	ErrNilValue = errors.New("nil value must not be provided to number validator")
-)
-
 // Number represents a casted integer
 type Number struct {
 	Value      uint64
