@@ -20,11 +20,10 @@ func Test_StringIsBase64(t *testing.T) {
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
-	v = StringIsBase64{Name: "Name", Field: ""} // empty string is invalid
+	v = StringIsBase64{Name: "Name", Field: ""} // empty string is valid
 	e = validator.NewErrors()
 	v.Validate(e)
-	r.Equal(1, e.Count())
-	r.Equal([]string{"Name must be base64 encoded"}, e.Get("Name"))
+	r.Equal(0, e.Count())
 
 	v = StringIsBase64{Name: "Name", Field: " " + sEnc + " "} // outer whitespaces are invalid
 	e = validator.NewErrors()

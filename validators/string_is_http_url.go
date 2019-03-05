@@ -8,20 +8,20 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
-// StringIsURLError is a function that defines error message returned by StringIsURL validator.
+// StringIsHTTPURLError is a function that defines error message returned by StringIsHTTPURL validator.
 // nolint: gochecknoglobals
-var StringIsURLError = func(v *StringIsURL) string {
+var StringIsHTTPURLError = func(v *StringIsHTTPURL) string {
 	return fmt.Sprintf("%s is not a valid URL", v.Name)
 }
 
-// StringIsURL is a validator object
-type StringIsURL struct {
+// StringIsHTTPURL is a validator object
+type StringIsHTTPURL struct {
 	Name  string
 	Field string
 }
 
 // Validate adds an error if the Field is not a correctly formatted URL.
-func (v *StringIsURL) Validate(e *validator.Errors) {
+func (v *StringIsHTTPURL) Validate(e *validator.Errors) {
 
 	var invalid = false
 
@@ -42,15 +42,15 @@ func (v *StringIsURL) Validate(e *validator.Errors) {
 		return
 	}
 
-	e.Add(v.Name, StringIsURLError(v))
+	e.Add(v.Name, StringIsHTTPURLError(v))
 }
 
 // SetField sets validator field.
-func (v *StringIsURL) SetField(s string) {
+func (v *StringIsHTTPURL) SetField(s string) {
 	v.Field = s
 }
 
 // SetNameIndex sets index of slice element on Name.
-func (v *StringIsURL) SetNameIndex(i int) {
+func (v *StringIsHTTPURL) SetNameIndex(i int) {
 	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
 }

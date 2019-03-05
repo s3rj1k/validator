@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func Test_StringIsURL(t *testing.T) {
+func Test_StringIsHTTPURL(t *testing.T) {
 
 	r := require.New(t)
 
@@ -31,16 +31,16 @@ func Test_StringIsURL(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		v := &StringIsURL{Name: "URL", Field: test.url}
+		v := &StringIsHTTPURL{Name: "URL", Field: test.url}
 		e := validator.NewErrors()
 		v.Validate(e)
 
 		r.Equal(test.valid, !e.HasAny(), test.url, e.Error())
 	}
 
-	v := &StringIsURL{Name: "URL", Field: "http://"}
+	v := &StringIsHTTPURL{Name: "URL", Field: "http://"}
 	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
-	r.Equal([]string{StringIsURLError(v)}, e.Get("URL"))
+	r.Equal([]string{StringIsHTTPURLError(v)}, e.Get("URL"))
 }
