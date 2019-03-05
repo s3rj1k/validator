@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func Test_StringIsURLDive(t *testing.T) {
+func Test_StringIsHTTPURLDive(t *testing.T) {
 
 	r := require.New(t)
 
@@ -19,7 +19,7 @@ func Test_StringIsURLDive(t *testing.T) {
 		"https://invalid#$%#$@.Org"}
 
 	v := StringSliceDive{
-		Validator: &StringIsURL{
+		Validator: &StringIsHTTPURL{
 			Name: "MySlice",
 		},
 		Field: field,
