@@ -7,6 +7,12 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// FuncValidatorError is a function that defines error message returned by FuncValidator validator.
+// nolint: gochecknoglobals
+var FuncValidatorError = func(v *FuncValidator) string {
+	return fmt.Sprintf("%s result is false", v.Name)
+}
+
 // FuncValidator is a validator object.
 type FuncValidator struct {
 	Fn    func() bool
@@ -15,15 +21,15 @@ type FuncValidator struct {
 }
 
 // Validate is a validation method wrapper.
-func (f *FuncValidator) Validate(e *validator.Errors) {
+func (v *FuncValidator) Validate(e *validator.Errors) {
 	// for backwards compatibility
-	if strings.TrimSpace(f.Name) == "" {
-		f.Name = f.Field
+	if strings.TrimSpace(v.Name) == "" {
+		v.Name = v.Field
 	}
 
-	if f.Fn() {
+	if v.Fn() {
 		return
 	}
 
-	e.Add(f.Name, fmt.Sprintf("%s result is false", f.Name))
+	e.Add(v.Name, FuncValidatorError(v))
 }

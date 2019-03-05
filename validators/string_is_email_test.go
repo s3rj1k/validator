@@ -34,20 +34,20 @@ func Test_StringIsEmail(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		v := StringIsEmail{Name: "email", Field: test.email}
+		v := &StringIsEmail{Name: "email", Field: test.email}
 		e := validator.NewErrors()
 		v.Validate(e)
 		r.Equal(test.valid, !e.HasAny())
 		if !test.valid {
-			r.Equal([]string{"email does not match the email format"}, e.Get("email"))
+			r.Equal([]string{StringIsEmailError(v)}, e.Get("email"))
 		}
 	}
 
-	v := StringIsEmail{Name: "email", Field: ""}
+	v := &StringIsEmail{Name: "email", Field: ""}
 	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(e.Count(), 1)
-	r.Equal([]string{"email does not match the email format"}, e.Get("email"))
+	r.Equal([]string{StringIsEmailError(v)}, e.Get("email"))
 }
 
 func Test_StringIsEmailLike(t *testing.T) {
@@ -77,24 +77,24 @@ func Test_StringIsEmailLike(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		v := StringIsEmailLike{Name: "email", Field: test.email}
+		v := &StringIsEmailLike{Name: "email", Field: test.email}
 		e := validator.NewErrors()
 		v.Validate(e)
 		r.Equal(test.valid, !e.HasAny(), test.email)
 		if !test.valid {
-			r.Equal(e.Get("email"), []string{"email does not match the email format"})
+			r.Equal(e.Get("email"), []string{StringIsEmailLikeError(v)})
 		}
 	}
 
-	v := StringIsEmailLike{Name: "email", Field: "foo@bar"}
+	v := &StringIsEmailLike{Name: "email", Field: "foo@bar"}
 	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(e.Count(), 1)
-	r.Equal(e.Get("email"), []string{"email does not match the email format (email domain)"})
+	r.Equal(e.Get("email"), []string{StringIsEmailLikeError(v)})
 
-	v = StringIsEmailLike{Name: "email", Field: ""}
+	v = &StringIsEmailLike{Name: "email", Field: ""}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(e.Count(), 1)
-	r.Equal(e.Get("email"), []string{"email does not match the email format"})
+	r.Equal(e.Get("email"), []string{StringIsEmailLikeError(v)})
 }

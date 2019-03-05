@@ -7,6 +7,12 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// StringIsHexadecimalError is a function that defines error message returned by StringIsHexadecimal validator.
+// nolint: gochecknoglobals
+var StringIsHexadecimalError = func(v *StringIsHexadecimal) string {
+	return fmt.Sprintf("%s must be a hexadecimal number", v.Name)
+}
+
 // StringIsHexadecimal is a validator object.
 type StringIsHexadecimal struct {
 	Name  string
@@ -20,7 +26,7 @@ func (v *StringIsHexadecimal) Validate(e *validator.Errors) {
 		return
 	}
 
-	e.Add(v.Name, fmt.Sprintf("%s must be a hexadecimal number", v.Name))
+	e.Add(v.Name, StringIsHexadecimalError(v))
 }
 
 // SetField sets validator field.

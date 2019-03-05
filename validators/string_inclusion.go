@@ -8,6 +8,12 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// StringInclusionError is a function that defines error message returned by StringInclusion validator.
+// nolint: gochecknoglobals
+var StringInclusionError = func(v *StringInclusion) string {
+	return fmt.Sprintf("%s is not in the list [%s]", v.Name, strings.Join(v.Whitelist, ", "))
+}
+
 // StringInclusion is a validator object
 type StringInclusion struct {
 	Name      string
@@ -28,7 +34,7 @@ func (v *StringInclusion) Validate(e *validator.Errors) {
 	}
 
 	if !found {
-		e.Add(v.Name, fmt.Sprintf("%s is not in the list [%s]", v.Name, strings.Join(v.Whitelist, ", ")))
+		e.Add(v.Name, StringInclusionError(v))
 	}
 }
 

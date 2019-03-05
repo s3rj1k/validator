@@ -31,16 +31,16 @@ func Test_StringIsURL(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		v := StringIsURL{Name: "URL", Field: test.url}
+		v := &StringIsURL{Name: "URL", Field: test.url}
 		e := validator.NewErrors()
 		v.Validate(e)
 
 		r.Equal(test.valid, !e.HasAny(), test.url, e.Error())
 	}
 
-	v := StringIsURL{Name: "URL", Field: "http://"}
+	v := &StringIsURL{Name: "URL", Field: "http://"}
 	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
-	r.Equal([]string{"URL url is empty"}, e.Get("URL"))
+	r.Equal([]string{StringIsURLError(v)}, e.Get("URL"))
 }

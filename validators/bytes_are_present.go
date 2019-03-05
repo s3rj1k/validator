@@ -6,6 +6,12 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// BytesArePresentError is a function that defines error message returned by BytesArePresent validator.
+// nolint: gochecknoglobals
+var BytesArePresentError = func(v *BytesArePresent) string {
+	return fmt.Sprintf("%s can not be blank", v.Name)
+}
+
 // BytesArePresent is a validator object.
 type BytesArePresent struct {
 	Name  string
@@ -18,5 +24,5 @@ func (v *BytesArePresent) Validate(e *validator.Errors) {
 		return
 	}
 
-	e.Add(v.Name, fmt.Sprintf("%s can not be blank", v.Name))
+	e.Add(v.Name, BytesArePresentError(v))
 }

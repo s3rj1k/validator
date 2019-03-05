@@ -7,6 +7,12 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// StringIsNumericError is a function that defines error message returned by StringIsNumeric validator.
+// nolint: gochecknoglobals
+var StringIsNumericError = func(v *StringIsNumeric) string {
+	return fmt.Sprintf("%s must contain only numbers", v.Name)
+}
+
 // StringIsNumeric is a validator object.
 type StringIsNumeric struct {
 	Name  string
@@ -26,7 +32,7 @@ func (v *StringIsNumeric) Validate(e *validator.Errors) {
 		return
 	}
 
-	e.Add(v.Name, fmt.Sprintf("%s must contain only numbers", v.Name))
+	e.Add(v.Name, StringIsNumericError(v))
 }
 
 // SetField sets validator field.

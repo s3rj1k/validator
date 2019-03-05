@@ -7,6 +7,12 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// StringIsBase64Error is a function that defines error message returned by StringIsBase64 validator.
+// nolint: gochecknoglobals
+var StringIsBase64Error = func(v *StringIsBase64) string {
+	return fmt.Sprintf("%s must be base64 encoded", v.Name)
+}
+
 // StringIsBase64 is a validator object
 type StringIsBase64 struct {
 	Name  string
@@ -21,7 +27,7 @@ func (v *StringIsBase64) Validate(e *validator.Errors) {
 		return
 	}
 
-	e.Add(v.Name, fmt.Sprintf("%s must be base64 encoded", v.Name))
+	e.Add(v.Name, StringIsBase64Error(v))
 }
 
 // SetField sets validator field.

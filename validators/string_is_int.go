@@ -7,6 +7,12 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// StringIsIntError is a function that defines error message returned by StringIsInt validator.
+// nolint: gochecknoglobals
+var StringIsIntError = func(v *StringIsInt) string {
+	return fmt.Sprintf("%s must be an integer", v.Name)
+}
+
 // StringIsInt is a validator object.
 type StringIsInt struct {
 	Name  string
@@ -27,7 +33,7 @@ func (v *StringIsInt) Validate(e *validator.Errors) {
 		return
 	}
 
-	e.Add(v.Name, fmt.Sprintf("%s must be an integer", v.Name))
+	e.Add(v.Name, StringIsIntError(v))
 }
 
 // SetField sets validator field.

@@ -7,6 +7,12 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// StringIsRGBcolorError is a function that defines error message returned by StringIsRGBcolor validator.
+// nolint: gochecknoglobals
+var StringIsRGBcolorError = func(v *StringIsRGBcolor) string {
+	return fmt.Sprintf("%s must be a RGB color in form rgb(RRR, GGG, BBB)", v.Name)
+}
+
 // StringIsRGBcolor is a validator object.
 type StringIsRGBcolor struct {
 	Name  string
@@ -21,7 +27,7 @@ func (v *StringIsRGBcolor) Validate(e *validator.Errors) {
 		return
 	}
 
-	e.Add(v.Name, fmt.Sprintf("%s must be a RGB color in form rgb(RRR, GGG, BBB)", v.Name))
+	e.Add(v.Name, StringIsRGBcolorError(v))
 }
 
 // SetField sets validator field.

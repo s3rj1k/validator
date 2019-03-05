@@ -7,6 +7,12 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// StringIsHexcolorError is a function that defines error message returned by StringIsHexcolor validator.
+// nolint: gochecknoglobals
+var StringIsHexcolorError = func(v *StringIsHexcolor) string {
+	return fmt.Sprintf("%s must be a hexadecimal color", v.Name)
+}
+
 // StringIsHexcolor is a validator object.
 type StringIsHexcolor struct {
 	Name  string
@@ -21,7 +27,7 @@ func (v *StringIsHexcolor) Validate(e *validator.Errors) {
 		return
 	}
 
-	e.Add(v.Name, fmt.Sprintf("%s must be a hexadecimal color", v.Name))
+	e.Add(v.Name, StringIsHexcolorError(v))
 }
 
 // SetField sets validator field.

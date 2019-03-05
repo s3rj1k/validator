@@ -7,6 +7,12 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// StringMatchRegexError is a function that defines error message returned by StringMatchRegex validator.
+// nolint: gochecknoglobals
+var StringMatchRegexError = func(v *StringMatchRegex) string {
+	return fmt.Sprintf("%s does not match the expected format", v.Name)
+}
+
 // StringMatchRegex is a validator object.
 type StringMatchRegex struct {
 	Name  string
@@ -21,7 +27,7 @@ func (v *StringMatchRegex) Validate(e *validator.Errors) {
 		return
 	}
 
-	e.Add(v.Name, fmt.Sprintf("%s does not match the expected format", v.Name))
+	e.Add(v.Name, StringMatchRegexError(v))
 }
 
 // SetField sets validator field.

@@ -9,6 +9,12 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// StringHasNoFileInPathParentsError is a function that defines error message returned by StringHasNoFileInPathParents validator.
+// nolint: gochecknoglobals
+var StringHasNoFileInPathParentsError = func(v *StringHasNoFileInPathParents) string {
+	return fmt.Sprintf("path '%s' contains path to a file", v.Field)
+}
+
 // StringHasNoFileInPathParents is a validator object
 type StringHasNoFileInPathParents struct {
 	Name  string
@@ -54,7 +60,7 @@ func (v *StringHasNoFileInPathParents) Validate(e *validator.Errors) {
 	}
 
 	if hasFileInPath {
-		e.Add(v.Name, fmt.Sprintf("path '%s' contains path to a file", v.Field))
+		e.Add(v.Name, StringHasNoFileInPathParentsError(v))
 	}
 }
 

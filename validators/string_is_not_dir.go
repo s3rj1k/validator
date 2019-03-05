@@ -8,6 +8,12 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// StringIsNotDirError is a function that defines error message returned by StringIsNotDir validator.
+// nolint: gochecknoglobals
+var StringIsNotDirError = func(v *StringIsNotDir) string {
+	return fmt.Sprintf("path '%s' is a dir", v.Field)
+}
+
 // StringIsNotDir is a validator object
 type StringIsNotDir struct {
 	Name  string
@@ -26,7 +32,7 @@ func (v *StringIsNotDir) Validate(e *validator.Errors) {
 		return
 	}
 
-	e.Add(v.Name, fmt.Sprintf("path '%s' is a dir", v.Field))
+	e.Add(v.Name, StringIsNotDirError(v))
 }
 
 // SetField sets validator field.

@@ -8,6 +8,17 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// StringHasSuffixError is a function that defines error message returned by StringHasSuffix validator.
+// nolint: gochecknoglobals
+var StringHasSuffixError = func(v *StringHasSuffix) string {
+	if len(v.ComparedName) == 0 {
+		return fmt.Sprintf("'%s' does not end with '%s'", v.Field, v.ComparedField)
+	}
+
+	return fmt.Sprintf("'%s' does not end with content of '%s'", v.Name, v.ComparedName)
+
+}
+
 // StringHasSuffix is a validator object.
 type StringHasSuffix struct {
 	Name          string
@@ -23,11 +34,7 @@ func (v *StringHasSuffix) Validate(e *validator.Errors) {
 		return
 	}
 
-	if len(v.ComparedName) == 0 {
-		e.Add(v.Name, fmt.Sprintf("'%s' does not end with '%s'", v.Field, v.ComparedField))
-	} else {
-		e.Add(v.Name, fmt.Sprintf("'%s' does not end with content of '%s'", v.Name, v.ComparedName))
-	}
+	e.Add(v.Name, StringHasSuffixError(v))
 }
 
 // SetField sets validator field.

@@ -7,6 +7,12 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// StringHasLowerCaseError is a function that defines error message returned by StringHasLowerCase validator.
+// nolint: gochecknoglobals
+var StringHasLowerCaseError = func(v *StringHasLowerCase) string {
+	return fmt.Sprintf("%s must contain at least 1 lowercase", v.Name)
+}
+
 // StringHasLowerCase is a validator object
 type StringHasLowerCase struct {
 	Name  string
@@ -25,7 +31,7 @@ func (v *StringHasLowerCase) Validate(e *validator.Errors) {
 		return
 	}
 
-	e.Add(v.Name, fmt.Sprintf("%s must contain at least 1 lowercase", v.Name))
+	e.Add(v.Name, StringHasLowerCaseError(v))
 }
 
 // SetField sets validator field.

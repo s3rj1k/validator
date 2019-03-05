@@ -7,6 +7,12 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// TimeIsAfterTimeError is a function that defines error message returned by TimeIsAfterTime validator.
+// nolint: gochecknoglobals
+var TimeIsAfterTimeError = func(v *TimeIsAfterTime) string {
+	return fmt.Sprintf("%s must be after %s", v.Name, v.ComparedName)
+}
+
 // TimeIsAfterTime is a validator object.
 type TimeIsAfterTime struct {
 	Name          string
@@ -21,5 +27,5 @@ func (v *TimeIsAfterTime) Validate(e *validator.Errors) {
 		return
 	}
 
-	e.Add(v.Name, fmt.Sprintf("%s must be after %s", v.Name, v.ComparedName))
+	e.Add(v.Name, TimeIsAfterTimeError(v))
 }

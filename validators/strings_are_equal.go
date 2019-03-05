@@ -8,6 +8,26 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// StringsAreEqualError is a function that defines error message returned by StringsAreEqual validator.
+// nolint: gochecknoglobals
+var StringsAreEqualError = func(v *StringsAreEqual) string {
+
+	var caseName string
+
+	if v.CaseInsensitive {
+		caseName = "iequal"
+
+	} else {
+		caseName = "equal"
+	}
+
+	if len(v.ComparedName) == 0 {
+		return fmt.Sprintf("%s does not %s %s", v.Field, caseName, v.ComparedField)
+	}
+
+	return fmt.Sprintf("%s does not %s %s", v.Name, caseName, v.ComparedName)
+}
+
 // StringsAreEqual is a validator object.
 type StringsAreEqual struct {
 	Name            string
@@ -21,25 +41,20 @@ type StringsAreEqual struct {
 // CaseInsensitive flag can be set to make comparison case insensitive.
 func (v *StringsAreEqual) Validate(e *validator.Errors) {
 
-	var caseName string
-
 	if v.CaseInsensitive {
-		caseName = "iequal"
 		if strings.EqualFold(v.Field, v.ComparedField) {
+
 			return
 		}
+
 	} else {
-		caseName = "equal"
 		if v.Field == v.ComparedField {
+
 			return
 		}
 	}
 
-	if len(v.ComparedName) == 0 {
-		e.Add(v.Name, fmt.Sprintf("%s does not %s %s", v.Field, caseName, v.ComparedField))
-	} else {
-		e.Add(v.Name, fmt.Sprintf("%s does not %s %s", v.Name, caseName, v.ComparedName))
-	}
+	e.Add(v.Name, StringsAreEqualError(v))
 }
 
 // SetField sets validator field.
