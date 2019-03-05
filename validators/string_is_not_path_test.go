@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func Test_StringIsNoPath(t *testing.T) {
+func Test_StringIsNotPath(t *testing.T) {
 
 	r := require.New(t)
 
@@ -24,24 +24,24 @@ func Test_StringIsNoPath(t *testing.T) {
 		r.Nil(err)
 	}(r)
 
-	v := StringIsNoPath{Name: "Name", Field: "/tmp/doesnotexist"}
+	v := StringIsNotPath{Name: "Name", Field: "/tmp/doesnotexist"}
 	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
-	v = StringIsNoPath{Name: "Name", Field: "/tmp/test"}
+	v = StringIsNotPath{Name: "Name", Field: "/tmp/test"}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{"path '/tmp/test' must not exist"}, e.Get("Name"))
 
-	v = StringIsNoPath{Name: "Name", Field: "/tmp/test"}
+	v = StringIsNotPath{Name: "Name", Field: "/tmp/test"}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{"path '/tmp/test' must not exist"}, e.Get("Name"))
 
-	v = StringIsNoPath{"Name", "/tmp/test"}
+	v = StringIsNotPath{"Name", "/tmp/test"}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())

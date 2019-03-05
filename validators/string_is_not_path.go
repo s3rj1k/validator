@@ -8,14 +8,14 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
-// StringIsNoPath is a validator object
-type StringIsNoPath struct {
+// StringIsNotPath is a validator object
+type StringIsNotPath struct {
 	Name  string
 	Field string
 }
 
 // Validate adds an error if the Field is an existing path.
-func (v *StringIsNoPath) Validate(e *validator.Errors) {
+func (v *StringIsNotPath) Validate(e *validator.Errors) {
 	if _, err := os.Stat(v.Field); os.IsNotExist(err) {
 		return
 	}
@@ -24,11 +24,11 @@ func (v *StringIsNoPath) Validate(e *validator.Errors) {
 }
 
 // SetField sets validator field.
-func (v *StringIsNoPath) SetField(s string) {
+func (v *StringIsNotPath) SetField(s string) {
 	v.Field = s
 }
 
 // SetNameIndex sets index of slice element on Name.
-func (v *StringIsNoPath) SetNameIndex(i int) {
+func (v *StringIsNotPath) SetNameIndex(i int) {
 	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
 }
