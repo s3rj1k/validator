@@ -15,15 +15,40 @@ func cast(a interface{}) (*Number, error) {
 
 	switch a := a.(type) {
 	case int8:
-		return &Number{uint64(a), a < 0}, nil
+		if a < 0 {
+			return &Number{uint64(a * -1), true}, nil
+		}
+
+		return &Number{uint64(a), false}, nil
+
 	case int16:
-		return &Number{uint64(a), a < 0}, nil
+		if a < 0 {
+			return &Number{uint64(a * -1), true}, nil
+		}
+
+		return &Number{uint64(a), false}, nil
+
 	case int32:
-		return &Number{uint64(a), a < 0}, nil
+		if a < 0 {
+			return &Number{uint64(a * -1), true}, nil
+		}
+
+		return &Number{uint64(a), false}, nil
+
 	case int:
-		return &Number{uint64(a), a < 0}, nil
+		if a < 0 {
+			return &Number{uint64(a * -1), true}, nil
+		}
+
+		return &Number{uint64(a), false}, nil
+
 	case int64:
-		return &Number{uint64(a), a < 0}, nil
+		if a < 0 {
+			return &Number{uint64(a * -1), true}, nil
+		}
+
+		return &Number{uint64(a), false}, nil
+
 	case uintptr:
 		return &Number{uint64(a), false}, nil
 	case uint:
