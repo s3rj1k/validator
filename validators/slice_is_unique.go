@@ -21,6 +21,7 @@ type SliceIsUnique struct {
 
 // Validate adds an error if the slice in Field has not unique values.
 // Supports all Go basic types except for bool https://tour.golang.org/basics/11
+// nolint: gocyclo
 func (v *SliceIsUnique) Validate(e *validator.Errors) {
 
 	var dupl = []int{} // indexes of duplicates

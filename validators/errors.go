@@ -1,6 +1,8 @@
 package validators
 
-import "errors"
+import (
+	"errors"
+)
 
 var (
 	// ErrBadNumType is an error for unsupported type provided to number validators
