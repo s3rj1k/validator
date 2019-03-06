@@ -21,6 +21,7 @@ type SliceIsNotEmpty struct {
 // Validate adds an error if the slice in Field is empty.
 // Standard check adds an error if the slice is nil or of unsupported type.
 // Supports all Go basic types except for bool https://tour.golang.org/basics/11
+// nolint: gocyclo
 func (v *SliceIsNotEmpty) Validate(e *validator.Errors) {
 
 	if v.Field == nil {

@@ -9,6 +9,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+// nolint: gosec
 func Test_StringIsDir(t *testing.T) {
 
 	r := require.New(t)
