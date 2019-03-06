@@ -20,8 +20,8 @@ func Test_NumberIsLessDive(t *testing.T) {
 		{
 			name:          "SliceTwo",
 			field:         []int32{-1000, -100, 0, 1, 1000},
-			comparedField: int16(0),
-			errNum:        3, // -1000, -100 and 0 are not less than 0
+			comparedField: int16(-99),
+			errNum:        3, // 0, 1, 1000 are not less than -99
 		},
 		{
 			name:          "SliceThree",
