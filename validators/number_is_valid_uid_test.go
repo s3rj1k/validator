@@ -38,6 +38,11 @@ func Test_NumberIsValidUID(t *testing.T) {
 		},
 		{
 			name:   "UID",
+			field:  int(-1),
+			errNum: 0,
+		},
+		{
+			name:   "UID",
 			field:  nil,
 			errNum: 1,
 		},
