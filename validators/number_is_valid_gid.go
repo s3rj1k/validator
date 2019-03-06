@@ -11,6 +11,15 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// nolint: gochecknoglobals
+var (
+	// DefaultMinGID is a default value for MinGID, used then parsing of 'login.defs' fails.
+	DefaultMinGID uint64 = 1000
+
+	// DefaultMaxGID is a default value for MaxGID, used then parsing of 'login.defs' fails.
+	DefaultMaxGID uint64 = 60000
+)
+
 // NumberIsValidGIDError is a function that defines error message returned by NumberIsValidGID validator.
 // nolint: gochecknoglobals
 var NumberIsValidGIDError = func(v *NumberIsValidGID) string {
@@ -64,8 +73,8 @@ func (v *NumberIsValidGID) GetName() string {
 func readGIDRange(path string) (uint64, uint64) {
 
 	var (
-		minGID uint64 = DefaultMinGID
-		maxGID uint64 = DefaultMaxGID
+		minGID = DefaultMinGID
+		maxGID = DefaultMaxGID
 	)
 
 	fd, err := os.Open(path)

@@ -11,6 +11,15 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
+// nolint: gochecknoglobals
+var (
+	// DefaultMinUID is a default value for MinUID, used then parsing of 'login.defs' fails.
+	DefaultMinUID uint64 = 1000
+
+	// DefaultMaxUID is a default value for MaxUID, used then parsing of 'login.defs' fails.
+	DefaultMaxUID uint64 = 60000
+)
+
 // NumberIsValidUIDError is a function that defines error message returned by NumberIsValidUID validator.
 // nolint: gochecknoglobals
 var NumberIsValidUIDError = func(v *NumberIsValidUID) string {
@@ -64,8 +73,8 @@ func (v *NumberIsValidUID) GetName() string {
 func readUIDRange(path string) (uint64, uint64) {
 
 	var (
-		minUID uint64 = DefaultMinUID
-		maxUID uint64 = DefaultMaxUID
+		minUID = DefaultMinUID
+		maxUID = DefaultMaxUID
 	)
 
 	fd, err := os.Open(path)
