@@ -22,11 +22,6 @@ type StringIsSymlink struct {
 
 // Validate adds an error if the Field is not a symlink.
 func (v *StringIsSymlink) Validate(e *validator.Errors) {
-	// if _, err := os.Stat(v.Field); !os.IsNotExist(err) {
-	// 	if fi.Mode()&os.ModeSymlink != 0 {
-	// 		return
-	// 	}
-	// }
 
 	_, err := os.Readlink(v.Field)
 	if err == nil {
