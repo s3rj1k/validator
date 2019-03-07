@@ -13,27 +13,27 @@ import (
 
 // nolint: gochecknoglobals
 var (
-	// DefaultMinGID is a default value for MinGID, used then parsing of 'login.defs' fails.
-	DefaultMinGID uint64 = 1000
+	// DefaultMinUserGID is a default value for MinUserGID, used then parsing of 'login.defs' fails.
+	DefaultMinUserGID uint64 = 1000
 
-	// DefaultMaxGID is a default value for MaxGID, used then parsing of 'login.defs' fails.
-	DefaultMaxGID uint64 = 60000
+	// DefaultMaxUserGID is a default value for MaxUserGID, used then parsing of 'login.defs' fails.
+	DefaultMaxUserGID uint64 = 60000
 )
 
-// NumberIsValidGIDError is a function that defines error message returned by NumberIsValidGID validator.
+// NumberIsValidUserGIDError is a function that defines error message returned by NumberIsValidUserGID validator.
 // nolint: gochecknoglobals
-var NumberIsValidGIDError = func(v *NumberIsValidGID) string {
-	return fmt.Sprintf("%d is not valid GID", v.Field)
+var NumberIsValidUserGIDError = func(v *NumberIsValidUserGID) string {
+	return fmt.Sprintf("%d is not valid user GID", v.Field)
 }
 
-// NumberIsValidGID is a validator object.
-type NumberIsValidGID struct {
+// NumberIsValidUserGID is a validator object.
+type NumberIsValidUserGID struct {
 	Name  string
 	Field interface{}
 }
 
 // Validate adds an error if the Field is in range of GID_MIN, GID_MAX from '/etc/login.defs'.
-func (v *NumberIsValidGID) Validate(e *validator.Errors) {
+func (v *NumberIsValidUserGID) Validate(e *validator.Errors) {
 
 	fNum, err := cast(v.Field)
 	if err != nil {
@@ -42,49 +42,49 @@ func (v *NumberIsValidGID) Validate(e *validator.Errors) {
 		return
 	}
 
-	minGID, maxGID := readGIDRange(LoginDefsPath)
+	minUserGID, maxUserGID := readUserGIDRange(LoginDefsPath)
 
 	//  for os.Chown func a uid or gid of -1 means to not change that value
 	if fNum.isNegative && fNum.Value == 1 {
 		return
 	}
 
-	if fNum.Value >= minGID &&
-		fNum.Value <= maxGID &&
+	if fNum.Value >= minUserGID &&
+		fNum.Value <= maxUserGID &&
 		!fNum.isNegative {
 
 		return
 	}
 
-	e.Add(v.Name, NumberIsValidGIDError(v))
+	e.Add(v.Name, NumberIsValidUserGIDError(v))
 }
 
 // SetField sets validator field.
-func (v *NumberIsValidGID) SetField(s interface{}) {
+func (v *NumberIsValidUserGID) SetField(s interface{}) {
 	v.Field = s
 }
 
 // SetNameIndex sets index of slice element on Name.
-func (v *NumberIsValidGID) SetNameIndex(i int) {
+func (v *NumberIsValidUserGID) SetNameIndex(i int) {
 	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
 }
 
 // GetName is a getter on Name field.
-func (v *NumberIsValidGID) GetName() string {
+func (v *NumberIsValidUserGID) GetName() string {
 	return v.Name
 }
 
-// readGIDRange parses 'login.defs' file.
-func readGIDRange(path string) (uint64, uint64) {
+// readUserGIDRange parses 'login.defs' file.
+func readUserGIDRange(path string) (uint64, uint64) {
 
 	var (
-		minGID = DefaultMinGID
-		maxGID = DefaultMaxGID
+		minUserGID = DefaultMinUserGID
+		maxUserGID = DefaultMaxUserGID
 	)
 
 	fd, err := os.Open(path)
 	if err != nil {
-		return minGID, maxGID
+		return minUserGID, maxUserGID
 	}
 
 	defer func(fd *os.File) {
@@ -102,17 +102,17 @@ func readGIDRange(path string) (uint64, uint64) {
 
 		if fields[0] == "GID_MIN" {
 			if i, err := strconv.ParseUint(fields[1], 10, 64); err == nil {
-				minGID = i
+				minUserGID = i
 			}
 		}
 
 		if fields[0] == "GID_MAX" {
 			if i, err := strconv.ParseUint(fields[1], 10, 64); err == nil {
-				maxGID = i
+				maxUserGID = i
 			}
 		}
 
 	}
 
-	return minGID, maxGID
+	return minUserGID, maxUserGID
 }

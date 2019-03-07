@@ -8,31 +8,31 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func Test_NumberIsValidGID(t *testing.T) {
+func Test_NumberIsValidUserUID(t *testing.T) {
 
 	r := require.New(t)
 
 	testCases := []numTestCase{
 		{
-			name:  "GID",
+			name:  "UID",
 			field: int32(1000),
 		},
 		{
-			name:  "GID",
+			name:  "UID",
 			field: uint32(1005),
 		},
 		{
-			name:   "GID",
+			name:   "UID",
 			field:  uint32(9999999),
 			errNum: 1,
 		},
 		{
-			name:   "GID",
+			name:   "UID",
 			field:  uint16(200),
 			errNum: 1,
 		},
 		{
-			name:   "GID",
+			name:   "UID",
 			field:  int16(-200),
 			errNum: 1,
 		},
@@ -42,22 +42,22 @@ func Test_NumberIsValidGID(t *testing.T) {
 			errNum: 0,
 		},
 		{
-			name:   "GID",
+			name:   "UID",
 			field:  nil,
 			errNum: 1,
 		},
 		{
-			name:   "GID",
+			name:   "UID",
 			field:  int64(9),
 			errNum: 1,
 		},
 		{
-			name:   "GID",
+			name:   "UID",
 			field:  "bad type", // other than nubmer types is wrong
 			errNum: 1,
 		},
 		{
-			name:   "GID",
+			name:   "UID",
 			field:  int16(0),
 			errNum: 1,
 		},
@@ -65,7 +65,7 @@ func Test_NumberIsValidGID(t *testing.T) {
 
 	for index, tc := range testCases {
 
-		v := NumberIsValidGID{
+		v := NumberIsValidUserUID{
 			Name:  tc.name,
 			Field: tc.field,
 		}
