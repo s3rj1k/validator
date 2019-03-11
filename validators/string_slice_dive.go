@@ -19,7 +19,14 @@ type StringSliceDive struct {
 
 // Validate applies Validator to each value in the Field.
 func (v *StringSliceDive) Validate(e *validator.Errors) {
-	for i, f := range v.Field {
+
+	slice := v.Field
+
+	if slice == nil {
+		slice = []string{""}
+	}
+
+	for i, f := range slice {
 		v.Validator.SetField(f)
 		v.Validator.SetNameIndex(i)
 		v.Validator.Validate(e)
