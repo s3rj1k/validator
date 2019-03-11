@@ -12,29 +12,32 @@ func Test_StringIsIP(t *testing.T) {
 
 	r := require.New(t)
 
-	e := validator.NewErrors()
-	v := StringIsIP{Name: "Name", Field: "127.0.0.1"} // IPV4 is OK
-	v.Validate(e)
-	r.Equal(0, e.Count())
+	var tests = []struct {
+		field string
+		valid bool
+	}{
+		{"5.255.253.0", true},
+		{"220.181.0.0", true},
+		{"0.0.0.0", true},
+		{"255.255.255.255", true},
+		{"fd3b:d101:e37f:9716::", true},
+		{"0000:0000:0000:0000:0000:0000:0000:0000", true},
+		{"2001:db8:a1d5::", true},
 
-	v = StringIsIP{Name: "Name", Field: "2001:db8:6:56::53"} // IPV6 is OK
-	v.Validate(e)
-	r.Equal(0, e.Count())
+		{" 5.255.253.0", false},
+		{"http://www.google.com", false},
+		{"220.181.0.0/33", false},
+		{"", false},
+	}
 
-	v = StringIsIP{Name: "Name", Field: ""} // empty string is invalid
-	v.Validate(e)
-	r.Equal(1, e.Count())
-	r.Equal([]string{"Name must be either IP version 4 or 6"}, e.Get("Name"))
+	for index, test := range tests {
+		v := &StringIsIP{Name: "IP", Field: test.field}
+		e := validator.NewErrors()
+		v.Validate(e)
 
-	e = validator.NewErrors()
-	v = StringIsIP{Name: "Name", Field: "12a.asd.12"} // random string is invalid
-	v.Validate(e)
-	r.Equal(1, e.Count())
-	r.Equal([]string{"Name must be either IP version 4 or 6"}, e.Get("Name"))
-
-	e = validator.NewErrors()
-	v = StringIsIP{Name: "Name", Field: " 127.0.0.1 "} // outer whitespaces are not allowed
-	v.Validate(e)
-	r.Equal(1, e.Count())
-	r.Equal([]string{"Name must be either IP version 4 or 6"}, e.Get("Name"))
+		r.Equalf(!test.valid, e.HasAny(), "tc %d", index)
+		if !test.valid {
+			r.Equalf([]string{StringIsIPError(v)}, e.Get(v.Name), "tc %d", index)
+		}
+	}
 }

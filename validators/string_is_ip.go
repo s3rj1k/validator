@@ -23,8 +23,7 @@ type StringIsIP struct {
 // Validate adds an error if the Field is a valid IP address version 4 or 6.
 func (v *StringIsIP) Validate(e *validator.Errors) {
 
-	// ParseIP has to return a non-nil value
-	if net.ParseIP(v.Field) != nil {
+	if isIP(v.Field) {
 		return
 	}
 
@@ -39,4 +38,19 @@ func (v *StringIsIP) SetField(s string) {
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsIP) SetNameIndex(i int) {
 	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+}
+
+// checks if s is a valid IP
+func isIP(s string) bool {
+
+	if len(s) == 0 {
+		return false
+	}
+
+	ip := net.ParseIP(s)
+	if ip == nil {
+		return false
+	}
+
+	return true
 }
