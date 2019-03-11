@@ -1,0 +1,43 @@
+package validators
+
+import (
+	"fmt"
+	"net"
+	"regexp"
+
+	"github.com/s3rj1k/validator"
+)
+
+// StringIsIPMulticastError is a function that defines error message returned by StringIsIPMulticast validator.
+// nolint: gochecknoglobals
+var StringIsIPMulticastError = func(v *StringIsIPMulticast) string {
+	return fmt.Sprintf("'%s' must be a multicast address", v.Name)
+}
+
+// StringIsIPMulticast is a validator object.
+type StringIsIPMulticast struct {
+	Name  string
+	Field string
+}
+
+// Validate adds an error if the Field is not a multicast address.
+func (v *StringIsIPMulticast) Validate(e *validator.Errors) {
+
+	ip := net.ParseIP(v.Field)
+
+	if ip.IsMulticast() {
+		return
+	}
+
+	e.Add(v.Name, StringIsIPMulticastError(v))
+}
+
+// SetField sets validator field.
+func (v *StringIsIPMulticast) SetField(s string) {
+	v.Field = s
+}
+
+// SetNameIndex sets index of slice element on Name.
+func (v *StringIsIPMulticast) SetNameIndex(i int) {
+	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+}
