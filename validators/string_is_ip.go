@@ -48,5 +48,7 @@ func isIP(s string) bool {
 	}
 
 	ip := net.ParseIP(s)
+
+	// return true if ip != nil
 	return ip != nil
 }
