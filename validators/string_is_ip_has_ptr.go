@@ -24,7 +24,7 @@ type StringIsIPHasPTR struct {
 func (v *StringIsIPHasPTR) Validate(e *validator.Errors) {
 
 	names, err := net.LookupAddr(v.Field)
-	if err == nil || names != nil || len(names) != 0 {
+	if err == nil || names != nil || len(names) > 0 {
 		return
 	}
 
