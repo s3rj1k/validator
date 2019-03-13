@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func Test_StringIsUserExisting(t *testing.T) {
+func Test_StringIsExistingUser(t *testing.T) {
 
 	r := require.New(t)
 
@@ -26,13 +26,13 @@ func Test_StringIsUserExisting(t *testing.T) {
 	}
 
 	for index, test := range tests {
-		v := &StringIsUserExisting{Name: "GroupE", Field: test.field}
+		v := &StringIsExistingUser{Name: "UserE", Field: test.field}
 		e := validator.NewErrors()
 		v.Validate(e)
 
 		r.Equalf(!test.valid, e.HasAny(), "tc %d", index)
 		if !test.valid {
-			r.Equalf([]string{StringIsUserExistingError(v)}, e.Get(v.Name), "tc %d", index)
+			r.Equalf([]string{StringIsExistingUserError(v)}, e.Get(v.Name), "tc %d", index)
 		}
 	}
 }

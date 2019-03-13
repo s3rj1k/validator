@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func Test_StringIsGroupExisting(t *testing.T) {
+func Test_StringIsExistingGroup(t *testing.T) {
 
 	r := require.New(t)
 
@@ -26,13 +26,13 @@ func Test_StringIsGroupExisting(t *testing.T) {
 	}
 
 	for index, test := range tests {
-		v := &StringIsGroupExisting{Name: "GroupE", Field: test.field}
+		v := &StringIsExistingGroup{Name: "GroupE", Field: test.field}
 		e := validator.NewErrors()
 		v.Validate(e)
 
 		r.Equalf(!test.valid, e.HasAny(), "tc %d", index)
 		if !test.valid {
-			r.Equalf([]string{StringIsGroupExistingError(v)}, e.Get(v.Name), "tc %d", index)
+			r.Equalf([]string{StringIsExistingGroupError(v)}, e.Get(v.Name), "tc %d", index)
 		}
 	}
 }

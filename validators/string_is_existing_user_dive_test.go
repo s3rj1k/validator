@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func Test_StringIsUserExistingDive(t *testing.T) {
+func Test_StringIsExistingUserDive(t *testing.T) {
 
 	r := require.New(t)
 
@@ -25,7 +25,7 @@ func Test_StringIsUserExistingDive(t *testing.T) {
 
 	for index, test := range tests {
 		v := &StringSliceDive{
-			Validator: &StringIsUserExisting{Name: "StringIsUser"},
+			Validator: &StringIsExistingUser{Name: "StringIsUser"},
 			Field:     test.field,
 		}
 		e := validator.NewErrors()

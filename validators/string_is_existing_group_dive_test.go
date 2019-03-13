@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func Test_StringIsGroupExistingDive(t *testing.T) {
+func Test_StringIsExistingGroupDive(t *testing.T) {
 
 	r := require.New(t)
 
@@ -25,7 +25,7 @@ func Test_StringIsGroupExistingDive(t *testing.T) {
 
 	for index, test := range tests {
 		v := &StringSliceDive{
-			Validator: &StringIsGroupExisting{Name: "StringIsGroup"},
+			Validator: &StringIsExistingGroup{Name: "StringIsGroup"},
 			Field:     test.field,
 		}
 		e := validator.NewErrors()

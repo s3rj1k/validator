@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func Test_StringIsGroupNotExistingDive(t *testing.T) {
+func Test_StringIsNotExistingUserDive(t *testing.T) {
 
 	r := require.New(t)
 
@@ -25,7 +25,7 @@ func Test_StringIsGroupNotExistingDive(t *testing.T) {
 
 	for index, test := range tests {
 		v := &StringSliceDive{
-			Validator: &StringIsGroupNotExisting{Name: "StringIsNotGroup"},
+			Validator: &StringIsNotExistingUser{Name: "StringIsNotUser"},
 			Field:     test.field,
 		}
 		e := validator.NewErrors()
@@ -37,7 +37,7 @@ func Test_StringIsGroupNotExistingDive(t *testing.T) {
 
 			errnames := []string{}
 			for _, i := range test.invalidIndexes {
-				errnames = append(errnames, fmt.Sprintf("StringIsNotGroup[%d]", i))
+				errnames = append(errnames, fmt.Sprintf("StringIsNotUser[%d]", i))
 			}
 
 			for _, en := range errnames {

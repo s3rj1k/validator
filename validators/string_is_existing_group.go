@@ -8,35 +8,35 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
-// StringIsGroupExistingError is a function that defines error message returned by StringIsGroupExisting validator.
+// StringIsExistingGroupError is a function that defines error message returned by StringIsExistingGroup validator.
 // nolint: gochecknoglobals
-var StringIsGroupExistingError = func(v *StringIsGroupExisting) string {
+var StringIsExistingGroupError = func(v *StringIsExistingGroup) string {
 	return fmt.Sprintf("'%s' user group does not exist", v.Name)
 }
 
-// StringIsGroupExisting is a validator object.
-type StringIsGroupExisting struct {
+// StringIsExistingGroup is a validator object.
+type StringIsExistingGroup struct {
 	Name  string
 	Field string
 }
 
 // Validate adds an error if the Field is a user group that does not exist.
-func (v *StringIsGroupExisting) Validate(e *validator.Errors) {
+func (v *StringIsExistingGroup) Validate(e *validator.Errors) {
 
 	_, err := user.LookupGroup(v.Field)
 	if err == nil {
 		return
 	}
 
-	e.Add(v.Name, StringIsGroupExistingError(v))
+	e.Add(v.Name, StringIsExistingGroupError(v))
 }
 
 // SetField sets validator field.
-func (v *StringIsGroupExisting) SetField(s string) {
+func (v *StringIsExistingGroup) SetField(s string) {
 	v.Field = s
 }
 
 // SetNameIndex sets index of slice element on Name.
-func (v *StringIsGroupExisting) SetNameIndex(i int) {
+func (v *StringIsExistingGroup) SetNameIndex(i int) {
 	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
 }
