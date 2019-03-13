@@ -22,6 +22,7 @@ const (
 	hasLowerCase   string = ".*[[:lower:]]"
 	hasUpperCase   string = ".*[[:upper:]]"
 	Passwd         string = "^[a-zA-Z0-9\\.\\/]+$"
+	UserGroupName  string = "^[a-z_][a-z0-9_-]*[$]?$"
 )
 
 // nolint: gochecknoglobals
@@ -41,4 +42,5 @@ var (
 	rxHasLowerCase   = regexp.MustCompile(hasLowerCase)
 	rxHasUpperCase   = regexp.MustCompile(hasUpperCase)
 	rxPasswd         = regexp.MustCompile(Passwd)
+	rxUserGroupName  = regexp.MustCompile(UserGroupName)
 )
