@@ -21,6 +21,7 @@ const (
 	PrintableASCII string = "^[\x20-\x7E]+$"
 	hasLowerCase   string = ".*[[:lower:]]"
 	hasUpperCase   string = ".*[[:upper:]]"
+	Passwd         string = "^[a-zA-Z0-9\\.\\/]+$"
 )
 
 // nolint: gochecknoglobals
@@ -39,4 +40,5 @@ var (
 	rxBase64         = regexp.MustCompile(Base64)
 	rxHasLowerCase   = regexp.MustCompile(hasLowerCase)
 	rxHasUpperCase   = regexp.MustCompile(hasUpperCase)
+	rxPasswd         = regexp.MustCompile(Passwd)
 )
