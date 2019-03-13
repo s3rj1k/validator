@@ -74,8 +74,8 @@ func (v *NumberIsValidUserUID) GetName() string {
 	return v.Name
 }
 
-// readUserUIDRange parses 'login.defs' file.
-func readUserUIDRange(path string) (uint64, uint64) {
+// ReadUserUIDRange parses 'login.defs' file.
+func ReadUserUIDRange(path string) (uint64, uint64) {
 
 	var (
 		minUserUID = DefaultMinUserUID

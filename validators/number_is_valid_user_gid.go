@@ -74,8 +74,8 @@ func (v *NumberIsValidUserGID) GetName() string {
 	return v.Name
 }
 
-// readUserGIDRange parses 'login.defs' file.
-func readUserGIDRange(path string) (uint64, uint64) {
+// ReadUserGIDRange parses 'login.defs' file.
+func ReadUserGIDRange(path string) (uint64, uint64) {
 
 	var (
 		minUserGID = DefaultMinUserGID
