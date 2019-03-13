@@ -21,7 +21,7 @@ const (
 	PrintableASCII string = "^[\x20-\x7E]+$"
 	hasLowerCase   string = ".*[[:lower:]]"
 	hasUpperCase   string = ".*[[:upper:]]"
-	Passwd         string = "^[a-zA-Z0-9\\.\\/]+$"
+	Passwd         string = "^[a-zA-Z0-9\\.\\/]+$" // nolint: gosec
 	UserGroupName  string = "^[a-z_][a-z0-9_-]*[$]?$"
 )
 
