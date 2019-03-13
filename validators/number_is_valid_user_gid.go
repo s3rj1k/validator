@@ -42,7 +42,7 @@ func (v *NumberIsValidUserGID) Validate(e *validator.Errors) {
 		return
 	}
 
-	minUserGID, maxUserGID := readUserGIDRange(LoginDefsPath)
+	minUserGID, maxUserGID := ReadUserGIDRange(LoginDefsPath)
 
 	//  for os.Chown func a uid or gid of -1 means to not change that value
 	if fNum.isNegative && fNum.Value == 1 {

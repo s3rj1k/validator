@@ -62,11 +62,7 @@ func isValidShadowPasswd(passwd string) bool {
 	if len(splitted) == 1 {
 		hash := strings.TrimPrefix(passwd, "!") // "!" at the beginning is valid
 
-		if len(hash) == 13 {
-			return true
-		}
-
-		return false
+		return len(hash) == 13
 	}
 
 	// complex case
