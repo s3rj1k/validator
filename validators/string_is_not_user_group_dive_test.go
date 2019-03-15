@@ -10,29 +10,31 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func Test_StringIsNotUserGroupOrNotWhitelistedDive(t *testing.T) {
+func Test_StringIsNotUserGroupDive(t *testing.T) {
 
 	r := require.New(t)
 
 	var tests = []struct {
 		field          []string
-		whitelist      []string
 		valid          bool
 		invalidIndexes []int
 	}{
-		{[]string{"", "baby", "lol"}, []string{"baby", ""}, false, []int{0, 1}},
-		{[]string{" ", "", "root"}, nil, true, []int{}}, // empty is invalid
-		{nil, nil, true, []int{}},                       // nil field == empty
+		{[]string{"", "baby", "lol"}, true, []int{}},
+		{[]string{" ", "", "root"}, true, []int{}}, // empty is invalid
+		{nil, true, []int{}},                       // nil field == empty
 	}
 
+	// trying to add current user in test if not root
 	cu, err := user.Current()
 	if err == nil && cu.Gid != "0" {
-		tests[0].field[0] = cu.Name
+		tests[0].field = append(tests[0].field, cu.Name)
+		tests[0].invalidIndexes = append(tests[0].invalidIndexes, len(tests[0].field)-1)
+		tests[0].valid = false
 	}
 
 	for index, test := range tests {
 		v := &StringSliceDive{
-			Validator: &StringIsNotUserGroupOrNotWhitelisted{Name: "UGname", Whitelist: test.whitelist},
+			Validator: &StringIsNotUserGroup{Name: "UGname"},
 			Field:     test.field,
 		}
 		e := validator.NewErrors()
