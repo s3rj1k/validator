@@ -44,13 +44,13 @@ func Test_SliceIsNotEmpty(t *testing.T) {
 		}
 	}
 
-	v := &SliceIsUnique{Name: "Slice", Field: nil}
+	v := &SliceIsNotEmpty{Name: "Slice", Field: nil}
 	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{ErrNilValue.Error()}, e.Get(v.Name))
 
-	v = &SliceIsUnique{Name: "Slice", Field: []struct{}{}}
+	v = &SliceIsNotEmpty{Name: "Slice", Field: []struct{}{}}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal([]string{ErrBadSliceType.Error()}, e.Get(v.Name))
