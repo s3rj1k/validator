@@ -1,0 +1,40 @@
+package validators
+
+import (
+	"fmt"
+	"regexp"
+
+	"github.com/s3rj1k/validator"
+)
+
+// StringIsNotRegularUserError is a function that defines error message returned by StringIsNotRegularUser validator.
+// nolint: gochecknoglobals
+var StringIsNotRegularUserError = func(v *StringIsNotRegularUser) string {
+	return fmt.Sprintf("'%s' is a regular user", v.Name)
+}
+
+// StringIsNotRegularUser is a validator object.
+type StringIsNotRegularUser struct {
+	Name  string
+	Field string
+}
+
+// Validate adds an error if the Field is a regular user.
+func (v *StringIsNotRegularUser) Validate(e *validator.Errors) {
+
+	if !IsUserIsRegularUserOrWhitelisted(v.Field) {
+		return
+	}
+
+	e.Add(v.Name, StringIsNotRegularUserError(v))
+}
+
+// SetField sets validator field.
+func (v *StringIsNotRegularUser) SetField(s string) {
+	v.Field = s
+}
+
+// SetNameIndex sets index of slice element on Name.
+func (v *StringIsNotRegularUser) SetNameIndex(i int) {
+	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+}
