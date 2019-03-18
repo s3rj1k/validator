@@ -3,7 +3,6 @@ package validators
 import (
 	"fmt"
 	"regexp"
-	"strings"
 
 	"github.com/s3rj1k/validator"
 )

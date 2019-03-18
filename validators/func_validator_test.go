@@ -22,21 +22,5 @@ func Test_FuncValidator(t *testing.T) {
 
 	e := validator.NewErrors()
 	fv.Validate(e)
-	r.Equal([]string{"CustomFunc result is false"}, e.Get("CustomFunc"))
-}
-
-func Test_FuncValidatorNoName(t *testing.T) {
-
-	r := require.New(t)
-
-	fv := &FuncValidator{
-		Field: "FuncName",
-		Fn: func() bool {
-			return false
-		},
-	}
-
-	e := validator.NewErrors()
-	fv.Validate(e)
-	r.Equal([]string{"FuncName result is false"}, e.Get("FuncName"))
+	r.Equal([]string{FuncValidatorError(fv)}, e.Get("CustomFunc"))
 }

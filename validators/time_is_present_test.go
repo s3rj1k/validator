@@ -13,20 +13,20 @@ func Test_TimeIsPresent(t *testing.T) {
 
 	r := require.New(t)
 
-	v := TimeIsPresent{Name: "CreatedAt", Field: time.Now()}
+	v := &TimeIsPresent{Name: "CreatedAt", Field: time.Now()}
 	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
-	v = TimeIsPresent{Name: "CreatedAt", Field: time.Time{}}
+	v = &TimeIsPresent{Name: "CreatedAt", Field: time.Time{}}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
-	r.Equal([]string{"CreatedAt can not be blank"}, e.Get("CreatedAt"))
+	r.Equal([]string{TimeIsPresentError(v)}, e.Get("CreatedAt"))
 
-	v = TimeIsPresent{"CreatedAt", time.Time{}}
+	v = &TimeIsPresent{"CreatedAt", time.Time{}}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
-	r.Equal([]string{"CreatedAt can not be blank"}, e.Get("CreatedAt"))
+	r.Equal([]string{TimeIsPresentError(v)}, e.Get("CreatedAt"))
 }

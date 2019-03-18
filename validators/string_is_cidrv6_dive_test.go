@@ -2,7 +2,6 @@ package validators
 
 import (
 	"fmt"
-	"strings"
 	"testing"
 
 	"github.com/s3rj1k/validator"
@@ -35,12 +34,12 @@ func Test_StringIsCIDRv6Dive(t *testing.T) {
 		r.Equalf(!test.valid, e.HasAny(), "tc %d", index)
 		if !test.valid {
 
+			r.Equalf(len(test.invalidIndexes), e.Count(), "tc %d wrong number of errors", index)
+
 			errnames := []string{}
 			for _, i := range test.invalidIndexes {
 				errnames = append(errnames, fmt.Sprintf("CIDRv6_Dive[%d]", i))
 			}
-
-			r.Equalf(len(errnames), strings.Count(e.JSON(), "CIDRv6_Dive")/2, "tc %d wrong number of errors", index)
 
 			for _, en := range errnames {
 				r.Containsf(e.JSON(), en, "tc %d", index)

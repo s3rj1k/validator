@@ -14,7 +14,7 @@ func Test_TimeIsAfterTime(t *testing.T) {
 	r := require.New(t)
 
 	now := time.Now()
-	v := TimeIsAfterTime{
+	v := &TimeIsAfterTime{
 		Name: "OpensAt", Field: now.Add(100000),
 		ComparedName: "Now", ComparedField: now,
 	}
@@ -26,5 +26,5 @@ func Test_TimeIsAfterTime(t *testing.T) {
 	v.ComparedField = now.Add(200000)
 	v.Validate(e)
 	r.Equal(1, e.Count())
-	r.Equal([]string{"OpensAt must be after Now"}, e.Get("OpensAt"))
+	r.Equal([]string{TimeIsAfterTimeError(v)}, e.Get("OpensAt"))
 }

@@ -12,26 +12,26 @@ func Test_StringIsPresent(t *testing.T) {
 
 	r := require.New(t)
 
-	v := StringIsPresent{Name: "Name", Field: "Mark"}
+	v := &StringIsPresent{Name: "Name", Field: "Mark"}
 	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
-	v = StringIsPresent{Name: "Name", Field: " "}
+	v = &StringIsPresent{Name: "Name", Field: " "}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
-	r.Equal([]string{"Name can not be blank"}, e.Get("Name"))
+	r.Equal([]string{StringIsPresentError(v)}, e.Get("Name"))
 
-	v = StringIsPresent{Name: "Name", Field: ""}
+	v = &StringIsPresent{Name: "Name", Field: ""}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
-	r.Equal([]string{"Name can not be blank"}, e.Get("Name"))
+	r.Equal([]string{StringIsPresentError(v)}, e.Get("Name"))
 
-	v = StringIsPresent{"Name", ""}
+	v = &StringIsPresent{"Name", ""}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
-	r.Equal([]string{"Name can not be blank"}, e.Get("Name"))
+	r.Equal([]string{StringIsPresentError(v)}, e.Get("Name"))
 }
