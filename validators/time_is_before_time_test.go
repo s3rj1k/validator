@@ -14,7 +14,7 @@ func Test_TimeIsBeforeTime(t *testing.T) {
 	r := require.New(t)
 
 	now := time.Now()
-	v := TimeIsBeforeTime{
+	v := &TimeIsBeforeTime{
 		Name: "OpensAt", Field: now,
 		ComparedName: "ClosesAt", ComparedField: now.Add(100000),
 	}
@@ -26,5 +26,5 @@ func Test_TimeIsBeforeTime(t *testing.T) {
 	v.ComparedField = now.Add(-100000)
 	v.Validate(e)
 	r.Equal(1, e.Count())
-	r.Equal([]string{"OpensAt must be before ClosesAt"}, e.Get("OpensAt"))
+	r.Equal([]string{TimeIsBeforeTimeError(v)}, e.Get("OpensAt"))
 }

@@ -14,20 +14,20 @@ func Test_StringExclusion(t *testing.T) {
 
 	l := []string{"Mark", "Bates"}
 
-	v := StringExclusion{Name: "Name", Field: "Woody", Blacklist: l}
+	v := &StringExclusion{Name: "Name", Field: "Woody", Blacklist: l}
 	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
-	v = StringExclusion{Name: "Name", Field: "Mark", Blacklist: l}
+	v = &StringExclusion{Name: "Name", Field: "Mark", Blacklist: l}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
-	r.Equal([]string{"Name is in the blacklist [Mark, Bates]"}, e.Get("Name"))
+	r.Equal([]string{StringExclusionError(v)}, e.Get("Name"))
 
-	v = StringExclusion{"Name", "Bates", l}
+	v = &StringExclusion{"Name", "Bates", l}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
-	r.Equal([]string{"Name is in the blacklist [Mark, Bates]"}, e.Get("Name"))
+	r.Equal([]string{StringExclusionError(v)}, e.Get("Name"))
 }

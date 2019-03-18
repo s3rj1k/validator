@@ -12,37 +12,37 @@ func Test_StringIsRGBcolor(t *testing.T) {
 
 	r := require.New(t)
 
-	v := StringIsRGBcolor{Name: "Name", Field: "rgb(0,0,0)"} // hexcolor here
+	v := &StringIsRGBcolor{Name: "Name", Field: "rgb(0,0,0)"} // hexcolor here
 	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
-	v = StringIsRGBcolor{Name: "Name", Field: "rgb(255,255,255)"} // hexcolor here also (3-6 0-F chars)
+	v = &StringIsRGBcolor{Name: "Name", Field: "rgb(255,255,255)"} // hexcolor here also (3-6 0-F chars)
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
-	v = StringIsRGBcolor{Name: "Name", Field: "RGB(0,15,25)"} // rgb must be lowercased
+	v = &StringIsRGBcolor{Name: "Name", Field: "RGB(0,15,25)"} // rgb must be lowercased
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
-	r.Equal([]string{"Name must be a RGB color in form rgb(RRR, GGG, BBB)"}, e.Get("Name"))
+	r.Equal([]string{StringIsRGBcolorError(v)}, e.Get("Name"))
 
-	v = StringIsRGBcolor{Name: "Name", Field: "rgb(0,0,256)"} // values 0-255
+	v = &StringIsRGBcolor{Name: "Name", Field: "rgb(0,0,256)"} // values 0-255
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
-	r.Equal([]string{"Name must be a RGB color in form rgb(RRR, GGG, BBB)"}, e.Get("Name"))
+	r.Equal([]string{StringIsRGBcolorError(v)}, e.Get("Name"))
 
-	v = StringIsRGBcolor{Name: "Name", Field: "    "} // empty string or only whitespaces are invalid
+	v = &StringIsRGBcolor{Name: "Name", Field: "    "} // empty string or only whitespaces are invalid
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
-	r.Equal([]string{"Name must be a RGB color in form rgb(RRR, GGG, BBB)"}, e.Get("Name"))
+	r.Equal([]string{StringIsRGBcolorError(v)}, e.Get("Name"))
 
-	v = StringIsRGBcolor{Name: "Name", Field: "ffd762 "} // whitespaces are not trimmed
+	v = &StringIsRGBcolor{Name: "Name", Field: "ffd762 "} // whitespaces are not trimmed
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
-	r.Equal([]string{"Name must be a RGB color in form rgb(RRR, GGG, BBB)"}, e.Get("Name"))
+	r.Equal([]string{StringIsRGBcolorError(v)}, e.Get("Name"))
 }

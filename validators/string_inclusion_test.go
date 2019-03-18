@@ -14,20 +14,20 @@ func Test_StringInclusion(t *testing.T) {
 
 	l := []string{"Mark", "Bates"}
 
-	v := StringInclusion{Name: "Name", Field: "Mark", Whitelist: l}
+	v := &StringInclusion{Name: "Name", Field: "Mark", Whitelist: l}
 	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
-	v = StringInclusion{Name: "Name", Field: "Foo", Whitelist: l}
+	v = &StringInclusion{Name: "Name", Field: "Foo", Whitelist: l}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
-	r.Equal([]string{"Name is not in the list [Mark, Bates]"}, e.Get("Name"))
+	r.Equal([]string{StringInclusionError(v)}, e.Get("Name"))
 
-	v = StringInclusion{"Name", "Foo", l}
+	v = &StringInclusion{"Name", "Foo", l}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
-	r.Equal([]string{"Name is not in the list [Mark, Bates]"}, e.Get("Name"))
+	r.Equal([]string{StringInclusionError(v)}, e.Get("Name"))
 }

@@ -2,7 +2,6 @@ package validators
 
 import (
 	"fmt"
-	"strings"
 	"testing"
 
 	"github.com/s3rj1k/validator"
@@ -36,12 +35,12 @@ func Test_StringIsIPUnspecDive(t *testing.T) {
 		r.Equalf(!test.valid, e.HasAny(), "tc %d", index)
 		if !test.valid {
 
+			r.Equalf(len(test.invalidIndexes), e.Count(), "tc %d wrong number of errors", index)
+
 			errnames := []string{}
 			for _, i := range test.invalidIndexes {
 				errnames = append(errnames, fmt.Sprintf("IPUnspec[%d]", i))
 			}
-
-			r.Equalf(len(errnames), strings.Count(e.JSON(), "IPUnspec")/2, "tc %d wrong number of errors", index)
 
 			for _, en := range errnames {
 				r.Containsf(e.JSON(), en, "tc %d", index)

@@ -24,27 +24,27 @@ func Test_StringsAreEqual(t *testing.T) {
 	}
 
 	for _, testCase := range cases {
-		v := StringsAreEqual{Name: "strings", Field: testCase.str1, ComparedField: testCase.str2}
+		v := &StringsAreEqual{Name: "strings", Field: testCase.str1, ComparedField: testCase.str2}
 		e := validator.NewErrors()
 		v.Validate(e)
 		r.Equal(testCase.expected, !e.HasAny(), "Str1: %s, Str2: %s", testCase.str1, testCase.str2)
 	}
 
 	for _, testCase := range cases {
-		v := StringsAreEqual{Name: "strings1", Field: testCase.str1, ComparedField: testCase.str2, ComparedName: "strings2"}
+		v := &StringsAreEqual{Name: "strings1", Field: testCase.str1, ComparedField: testCase.str2, ComparedName: "strings2"}
 		e := validator.NewErrors()
 		v.Validate(e)
 		r.Equal(testCase.expected, !e.HasAny(), "Str1: %s, Str2: %s", testCase.str1, testCase.str2)
 		if !testCase.expected {
-			r.Contains(e.Get("strings1"), "strings1 does not equal strings2")
+			r.Contains(e.Get("strings1"), StringsAreEqualError(v))
 		}
 	}
 
-	v := StringsAreEqual{Name: "strings", Field: "test_fail", ComparedField: "test"}
+	v := &StringsAreEqual{Name: "strings", Field: "test_fail", ComparedField: "test"}
 	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
-	r.Equal([]string{"test_fail does not equal test"}, e.Get("strings"))
+	r.Equal([]string{StringsAreEqualError(v)}, e.Get("strings"))
 }
 
 func Test_StringsAreIEqual(t *testing.T) {
@@ -63,25 +63,25 @@ func Test_StringsAreIEqual(t *testing.T) {
 	}
 
 	for _, testCase := range cases {
-		v := StringsAreEqual{Name: "strings", Field: testCase.str1, ComparedField: testCase.str2, CaseInsensitive: true}
+		v := &StringsAreEqual{Name: "strings", Field: testCase.str1, ComparedField: testCase.str2, CaseInsensitive: true}
 		e := validator.NewErrors()
 		v.Validate(e)
 		r.Equal(testCase.expected, !e.HasAny(), "Str1: %s, Str2: %s", testCase.str1, testCase.str2)
 	}
 
 	for _, testCase := range cases {
-		v := StringsAreEqual{Name: "strings1", Field: testCase.str1, ComparedField: testCase.str2, ComparedName: "strings2", CaseInsensitive: true}
+		v := &StringsAreEqual{Name: "strings1", Field: testCase.str1, ComparedField: testCase.str2, ComparedName: "strings2", CaseInsensitive: true}
 		e := validator.NewErrors()
 		v.Validate(e)
 		r.Equal(testCase.expected, !e.HasAny(), "Str1: %s, Str2: %s", testCase.str1, testCase.str2)
 		if !testCase.expected {
-			r.Contains(e.Get("strings1"), "strings1 does not iequal strings2")
+			r.Contains(e.Get("strings1"), StringsAreEqualError(v))
 		}
 	}
 
-	v := StringsAreEqual{Name: "strings", Field: "test_fail", ComparedField: "test", CaseInsensitive: true}
+	v := &StringsAreEqual{Name: "strings", Field: "test_fail", ComparedField: "test", CaseInsensitive: true}
 	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
-	r.Equal([]string{"test_fail does not iequal test"}, e.Get("strings"))
+	r.Equal([]string{StringsAreEqualError(v)}, e.Get("strings"))
 }
