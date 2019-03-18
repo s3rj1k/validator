@@ -12,7 +12,7 @@ import (
 // nolint: gochecknoglobals
 var StringContainsAnyError = func(v *StringContainsAny) string {
 	if len(v.ComparedName) == 0 {
-		return fmt.Sprintf("'%s' does not contain any substrings from '%v'", v.Name, v.ComparedField)
+		return fmt.Sprintf("'%s' does not contain any substrings from %v", v.Field, v.ComparedField)
 	}
 
 	return fmt.Sprintf("'%s' does not contain any substrings from '%s'", v.Name, v.ComparedName)

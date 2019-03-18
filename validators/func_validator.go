@@ -10,7 +10,7 @@ import (
 // FuncValidatorError is a function that defines error message returned by FuncValidator validator.
 // nolint: gochecknoglobals
 var FuncValidatorError = func(v *FuncValidator) string {
-	return fmt.Sprintf("%s result is false", v.Name)
+	return fmt.Sprintf("'%s' failed custom func validation", v.Field)
 }
 
 // FuncValidator is a validator object.

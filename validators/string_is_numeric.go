@@ -10,7 +10,7 @@ import (
 // StringIsNumericError is a function that defines error message returned by StringIsNumeric validator.
 // nolint: gochecknoglobals
 var StringIsNumericError = func(v *StringIsNumeric) string {
-	return fmt.Sprintf("%s must contain only numbers", v.Name)
+	return fmt.Sprintf("'%s' must contain only numbers", v.Field)
 }
 
 // StringIsNumeric is a validator object.

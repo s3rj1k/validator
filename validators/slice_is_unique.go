@@ -10,7 +10,7 @@ import (
 // SliceIsUniqueError is a function that defines error message returned by SliceIsUnique validator.
 // nolint: gochecknoglobals
 var SliceIsUniqueError = func(v *SliceIsUnique) string {
-	return fmt.Sprintf("%s value is not unique", v.Name)
+	return fmt.Sprintf("%v values are not unique", v.Field)
 }
 
 // SliceIsUnique is a validator object.

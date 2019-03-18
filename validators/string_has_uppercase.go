@@ -10,7 +10,7 @@ import (
 // StringHasUpperCaseError is a function that defines error message returned by StringHasUpperCase validator.
 // nolint: gochecknoglobals
 var StringHasUpperCaseError = func(v *StringHasUpperCase) string {
-	return fmt.Sprintf("%s must contain at least 1 uppercase", v.Name)
+	return fmt.Sprintf("'%s' must contain at least 1 uppercase", v.Field)
 }
 
 // StringHasUpperCase is a validator object.

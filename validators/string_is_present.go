@@ -11,7 +11,7 @@ import (
 // StringIsPresentError is a function that defines error message returned by StringIsPresent validator.
 // nolint: gochecknoglobals
 var StringIsPresentError = func(v *StringIsPresent) string {
-	return fmt.Sprintf("%s can not be blank", v.Name)
+	return fmt.Sprintf("'%s' must not be blank", v.Name)
 }
 
 // StringIsPresent is a validator object.

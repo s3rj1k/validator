@@ -9,20 +9,18 @@ import (
 // SliceLengthInRangeError is a function that defines error message returned by SliceLengthInRange validator.
 // nolint: gochecknoglobals
 var SliceLengthInRangeError = func(v *SliceLengthInRange) string {
-	if v.Max == -1 {
-		return fmt.Sprintf("slice len=%d is not empty", v.length)
+	min := v.Min
+	max := v.Max
+
+	if max == 0 {
+		max = v.length
 	}
 
-	if v.Min == 0 {
-		return fmt.Sprintf("slice len=%d is longer than %d", v.length, v.Max)
+	if max == -1 {
+		return fmt.Sprintf("%v is not empty", v.Field)
 	}
 
-	if v.Max == 0 {
-		return fmt.Sprintf("slice len=%d is shorter than %d", v.length, v.Min)
-	}
-
-	return fmt.Sprintf("slice len=%d is not between %d and %d", v.length, v.Min, v.Max)
-
+	return fmt.Sprintf("%v length=%d not in range(%d, %d)", v.Field, v.length, min, max)
 }
 
 // SliceLengthInRange is a validator object.

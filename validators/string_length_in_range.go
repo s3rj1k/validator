@@ -19,7 +19,7 @@ var StringLengthInRangeError = func(v *StringLengthInRange) string {
 		max = strLength
 	}
 
-	return fmt.Sprintf("%s not in range(%d, %d)", v.Name, min, max)
+	return fmt.Sprintf("'%s' not in range(%d, %d)", v.Field, min, max)
 }
 
 // StringLengthInRange is a validator object.

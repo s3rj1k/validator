@@ -11,7 +11,7 @@ import (
 // StringIsValidShadowPasswordError is a function that defines error message returned by StringIsValidShadowPassword validator.
 // nolint: gochecknoglobals
 var StringIsValidShadowPasswordError = func(v *StringIsValidShadowPassword) string {
-	return fmt.Sprintf("'%s' is not a valid shadow password", v.Name)
+	return fmt.Sprintf("'%s' is not a valid shadow password", v.Field)
 }
 
 // StringIsValidShadowPassword is a validator object.

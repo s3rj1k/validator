@@ -10,7 +10,7 @@ import (
 // StringIsRGBcolorError is a function that defines error message returned by StringIsRGBcolor validator.
 // nolint: gochecknoglobals
 var StringIsRGBcolorError = func(v *StringIsRGBcolor) string {
-	return fmt.Sprintf("%s must be a RGB color in form rgb(RRR, GGG, BBB)", v.Name)
+	return fmt.Sprintf("'%s' must be a RGB color in format rgb(RRR, GGG, BBB)", v.Field)
 }
 
 // StringIsRGBcolor is a validator object.

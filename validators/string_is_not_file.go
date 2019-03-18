@@ -11,7 +11,7 @@ import (
 // StringIsNotFileError is a function that defines error message returned by StringIsNotFile validator.
 // nolint: gochecknoglobals
 var StringIsNotFileError = func(v *StringIsNotFile) string {
-	return fmt.Sprintf("'%s' is a file", v.Name)
+	return fmt.Sprintf("'%s' is a file", v.Field)
 }
 
 // StringIsNotFile is a validator object.

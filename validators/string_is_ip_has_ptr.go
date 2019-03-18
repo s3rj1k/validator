@@ -11,7 +11,7 @@ import (
 // StringIsIPHasPTRError is a function that defines error message returned by StringIsIPHasPTR validator.
 // nolint: gochecknoglobals
 var StringIsIPHasPTRError = func(v *StringIsIPHasPTR) string {
-	return fmt.Sprintf("'%s' must be an IP address with resolvable PTR record", v.Name)
+	return fmt.Sprintf("'%s' must be an IP address with resolvable PTR record", v.Field)
 }
 
 // StringIsIPHasPTR is a validator object.

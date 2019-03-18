@@ -10,7 +10,7 @@ import (
 // StringIsASCIIError is a function that defines error message returned by StringIsASCII validator.
 // nolint: gochecknoglobals
 var StringIsASCIIError = func(v *StringIsASCII) string {
-	return fmt.Sprintf("%s must contain ASCII chars only", v.Name)
+	return fmt.Sprintf("'%s' must contain ASCII chars only", v.Field)
 }
 
 // StringIsASCII is a validator object

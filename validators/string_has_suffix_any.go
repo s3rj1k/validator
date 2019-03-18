@@ -12,10 +12,10 @@ import (
 // nolint: gochecknoglobals
 var StringHasSuffixAnyError = func(v *StringHasSuffixAny) string {
 	if len(v.ComparedName) == 0 {
-		return fmt.Sprintf("'%s' has no suffix from '%v'", v.Name, v.ComparedField)
+		return fmt.Sprintf("'%s' has no suffix from %v", v.Field, v.ComparedField)
 	}
 
-	return fmt.Sprintf("'%s' has no suffix from '%s'", v.Name, v.ComparedName)
+	return fmt.Sprintf("'%s' has no suffix from contents of '%s'", v.Name, v.ComparedName)
 }
 
 // StringHasSuffixAny is a validator object.

@@ -10,7 +10,7 @@ import (
 // StringIsHexadecimalError is a function that defines error message returned by StringIsHexadecimal validator.
 // nolint: gochecknoglobals
 var StringIsHexadecimalError = func(v *StringIsHexadecimal) string {
-	return fmt.Sprintf("%s must be a hexadecimal number", v.Name)
+	return fmt.Sprintf("'%s' must be a hexadecimal number", v.Field)
 }
 
 // StringIsHexadecimal is a validator object.

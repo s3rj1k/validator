@@ -11,7 +11,7 @@ import (
 // StringIsIPGlobalUnicastError is a function that defines error message returned by StringIsIPGlobalUnicast validator.
 // nolint: gochecknoglobals
 var StringIsIPGlobalUnicastError = func(v *StringIsIPGlobalUnicast) string {
-	return fmt.Sprintf("'%s' must be Global Unicast IP", v.Name)
+	return fmt.Sprintf("'%s' must be Global Unicast IP", v.Field)
 }
 
 // StringIsIPGlobalUnicast is a validator object.

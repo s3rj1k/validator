@@ -11,7 +11,7 @@ import (
 // StringIsIPLoopbackError is a function that defines error message returned by StringIsIPLoopback validator.
 // nolint: gochecknoglobals
 var StringIsIPLoopbackError = func(v *StringIsIPLoopback) string {
-	return fmt.Sprintf("'%s' must be a loopback address", v.Name)
+	return fmt.Sprintf("'%s' must be a loopback address", v.Field)
 }
 
 // StringIsIPLoopback is a validator object.

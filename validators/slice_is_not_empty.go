@@ -9,7 +9,7 @@ import (
 // SliceIsNotEmptyError is a function that defines error message returned by SliceIsNotEmpty validator.
 // nolint: gochecknoglobals
 var SliceIsNotEmptyError = func(v *SliceIsNotEmpty) string {
-	return fmt.Sprintf("%s slice is empty", v.Name)
+	return fmt.Sprintf("'%s' slice is empty", v.Name)
 }
 
 // SliceIsNotEmpty is a validator object.

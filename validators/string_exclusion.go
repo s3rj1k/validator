@@ -11,7 +11,7 @@ import (
 // StringExclusionError is a function that defines error message returned by StringExclusion validator.
 // nolint: gochecknoglobals
 var StringExclusionError = func(v *StringExclusion) string {
-	return fmt.Sprintf("%s is in the blacklist [%s]", v.Name, strings.Join(v.Blacklist, ", "))
+	return fmt.Sprintf("%s is in the blacklist %v", v.Name, v.Blacklist)
 }
 
 // StringExclusion is a validator object.

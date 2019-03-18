@@ -10,7 +10,11 @@ import (
 // NumberIsGreaterError is a function that defines error message returned by NumberIsGreater validator.
 // nolint: gochecknoglobals
 var NumberIsGreaterError = func(v *NumberIsGreater) string {
-	return fmt.Sprintf("%d is not greater than %d", v.Field, v.ComparedField)
+	if len(v.ComparedName) == 0 {
+		return fmt.Sprintf("'%d' is not greater than '%d'", v.Field, v.ComparedField)
+	}
+
+	return fmt.Sprintf("'%s' is not greater than '%s'", v.Name, v.ComparedName)
 }
 
 // NumberIsGreater is a validator object.

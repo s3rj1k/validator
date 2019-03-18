@@ -11,7 +11,7 @@ import (
 // StringIsCIDRv6Error is a function that defines error message returned by StringIsCIDRv6 validator.
 // nolint: gochecknoglobals
 var StringIsCIDRv6Error = func(v *StringIsCIDRv6) string {
-	return fmt.Sprintf("'%s' must be CIDR notation of IPv6 address", v.Name)
+	return fmt.Sprintf("'%s' must be CIDR notation of IPv6 address", v.Field)
 }
 
 // StringIsCIDRv6 is a validator object.

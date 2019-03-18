@@ -11,8 +11,9 @@ import (
 // UUIDIsPresentError is a function that defines error message returned by UUIDIsPresent validator.
 // nolint: gochecknoglobals
 var UUIDIsPresentError = func(v *UUIDIsPresent) string {
-	return fmt.Sprintf("%s can not be blank", v.Name)
+	return fmt.Sprintf("'%s' must not be blank", v.Name)
 }
+
 
 // UUIDIsPresent is a validator object
 type UUIDIsPresent struct {

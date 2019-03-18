@@ -12,10 +12,10 @@ import (
 // nolint: gochecknoglobals
 var StringHasPrefixNoneOfError = func(v *StringHasPrefixNoneOf) string {
 	if len(v.ComparedName) == 0 {
-		return fmt.Sprintf("'%s' has prefix from '%v'", v.Name, v.ComparedField)
+		return fmt.Sprintf("'%s' has prefix from %v", v.Field, v.ComparedField)
 	}
 
-	return fmt.Sprintf("'%s' has prefix from '%s'", v.Name, v.ComparedName)
+	return fmt.Sprintf("'%s' has prefix from contents of '%s'", v.Name, v.ComparedName)
 }
 
 // StringHasPrefixNoneOf is a validator object.
