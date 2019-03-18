@@ -11,7 +11,7 @@ import (
 // StringIsIPUnspecError is a function that defines error message returned by StringIsIPUnspec validator.
 // nolint: gochecknoglobals
 var StringIsIPUnspecError = func(v *StringIsIPUnspec) string {
-	return fmt.Sprintf("'%s' must be an unspecified address either IPv4 '0.0.0.0' or the IPv6 '::'", v.Name)
+	return fmt.Sprintf("'%s' must be an unspecified address either IPv4 '0.0.0.0' or the IPv6 '::'", v.Field)
 }
 
 // StringIsIPUnspec is a validator object.

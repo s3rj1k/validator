@@ -11,7 +11,7 @@ import (
 // StringIsCIDRError is a function that defines error message returned by StringIsCIDR validator.
 // nolint: gochecknoglobals
 var StringIsCIDRError = func(v *StringIsCIDR) string {
-	return fmt.Sprintf("'%s' must be a CIDR notation address", v.Name)
+	return fmt.Sprintf("'%s' must be a CIDR notation address", v.Field)
 }
 
 // StringIsCIDR is a validator object.

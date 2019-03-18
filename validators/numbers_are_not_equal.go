@@ -10,7 +10,11 @@ import (
 // NumbersAreNotEqualError is a function that defines error message returned by NumbersAreNotEqual validator.
 // nolint: gochecknoglobals
 var NumbersAreNotEqualError = func(v *NumbersAreNotEqual) string {
-	return fmt.Sprintf("%d is equal to %d", v.Field, v.ComparedField)
+	if len(v.ComparedName) == 0 {
+		return fmt.Sprintf("'%d' is equal to '%d'", v.Field, v.ComparedField)
+	}
+
+	return fmt.Sprintf("'%s' is equal to '%s'", v.Name, v.ComparedName)
 }
 
 // NumbersAreNotEqual is a validator object.

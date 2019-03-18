@@ -12,10 +12,10 @@ import (
 // nolint: gochecknoglobals
 var StringHasPrefixAnyError = func(v *StringHasPrefixAny) string {
 	if len(v.ComparedName) == 0 {
-		return fmt.Sprintf("'%s' has no prefix from '%v'", v.Name, v.ComparedField)
+		return fmt.Sprintf("'%s' has no prefix from %v", v.Field, v.ComparedField)
 	}
 
-	return fmt.Sprintf("'%s' has no prefix from '%s'", v.Name, v.ComparedName)
+	return fmt.Sprintf("'%s' has no prefix from contents of '%s'", v.Name, v.ComparedName)
 }
 
 // StringHasPrefixAny is a validator object.

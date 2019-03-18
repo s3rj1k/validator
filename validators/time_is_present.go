@@ -10,7 +10,7 @@ import (
 // TimeIsPresentError is a function that defines error message returned by TimeIsPresent validator.
 // nolint: gochecknoglobals
 var TimeIsPresentError = func(v *TimeIsPresent) string {
-	return fmt.Sprintf("%s can not be blank", v.Name)
+	return fmt.Sprintf("'%s' must not be blank", v.Name)
 }
 
 // TimeIsPresent is a validator object.

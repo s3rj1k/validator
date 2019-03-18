@@ -10,7 +10,7 @@ import (
 // StringHasAlphaError is a function that defines error message returned by StringHasAlpha validator.
 // nolint: gochecknoglobals
 var StringHasAlphaError = func(v *StringHasAlpha) string {
-	return fmt.Sprintf("'%s' has not letters", v.Field)
+	return fmt.Sprintf("'%s' has no letters", v.Field)
 }
 
 // StringHasAlpha is a validator object.

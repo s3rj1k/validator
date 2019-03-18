@@ -11,7 +11,7 @@ import (
 // StringIsIPLinkLocalMulticastError is a function that defines error message returned by StringIsIPLinkLocalMulticast validator.
 // nolint: gochecknoglobals
 var StringIsIPLinkLocalMulticastError = func(v *StringIsIPLinkLocalMulticast) string {
-	return fmt.Sprintf("'%s' must be a link-local multicast address", v.Name)
+	return fmt.Sprintf("'%s' must be a link-local multicast address", v.Field)
 }
 
 // StringIsIPLinkLocalMulticast is a validator object.

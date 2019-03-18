@@ -10,7 +10,7 @@ import (
 // StringIsNullError is a function that defines error message returned by StringIsNull validator.
 // nolint: gochecknoglobals
 var StringIsNullError = func(v *StringIsNull) string {
-	return fmt.Sprintf("%s must be empty", v.Name)
+	return fmt.Sprintf("'%s' must be empty", v.Field)
 }
 
 // StringIsNull is a validator object.

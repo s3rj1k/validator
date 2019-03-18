@@ -12,7 +12,7 @@ import (
 // nolint: gochecknoglobals
 var StringsArePathsNotInTheSameDirError = func(v *StringsArePathsNotInTheSameDir) string {
 	if len(v.ComparedName) == 0 {
-		return fmt.Sprintf("'%s' path is in the same dir with '%s'", v.Name, v.ComparedField)
+		return fmt.Sprintf("'%s' path is in the same dir with '%s'", v.Field, v.ComparedField)
 	}
 
 	return fmt.Sprintf("'%s' path is in the same dir with '%s'", v.Name, v.ComparedName)

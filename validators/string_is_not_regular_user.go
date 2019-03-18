@@ -10,7 +10,7 @@ import (
 // StringIsNotRegularUserError is a function that defines error message returned by StringIsNotRegularUser validator.
 // nolint: gochecknoglobals
 var StringIsNotRegularUserError = func(v *StringIsNotRegularUser) string {
-	return fmt.Sprintf("'%s' is a regular user", v.Name)
+	return fmt.Sprintf("'%s' is a regular user", v.Field)
 }
 
 // StringIsNotRegularUser is a validator object.

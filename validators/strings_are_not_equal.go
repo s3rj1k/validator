@@ -22,10 +22,10 @@ var StringsAreNotEqualError = func(v *StringsAreNotEqual) string {
 	}
 
 	if len(v.ComparedName) == 0 {
-		return fmt.Sprintf("%s is %s to %s", v.Field, caseName, v.ComparedField)
+		return fmt.Sprintf("'%s' is %s to '%s'", v.Field, caseName, v.ComparedField)
 	}
 
-	return fmt.Sprintf("%s is %s to %s", v.Name, caseName, v.ComparedName)
+	return fmt.Sprintf("'%s' is %s to '%s'", v.Name, caseName, v.ComparedName)
 }
 
 // StringsAreNotEqual is a validator object.

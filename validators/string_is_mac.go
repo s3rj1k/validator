@@ -11,7 +11,7 @@ import (
 // StringIsMACError is a function that defines error message returned by StringIsMAC validator.
 // nolint: gochecknoglobals
 var StringIsMACError = func(v *StringIsMAC) string {
-	return fmt.Sprintf("%s must be valid MAC address", v.Name)
+	return fmt.Sprintf("'%s' must be valid MAC address", v.Field)
 }
 
 // StringIsMAC is a validator object.

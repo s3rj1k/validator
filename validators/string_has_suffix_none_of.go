@@ -12,10 +12,10 @@ import (
 // nolint: gochecknoglobals
 var StringHasSuffixNoneOfError = func(v *StringHasSuffixNoneOf) string {
 	if len(v.ComparedName) == 0 {
-		return fmt.Sprintf("'%s' has Suffix from '%v'", v.Name, v.ComparedField)
+		return fmt.Sprintf("'%s' has suffix from %v", v.Field, v.ComparedField)
 	}
 
-	return fmt.Sprintf("'%s' has Suffix from '%s'", v.Name, v.ComparedName)
+	return fmt.Sprintf("'%s' has suffix from contents of '%s'", v.Name, v.ComparedName)
 }
 
 // StringHasSuffixNoneOf is a validator object.

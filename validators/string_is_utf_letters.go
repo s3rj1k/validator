@@ -11,7 +11,7 @@ import (
 // StringIsUTFLettersError is a function that defines error message returned by StringIsUTFLetters validator.
 // nolint: gochecknoglobals
 var StringIsUTFLettersError = func(v *StringIsUTFLetters) string {
-	return fmt.Sprintf("%s must contain only unicode letter characters", v.Name)
+	return fmt.Sprintf("'%s' must contain only unicode letter characters", v.Field)
 }
 
 // StringIsUTFLetters is a validator object.

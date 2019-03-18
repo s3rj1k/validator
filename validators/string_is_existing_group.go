@@ -11,7 +11,7 @@ import (
 // StringIsExistingGroupError is a function that defines error message returned by StringIsExistingGroup validator.
 // nolint: gochecknoglobals
 var StringIsExistingGroupError = func(v *StringIsExistingGroup) string {
-	return fmt.Sprintf("'%s' user group does not exist", v.Name)
+	return fmt.Sprintf("'%s' user group does not exist", v.Field)
 }
 
 // StringIsExistingGroup is a validator object.

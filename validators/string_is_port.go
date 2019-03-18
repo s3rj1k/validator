@@ -11,7 +11,7 @@ import (
 // StringIsPortError is a function that defines error message returned by StringIsPort validator.
 // nolint: gochecknoglobals
 var StringIsPortError = func(v *StringIsPort) string {
-	return fmt.Sprintf("%s must represent a valid port", v.Name)
+	return fmt.Sprintf("'%s' is not a valid port", v.Field)
 }
 
 // StringIsPort is a validator object.

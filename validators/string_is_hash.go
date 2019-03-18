@@ -11,7 +11,7 @@ import (
 // StringIsHashError is a function that defines error message returned by StringIsHash validator.
 // nolint: gochecknoglobals
 var StringIsHashError = func(v *StringIsHash) string {
-	return fmt.Sprintf("%s was not evaluated as valid %s hash", v.Name, v.Algorithm)
+	return fmt.Sprintf("'%s' is not a valid '%s' hash", v.Field, v.Algorithm)
 }
 
 // StringIsHash is a validator object.

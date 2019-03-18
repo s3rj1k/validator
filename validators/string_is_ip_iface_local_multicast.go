@@ -11,7 +11,7 @@ import (
 // StringIsIPIfaceLocalMulticastError is a function that defines error message returned by StringIsIPIfaceLocalMulticast validator.
 // nolint: gochecknoglobals
 var StringIsIPIfaceLocalMulticastError = func(v *StringIsIPIfaceLocalMulticast) string {
-	return fmt.Sprintf("'%s' must be an interface-local multicast address", v.Name)
+	return fmt.Sprintf("'%s' must be an interface-local multicast address", v.Field)
 }
 
 // StringIsIPIfaceLocalMulticast is a validator object.

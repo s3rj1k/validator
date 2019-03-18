@@ -10,7 +10,7 @@ import (
 // StringIsEmailError is a function that defines error message returned by StringIsEmail validator.
 // nolint: gochecknoglobals
 var StringIsEmailError = func(v *StringIsEmail) string {
-	return fmt.Sprintf("%s does not match the email format", v.Name)
+	return fmt.Sprintf("'%s' does not match an email format", v.Field)
 }
 
 // StringIsEmail is a validator object.

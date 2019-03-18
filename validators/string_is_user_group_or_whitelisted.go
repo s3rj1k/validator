@@ -12,7 +12,7 @@ import (
 // StringIsUserGroupOrWhitelistedError is a function that defines error message returned by StringIsUserGroupOrWhitelisted validator.
 // nolint: gochecknoglobals
 var StringIsUserGroupOrWhitelistedError = func(v *StringIsUserGroupOrWhitelisted) string {
-	return fmt.Sprintf("'%s' is not a user group or whitelisted", v.Name)
+	return fmt.Sprintf("'%s' is not a user group or whitelisted", v.Field)
 }
 
 // StringIsUserGroupOrWhitelisted is a validator object.

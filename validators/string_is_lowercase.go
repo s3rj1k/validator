@@ -11,7 +11,7 @@ import (
 // StringIsLowerCaseError is a function that defines error message returned by StringIsLowerCase validator.
 // nolint: gochecknoglobals
 var StringIsLowerCaseError = func(v *StringIsLowerCase) string {
-	return fmt.Sprintf("%s must be lowercase", v.Name)
+	return fmt.Sprintf("'%s' must be lowercased", v.Field)
 }
 
 // StringIsLowerCase is a validator object.

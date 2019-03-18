@@ -12,7 +12,7 @@ import (
 // StringIsIPv4Error is a function that defines error message returned by StringIsIPv4 validator.
 // nolint: gochecknoglobals
 var StringIsIPv4Error = func(v *StringIsIPv4) string {
-	return fmt.Sprintf("'%s' must be IPv4", v.Name)
+	return fmt.Sprintf("'%s' must be IPv4", v.Field)
 }
 
 // StringIsIPv4 is a validator object.

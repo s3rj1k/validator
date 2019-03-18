@@ -10,7 +10,7 @@ import (
 // NumberIsNotZeroError is a function that defines error message returned by NumberIsNotZero validator.
 // nolint: gochecknoglobals
 var NumberIsNotZeroError = func(v *NumberIsNotZero) string {
-	return fmt.Sprintf("%s must not be equal to 0", v.Name)
+	return fmt.Sprintf("'%d' must not be equal to 0", v.Field)
 }
 
 // NumberIsNotZero is a validator object.

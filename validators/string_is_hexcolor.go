@@ -10,7 +10,7 @@ import (
 // StringIsHexcolorError is a function that defines error message returned by StringIsHexcolor validator.
 // nolint: gochecknoglobals
 var StringIsHexcolorError = func(v *StringIsHexcolor) string {
-	return fmt.Sprintf("%s must be a hexadecimal color", v.Name)
+	return fmt.Sprintf("'%s' must be a hexadecimal color", v.Field)
 }
 
 // StringIsHexcolor is a validator object.

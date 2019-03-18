@@ -11,7 +11,7 @@ import (
 // StringIsIPLinkLocalUnicastError is a function that defines error message returned by StringIsIPLinkLocalUnicast validator.
 // nolint: gochecknoglobals
 var StringIsIPLinkLocalUnicastError = func(v *StringIsIPLinkLocalUnicast) string {
-	return fmt.Sprintf("'%s' must be a link-local unicast address", v.Name)
+	return fmt.Sprintf("'%s' must be a link-local unicast address", v.Field)
 }
 
 // StringIsIPLinkLocalUnicast is a validator object.

@@ -10,7 +10,7 @@ import (
 // StringHasNumberError is a function that defines error message returned by StringHasNumber validator.
 // nolint: gochecknoglobals
 var StringHasNumberError = func(v *StringHasNumber) string {
-	return fmt.Sprintf("'%s' has no numbers", v.Name)
+	return fmt.Sprintf("'%s' has no numbers", v.Field)
 }
 
 // StringHasNumber is a validator object.
