@@ -33,12 +33,13 @@ func Test_SliceIsNotEmpty(t *testing.T) {
 		{[]byte{}, false},
 	}
 
-	for _, test := range tests {
+	for index, test := range tests {
 		v := &SliceIsNotEmpty{Name: "Slice", Field: test.field}
 		e := validator.NewErrors()
 		v.Validate(e)
 
-		r.Equal(!test.valid, e.HasAny())
+		r.Equalf(!test.valid, e.HasAny(), "tc %d expecting error=%v got=%v", index, !test.valid, e.HasAny())
+
 		if !test.valid {
 			r.Equal([]string{SliceIsNotEmptyError(v)}, e.Get(v.Name))
 		}

@@ -37,7 +37,8 @@ func Test_SliceLengthInRange(t *testing.T) {
 		e := validator.NewErrors()
 		v.Validate(e)
 
-		r.Equalf(!test.valid, e.HasAny(), "tc %d", index)
+		r.Equalf(!test.valid, e.HasAny(), "tc %d expecting error=%v got=%v", index, !test.valid, e.HasAny())
+		
 		if !test.valid {
 			r.Equal([]string{SliceLengthInRangeError(v)}, e.Get(v.Name))
 		}

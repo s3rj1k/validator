@@ -29,7 +29,7 @@ func Test_StringIsNotUserGroup(t *testing.T) {
 		tests = append(tests, struct {
 			field string
 			valid bool
-		}{cu.Name, false})
+		}{cu.Username, false})
 	}
 
 	for index, test := range tests {
@@ -37,7 +37,7 @@ func Test_StringIsNotUserGroup(t *testing.T) {
 		e := validator.NewErrors()
 		v.Validate(e)
 
-		r.Equalf(!test.valid, e.HasAny(), "tc %d expecting error=%s got=%s", index, !test.valid, e.HasAny())
+		r.Equalf(!test.valid, e.HasAny(), "tc %d expecting error=%v got=%v", index, !test.valid, e.HasAny())
 		if !test.valid {
 			r.Equalf([]string{StringIsNotUserGroupError(v)}, e.Get(v.Name), "tc %d", index)
 		}
