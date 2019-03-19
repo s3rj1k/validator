@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"path/filepath"
 	"regexp"
+	"strings"
 
 	"github.com/s3rj1k/validator"
 )
@@ -22,7 +23,10 @@ type StringIsAbsPath struct {
 
 // Validate adds an error if Field is not an absolute path.
 func (v *StringIsAbsPath) Validate(e *validator.Errors) {
-	if v.Field == filepath.Clean(v.Field) && filepath.IsAbs(v.Field) {
+
+	if strings.TrimSuffix(v.Field, "/") == filepath.Clean(v.Field) &&
+		filepath.IsAbs(v.Field) {
+
 		return
 	}
 
