@@ -14,26 +14,27 @@ func Test_SliceIsUnique(t *testing.T) {
 
 	var tests = []struct {
 		field            interface{}
-		isErr            bool
+		valid            bool
 		duplicateIndexes []int
 	}{
-		{[]int{10, 11, 55, -10}, false, []int{}},
-		{[]int{99, 100, 101, 100}, true, []int{3}},
-		{[]uintptr{1, 11, 1111, 0}, false, []int{}},
-		{[]uintptr{123, 321, 123, 321}, true, []int{2, 3}},
-		{[]int{}, false, []int{}},
-		{[]uintptr{}, false, []int{}},
-		{[]string{"hello", "world"}, false, []int{}},
-		{[]string{"hello", "world", "hello", "hello"}, true, []int{2, 3}},
+		{[]int{10, 11, 55, -10}, true, []int{}},
+		{[]int{99, 100, 101, 100}, false, []int{3}},
+		{[]uintptr{1, 11, 1111, 0}, true, []int{}},
+		{[]uintptr{123, 321, 123, 321}, false, []int{2, 3}},
+		{[]int{}, true, []int{}},
+		{[]uintptr{}, true, []int{}},
+		{[]string{"hello", "world"}, true, []int{}},
+		{[]string{"hello", "world", "hello", "hello"}, false, []int{2, 3}},
 	}
 
-	for _, test := range tests {
+	for index, test := range tests {
 		v := &SliceIsUnique{Name: "Slice", Field: test.field}
 		e := validator.NewErrors()
 		v.Validate(e)
 
-		r.Equal(test.isErr, e.HasAny())
-		if test.isErr {
+		r.Equalf(!test.valid, e.HasAny(), "tc %d expecting error=%v got=%v", index, !test.valid, e.HasAny())
+
+		if !test.valid {
 			r.Equal([]string{SliceIsUniqueError(v)}, e.Get(v.Name))
 		}
 	}
