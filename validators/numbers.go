@@ -1,16 +1,57 @@
 package validators
 
+import "fmt"
+
 // Number represents a casted integer
 type Number struct {
 	Value      uint64
 	isNegative bool
 }
 
+// IsGreater returns true if x > y
+func (x *Number) IsGreater(y *Number) bool {
+
+	switch {
+	case x.isNegative && !y.isNegative:
+		return false
+	case !x.isNegative && y.isNegative:
+		return true
+	case !x.isNegative && !y.isNegative:
+		return x.Value > y.Value
+	case x.isNegative && y.isNegative:
+		return x.Value < y.Value
+	}
+
+	return false
+}
+
+// IsLess returns true if x < y
+func (x *Number) IsLess(y *Number) bool {
+
+	switch {
+	case x.isNegative && !y.isNegative:
+		return true
+	case !x.isNegative && y.isNegative:
+		return false
+	case !x.isNegative && !y.isNegative:
+		return x.Value < y.Value
+	case x.isNegative && y.isNegative:
+		return x.Value > y.Value
+	}
+
+	return false
+}
+
+// IsEqual returns true if x == y
+func (x *Number) IsEqual(y *Number) bool {
+	return x.Value == y.Value && x.isNegative == y.isNegative
+}
+
 // casts a into Number. Returns error if a is nil or not a integer
 func cast(a interface{}) (*Number, error) {
 
 	if a == nil {
-		return nil, ErrNilValue
+		return &Number{uint64(0), false}, nil
 	}
 
 	switch a := a.(type) {
@@ -64,4 +105,14 @@ func cast(a interface{}) (*Number, error) {
 	}
 
 	return nil, ErrBadNumType
+}
+
+// NumFieldToString returns string representation of number field
+func NumFieldToString(field interface{}) string {
+
+	if field == nil {
+		return "0"
+	}
+
+	return fmt.Sprintf("%d", field)
 }

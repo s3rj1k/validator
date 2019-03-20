@@ -23,7 +23,7 @@ var (
 // NumberIsValidUserUIDError is a function that defines error message returned by NumberIsValidUserUID validator.
 // nolint: gochecknoglobals
 var NumberIsValidUserUIDError = func(v *NumberIsValidUserUID) string {
-	return fmt.Sprintf("'%d' is not a valid user UID", v.Field)
+	return fmt.Sprintf("'%s' is not a valid user UID", NumFieldToString(v.Field))
 }
 
 // NumberIsValidUserUID is a validator object.

@@ -32,19 +32,17 @@ func Test_NumberIsGreater(t *testing.T) {
 			field:         uint16(200),
 			comparedField: int32(200),
 			checkEqual:    true,
-			errNum:        0, /// equal is not greater
 		},
 		{
 			name:          "SliceFour",
-			field:         nil, // nil field is wrong
+			field:         nil, // nil field = []int8{0}
 			comparedField: int16(0),
-			errNum:        1,
+			checkEqual:    true,
 		},
 		{
 			name:          "SliceFive",
 			field:         int64(9),
-			comparedField: nil, // nil comparedField is wrong
-			errNum:        1,
+			comparedField: nil, // nil field = []int8{0}
 		},
 		{
 			name:          "SliceFour",

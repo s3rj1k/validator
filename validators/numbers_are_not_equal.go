@@ -11,7 +11,7 @@ import (
 // nolint: gochecknoglobals
 var NumbersAreNotEqualError = func(v *NumbersAreNotEqual) string {
 	if len(v.ComparedName) == 0 {
-		return fmt.Sprintf("'%d' is equal to '%d'", v.Field, v.ComparedField)
+		return fmt.Sprintf("'%s' is equal to '%s'", NumFieldToString(v.Field), NumFieldToString(v.ComparedField))
 	}
 
 	return fmt.Sprintf("'%s' is equal to '%s'", v.Name, v.ComparedName)

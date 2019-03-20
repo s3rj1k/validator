@@ -10,11 +10,17 @@ import (
 // NumberIsLessError is a function that defines error message returned by NumberIsLess validator.
 // nolint: gochecknoglobals
 var NumberIsLessError = func(v *NumberIsLess) string {
-	if len(v.ComparedName) == 0 {
-		return fmt.Sprintf("'%d' is not less than '%d'", v.Field, v.ComparedField)
+	errt := "is not less than"
+
+	if v.CheckEqual {
+		errt += " or equal to"
 	}
 
-	return fmt.Sprintf("'%s' is not less than '%s'", v.Name, v.ComparedName)
+	if len(v.ComparedName) == 0 {
+		return fmt.Sprintf("'%s' %s '%s'", NumFieldToString(v.Field), errt, NumFieldToString(v.ComparedField))
+	}
+
+	return fmt.Sprintf("'%s' %s '%s'", v.Name, errt, v.ComparedName)
 }
 
 // NumberIsLess is a validator object.
@@ -68,21 +74,12 @@ func (v *NumberIsLess) GetName() string {
 // isLess returns true if x < y or x<=y if checkEqual is true
 func isLess(x, y *Number, checkEqual bool) bool {
 
-	switch {
-	case x.isNegative && !y.isNegative:
+	if x.IsLess(y) {
 		return true
-	case !x.isNegative && y.isNegative:
-		return false
+	}
 
-	case !x.isNegative && !y.isNegative && checkEqual:
-		return x.Value <= y.Value
-	case !x.isNegative && !y.isNegative && !checkEqual:
-		return x.Value < y.Value
-
-	case x.isNegative && y.isNegative && checkEqual:
-		return x.Value >= y.Value
-	case x.isNegative && y.isNegative && !checkEqual:
-		return x.Value > y.Value
+	if checkEqual && x.IsEqual(y) {
+		return true
 	}
 
 	return false
