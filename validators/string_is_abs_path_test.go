@@ -12,32 +12,40 @@ func Test_StringIsAbsPath(t *testing.T) {
 
 	r := require.New(t)
 
-	v := StringIsAbsPath{Name: "Name", Field: "/tmp/test"}
-	e := validator.NewErrors()
-	v.Validate(e)
-	r.Equal(0, e.Count())
+	var tests = []struct {
+		field string
+		valid bool
+	}{
+		{"/tmp/test/", true},
+		{"/tmp/test", true},
+		{"/tmp", true},
+		{"/", true},
+		{"/tmp/ test/", true},
+		{"/tmp/test ", true},
+		{"/tmp/test/ ", true},
+		{"/tmp/test/ /", true},
 
-	v = StringIsAbsPath{Name: "Name", Field: "test"}
-	e = validator.NewErrors()
-	v.Validate(e)
-	r.Equal(1, e.Count())
-	r.Equal([]string{"path 'test' must be absolute"}, e.Get("Name"))
+		{"/tmp/test//", false},
+		{"/tmp/test///", false},
+		{"/tmp/test/ //", false},
+		{"//", false},
+		{"test", false},
+		{"/tmp//test/test", false},
+		{"./test", false},
 
-	v = StringIsAbsPath{Name: "Name", Field: "/tmp//test/test"}
-	e = validator.NewErrors()
-	v.Validate(e)
-	r.Equal(1, e.Count())
-	r.Equal([]string{"path '/tmp//test/test' must be absolute"}, e.Get("Name"))
+		{" ", false},
+		{"", false},
+	}
 
-	v = StringIsAbsPath{Name: "Name", Field: "./test"}
-	e = validator.NewErrors()
-	v.Validate(e)
-	r.Equal(1, e.Count())
-	r.Equal([]string{"path './test' must be absolute"}, e.Get("Name"))
+	for index, test := range tests {
+		v := &StringIsAbsPath{Name: "AbsPath", Field: test.field}
+		e := validator.NewErrors()
+		v.Validate(e)
 
-	v = StringIsAbsPath{"Name", "test"}
-	e = validator.NewErrors()
-	v.Validate(e)
-	r.Equal(1, e.Count())
-	r.Equal([]string{"path 'test' must be absolute"}, e.Get("Name"))
+		r.Equalf(!test.valid, e.HasAny(), "tc %d expecting error=%v got=%v", index, !test.valid, e.HasAny())
+
+		if !test.valid {
+			r.Equalf([]string{StringIsAbsPathError(v)}, e.Get(v.Name), "tc %d", index)
+		}
+	}
 }
