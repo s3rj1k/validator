@@ -24,7 +24,12 @@ type StringIsAbsPath struct {
 // Validate adds an error if Field is not an absolute path.
 func (v *StringIsAbsPath) Validate(e *validator.Errors) {
 
-	if strings.TrimSuffix(v.Field, "/") == filepath.Clean(v.Field) &&
+	if v.Field == "/" {
+		return
+	}
+
+	if !strings.Contains(v.Field, "//") &&
+		strings.TrimSuffix(v.Field, "/") == filepath.Clean(v.Field) &&
 		filepath.IsAbs(v.Field) {
 
 		return
