@@ -36,14 +36,14 @@ func Test_NumberIsLess(t *testing.T) {
 		},
 		{
 			name:          "SliceFour",
-			field:         nil, // nil field is wrong
+			field:         nil, // nil field = []int8{0}
 			comparedField: int16(0),
 			errNum:        1,
 		},
 		{
 			name:          "SliceFive",
 			field:         int64(9),
-			comparedField: nil, // nil comparedField is wrong
+			comparedField: nil, // nil field = []int8{0}
 			errNum:        1,
 		},
 		{
