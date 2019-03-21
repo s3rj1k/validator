@@ -3,6 +3,7 @@ package validator
 import (
 	"encoding/json"
 	"sort"
+	"strings"
 
 	"github.com/Jeffail/gabs"
 )
@@ -83,6 +84,21 @@ func (e *Errors) Get(path string) []string {
 	}
 
 	return e.m[path]
+}
+
+// Lookup returns map of errors whose paths start with prefix.
+func (e *Errors) Lookup(prefix string) map[string][]string {
+
+	out := make(map[string][]string)
+
+	for _, path := range e.Keys() {
+
+		if strings.HasPrefix(path, prefix) {
+			out[path] = e.Get(path)
+		}
+	}
+
+	return out
 }
 
 // Keys returns all paths (sorted) which have errors.
