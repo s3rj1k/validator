@@ -2,7 +2,6 @@ package validators
 
 import (
 	"testing"
-	"time"
 
 	"github.com/s3rj1k/validator"
 
@@ -15,7 +14,7 @@ func Test_ExecExitCodeIsZero(t *testing.T) {
 
 	var tests = []struct {
 		command []string
-		timeout time.Duration
+		timeout int64
 		valid   bool
 	}{
 		{[]string{"test", "-f", "/bin/sh"}, 0, true},
@@ -24,11 +23,11 @@ func Test_ExecExitCodeIsZero(t *testing.T) {
 		{[]string{"test", "-f", "/bin/non-existent-elf"}, 0, false},
 		{[]string{"test", "-d", "/non-existent-dir"}, 0, false},
 
-		// {[]string{"sleep", "5"}, 1 * time.Millisecond, false},
+		{[]string{"sleep", "5"}, 1, false},
 	}
 
 	for index, test := range tests {
-		v := &ExecExitCodeIsZero{Name: "Test", Command: test.command}
+		v := &ExecExitCodeIsZero{Name: "Test", Command: test.command, TimeoutSeconds: test.timeout}
 		e := validator.NewErrors()
 		v.Validate(e)
 
