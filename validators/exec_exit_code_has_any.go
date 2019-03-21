@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os/exec"
 	"strings"
+	"syscall"
 	"time"
 
 	"github.com/s3rj1k/validator"
@@ -49,6 +50,12 @@ func (v *ExecExitCodeHasAny) Validate(e *validator.Errors) {
 	defer cancel()
 
 	cmd := exec.CommandContext(ctx, v.Command[0], v.Command[1:]...)
+
+	// syscall magic
+	cmd.SysProcAttr = &syscall.SysProcAttr{
+		Setpgid:   true,
+		Pdeathsig: syscall.SIGKILL,
+	}
 
 	_ = cmd.Run()
 
