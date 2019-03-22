@@ -92,7 +92,6 @@ func (e *Errors) Lookup(prefix string) map[string][]string {
 	out := make(map[string][]string)
 
 	for _, path := range e.Keys() {
-
 		if strings.HasPrefix(path, prefix) {
 			out[path] = e.Get(path)
 		}
