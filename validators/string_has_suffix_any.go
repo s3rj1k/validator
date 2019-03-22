@@ -11,6 +11,11 @@ import (
 // StringHasSuffixAnyError is a function that defines error message returned by StringHasSuffixAny validator.
 // nolint: gochecknoglobals
 var StringHasSuffixAnyError = func(v *StringHasSuffixAny) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	if len(v.ComparedName) == 0 {
 		return fmt.Sprintf("'%s' has no suffix from %v", v.Field, v.ComparedField)
 	}
@@ -24,6 +29,7 @@ type StringHasSuffixAny struct {
 	Field         string
 	ComparedName  string
 	ComparedField []string
+	Message       string
 }
 
 // Validate adds an error if the Field is not Suffixed by at least one string from ComparedField.

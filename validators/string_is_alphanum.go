@@ -10,13 +10,19 @@ import (
 // StringIsAlphaNumError is a function that defines error message returned by StringIsAlphaNum validator.
 // nolint: gochecknoglobals
 var StringIsAlphaNumError = func(v *StringIsAlphaNum) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	return fmt.Sprintf("'%s' must contain only numbers and/or letters", v.Field)
 }
 
 // StringIsAlphaNum is a validator object.
 type StringIsAlphaNum struct {
-	Name  string
-	Field string
+	Name    string
+	Field   string
+	Message string
 }
 
 // Validate adds an error if the Field contains any symbols except for arabic numerals and latin letters.

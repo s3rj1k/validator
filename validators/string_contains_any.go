@@ -11,6 +11,11 @@ import (
 // StringContainsAnyError is a function that defines error message returned by StringContainsAny validator.
 // nolint: gochecknoglobals
 var StringContainsAnyError = func(v *StringContainsAny) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	if len(v.ComparedName) == 0 {
 		return fmt.Sprintf("'%s' does not contain any substrings from %v", v.Field, v.ComparedField)
 	}
@@ -24,6 +29,7 @@ type StringContainsAny struct {
 	Field         string
 	ComparedName  string
 	ComparedField []string
+	Message       string
 }
 
 // Validate adds an error if the Field does not contain at least one substrings from ComparedField.

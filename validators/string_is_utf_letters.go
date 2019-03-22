@@ -11,13 +11,19 @@ import (
 // StringIsUTFLettersError is a function that defines error message returned by StringIsUTFLetters validator.
 // nolint: gochecknoglobals
 var StringIsUTFLettersError = func(v *StringIsUTFLetters) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	return fmt.Sprintf("'%s' must contain only unicode letter characters", v.Field)
 }
 
 // StringIsUTFLetters is a validator object.
 type StringIsUTFLetters struct {
-	Name  string
-	Field string
+	Name    string
+	Field   string
+	Message string
 }
 
 // Validate adds an error if the Field contains anything except unicode letters (category L)

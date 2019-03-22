@@ -11,6 +11,11 @@ import (
 // StringContainsNoneOfError is a function that defines error message returned by StringContainsNoneOf validator.
 // nolint: gochecknoglobals
 var StringContainsNoneOfError = func(v *StringContainsNoneOf) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	if len(v.ComparedName) == 0 {
 		return fmt.Sprintf("'%s' contains substring from %v", v.Field, v.ComparedField)
 	}
@@ -24,6 +29,7 @@ type StringContainsNoneOf struct {
 	Field         string
 	ComparedName  string
 	ComparedField []string
+	Message       string
 }
 
 // Validate adds an error if the Field contains at least one substrings from ComparedField.

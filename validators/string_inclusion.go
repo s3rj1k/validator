@@ -10,6 +10,11 @@ import (
 // StringInclusionError is a function that defines error message returned by StringInclusion validator.
 // nolint: gochecknoglobals
 var StringInclusionError = func(v *StringInclusion) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	return fmt.Sprintf("'%s' is not in the whitelist %v", v.Field, v.Whitelist)
 }
 
@@ -18,6 +23,7 @@ type StringInclusion struct {
 	Name      string
 	Field     string
 	Whitelist []string
+	Message   string
 }
 
 // Validate adds an error if the Field is NOT one of the values from the Whitelist.

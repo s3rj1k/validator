@@ -10,14 +10,20 @@ import (
 // StringMatchRegexError is a function that defines error message returned by StringMatchRegex validator.
 // nolint: gochecknoglobals
 var StringMatchRegexError = func(v *StringMatchRegex) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	return fmt.Sprintf("'%s' does not match regex '%s'", v.Field, v.Regex)
 }
 
 // StringMatchRegex is a validator object.
 type StringMatchRegex struct {
-	Name  string
-	Field string
-	Regex string
+	Name    string
+	Field   string
+	Regex   string
+	Message string
 }
 
 // Validate adds an error if the Field does not match regular expression Regex.

@@ -40,10 +40,4 @@ func Test_StringIsNotPath(t *testing.T) {
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{"path '/tmp/test' must not exist"}, e.Get("Name"))
-
-	v = StringIsNotPath{"Name", "/tmp/test"}
-	e = validator.NewErrors()
-	v.Validate(e)
-	r.Equal(1, e.Count())
-	r.Equal([]string{"path '/tmp/test' must not exist"}, e.Get("Name"))
 }

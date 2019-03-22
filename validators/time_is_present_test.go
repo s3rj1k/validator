@@ -23,10 +23,4 @@ func Test_TimeIsPresent(t *testing.T) {
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{TimeIsPresentError(v)}, e.Get("CreatedAt"))
-
-	v = &TimeIsPresent{"CreatedAt", time.Time{}}
-	e = validator.NewErrors()
-	v.Validate(e)
-	r.Equal(1, e.Count())
-	r.Equal([]string{TimeIsPresentError(v)}, e.Get("CreatedAt"))
 }

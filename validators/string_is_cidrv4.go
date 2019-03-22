@@ -11,13 +11,19 @@ import (
 // StringIsCIDRv4Error is a function that defines error message returned by StringIsCIDRv4 validator.
 // nolint: gochecknoglobals
 var StringIsCIDRv4Error = func(v *StringIsCIDRv4) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	return fmt.Sprintf("'%s' must be CIDR notation of IPv4 address", v.Field)
 }
 
 // StringIsCIDRv4 is a validator object.
 type StringIsCIDRv4 struct {
-	Name  string
-	Field string
+	Name    string
+	Field   string
+	Message string
 }
 
 // Validate adds an error if the Field is not a valid CIDR notation of IPv4 address.

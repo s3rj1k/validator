@@ -11,13 +11,19 @@ import (
 // StringIsPresentError is a function that defines error message returned by StringIsPresent validator.
 // nolint: gochecknoglobals
 var StringIsPresentError = func(v *StringIsPresent) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	return fmt.Sprintf("'%s' must not be blank", v.Name)
 }
 
 // StringIsPresent is a validator object.
 type StringIsPresent struct {
-	Name  string
-	Field string
+	Name    string
+	Field   string
+	Message string
 }
 
 // Validate adds an error if the Field is empty or has only whitespaces.

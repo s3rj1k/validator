@@ -11,6 +11,11 @@ import (
 // StringHasPrefixNoneOfError is a function that defines error message returned by StringHasPrefixNoneOf validator.
 // nolint: gochecknoglobals
 var StringHasPrefixNoneOfError = func(v *StringHasPrefixNoneOf) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	if len(v.ComparedName) == 0 {
 		return fmt.Sprintf("'%s' has prefix from %v", v.Field, v.ComparedField)
 	}
@@ -24,6 +29,7 @@ type StringHasPrefixNoneOf struct {
 	Field         string
 	ComparedName  string
 	ComparedField []string
+	Message       string
 }
 
 // Validate adds an error if the Field is prefixed by at least one string from ComparedField.

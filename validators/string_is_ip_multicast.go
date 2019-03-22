@@ -11,13 +11,19 @@ import (
 // StringIsIPMulticastError is a function that defines error message returned by StringIsIPMulticast validator.
 // nolint: gochecknoglobals
 var StringIsIPMulticastError = func(v *StringIsIPMulticast) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	return fmt.Sprintf("'%s' must be a multicast address", v.Field)
 }
 
 // StringIsIPMulticast is a validator object.
 type StringIsIPMulticast struct {
-	Name  string
-	Field string
+	Name    string
+	Field   string
+	Message string
 }
 
 // Validate adds an error if the Field is not a multicast address.

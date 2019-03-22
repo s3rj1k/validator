@@ -10,13 +10,19 @@ import (
 // StringIsNotNumericError is a function that defines error message returned by StringIsNotNumeric validator.
 // nolint: gochecknoglobals
 var StringIsNotNumericError = func(v *StringIsNotNumeric) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	return fmt.Sprintf("'%s' is numeric", v.Field)
 }
 
 // StringIsNotNumeric is a validator object.
 type StringIsNotNumeric struct {
-	Name  string
-	Field string
+	Name    string
+	Field   string
+	Message string
 }
 
 // Validate adds an error if the Field is numeric.

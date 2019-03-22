@@ -26,10 +26,4 @@ func Test_UUIDIsPresent(t *testing.T) {
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{UUIDIsPresentError(v)}, e.Get("Name"))
-
-	v = &UUIDIsPresent{"Name", uuid.UUID{}}
-	e = validator.NewErrors()
-	v.Validate(e)
-	r.Equal(1, e.Count())
-	r.Equal([]string{UUIDIsPresentError(v)}, e.Get("Name"))
 }

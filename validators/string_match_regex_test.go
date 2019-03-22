@@ -22,10 +22,4 @@ func Test_StringMatchRegex(t *testing.T) {
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{StringMatchRegexError(v)}, e.Get("Phone"))
-
-	v = &StringMatchRegex{"Phone", "123-ab1-1424", "^([0-9]{3}-[0-9]{3}-[0-9]{4})$"}
-	e = validator.NewErrors()
-	v.Validate(e)
-	r.Equal(1, e.Count())
-	r.Equal([]string{StringMatchRegexError(v)}, e.Get("Phone"))
 }

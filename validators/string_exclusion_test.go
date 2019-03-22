@@ -24,10 +24,4 @@ func Test_StringExclusion(t *testing.T) {
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{StringExclusionError(v)}, e.Get("Name"))
-
-	v = &StringExclusion{"Name", "Bates", l}
-	e = validator.NewErrors()
-	v.Validate(e)
-	r.Equal(1, e.Count())
-	r.Equal([]string{StringExclusionError(v)}, e.Get("Name"))
 }

@@ -23,13 +23,19 @@ var (
 // NumberIsValidUserGIDError is a function that defines error message returned by NumberIsValidUserGID validator.
 // nolint: gochecknoglobals
 var NumberIsValidUserGIDError = func(v *NumberIsValidUserGID) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	return fmt.Sprintf("'%s' is not a valid user GID", NumFieldToString(v.Field))
 }
 
 // NumberIsValidUserGID is a validator object.
 type NumberIsValidUserGID struct {
-	Name  string
-	Field interface{}
+	Name    string
+	Field   interface{}
+	Message string
 }
 
 // Validate adds an error if the Field is in range of GID_MIN, GID_MAX from '/etc/login.defs'.

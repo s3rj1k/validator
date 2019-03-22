@@ -11,13 +11,19 @@ import (
 // StringIsNotPathError is a function that defines error message returned by StringIsNotPath validator.
 // nolint: gochecknoglobals
 var StringIsNotPathError = func(v *StringIsNotPath) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	return fmt.Sprintf("path '%s' must not exist", v.Field)
 }
 
 // StringIsNotPath is a validator object
 type StringIsNotPath struct {
-	Name  string
-	Field string
+	Name    string
+	Field   string
+	Message string
 }
 
 // Validate adds an error if the Field is an existing path.
