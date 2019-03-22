@@ -11,13 +11,19 @@ import (
 // StringHasNoWhitespaceError is a function that defines error message returned by StringHasNoWhitespace validator.
 // nolint: gochecknoglobals
 var StringHasNoWhitespaceError = func(v *StringHasNoWhitespace) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	return fmt.Sprintf("'%s' has whitespace", v.Field)
 }
 
 // StringHasNoWhitespace is a validator object.
 type StringHasNoWhitespace struct {
-	Name  string
-	Field string
+	Name    string
+	Field   string
+	Message string
 }
 
 // Validate adds an error if the Field has whitespace.

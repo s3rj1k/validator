@@ -10,6 +10,11 @@ import (
 // NumberIsGreaterError is a function that defines error message returned by NumberIsGreater validator.
 // nolint: gochecknoglobals
 var NumberIsGreaterError = func(v *NumberIsGreater) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	errt := "is not greater than"
 
 	if v.CheckEqual {
@@ -30,6 +35,7 @@ type NumberIsGreater struct {
 	ComparedName  string
 	ComparedField interface{}
 	CheckEqual    bool
+	Message       string
 }
 
 // Validate adds an error if the Field is not greater than the ComparedField.

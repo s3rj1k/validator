@@ -27,10 +27,4 @@ func Test_StringIsNull(t *testing.T) {
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{StringIsNullError(v)}, e.Get("Name"))
-
-	v = &StringIsNull{"Name", ","}
-	e = validator.NewErrors()
-	v.Validate(e)
-	r.Equal(1, e.Count())
-	r.Equal([]string{StringIsNullError(v)}, e.Get("Name"))
 }

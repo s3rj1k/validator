@@ -11,6 +11,11 @@ import (
 // StringsArePathsNotInTheSameDirError is a function that defines error message returned by StringsArePathsNotInTheSameDir validator.
 // nolint: gochecknoglobals
 var StringsArePathsNotInTheSameDirError = func(v *StringsArePathsNotInTheSameDir) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	if len(v.ComparedName) == 0 {
 		return fmt.Sprintf("'%s' path is in the same dir with '%s'", v.Field, v.ComparedField)
 	}
@@ -24,6 +29,7 @@ type StringsArePathsNotInTheSameDir struct {
 	Field         string
 	ComparedName  string
 	ComparedField string
+	Message       string
 }
 
 // Validate adds an error if paths share same path tree to last path element.

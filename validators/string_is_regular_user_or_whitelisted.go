@@ -12,6 +12,11 @@ import (
 // StringIsRegularUserOrWhitelistedError is a function that defines error message returned by StringIsRegularUserOrWhitelisted validator.
 // nolint: gochecknoglobals
 var StringIsRegularUserOrWhitelistedError = func(v *StringIsRegularUserOrWhitelisted) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	return fmt.Sprintf("'%s' is not a regular user or whitelisted", v.Field)
 }
 
@@ -20,6 +25,7 @@ type StringIsRegularUserOrWhitelisted struct {
 	Name      string
 	Field     string
 	Whitelist []string
+	Message   string
 }
 
 // Validate adds an error if the Field is not a regular user or whitelisted.

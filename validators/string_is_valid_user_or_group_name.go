@@ -10,13 +10,19 @@ import (
 // StringIsValidUserOrGroupNameError is a function that defines error message returned by StringIsValidUserOrGroupName validator.
 // nolint: gochecknoglobals
 var StringIsValidUserOrGroupNameError = func(v *StringIsValidUserOrGroupName) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	return fmt.Sprintf("'%s' is not a valid user or group name", v.Field)
 }
 
 // StringIsValidUserOrGroupName is a validator object.
 type StringIsValidUserOrGroupName struct {
-	Name  string
-	Field string
+	Name    string
+	Field   string
+	Message string
 }
 
 // Validate adds an error if the Field is not a valid user or group name.

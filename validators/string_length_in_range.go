@@ -11,6 +11,11 @@ import (
 // StringLengthInRangeError is a function that defines error message returned by StringLengthInRange validator.
 // nolint: gochecknoglobals
 var StringLengthInRangeError = func(v *StringLengthInRange) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	min := v.Min
 	max := v.Max
 
@@ -24,10 +29,11 @@ var StringLengthInRangeError = func(v *StringLengthInRange) string {
 
 // StringLengthInRange is a validator object.
 type StringLengthInRange struct {
-	Name  string
-	Field string
-	Min   int
-	Max   int
+	Name    string
+	Field   string
+	Min     int
+	Max     int
+	Message string
 }
 
 // Validate adds an error if the Field length is not in range between Min and Max (inclusive).

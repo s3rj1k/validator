@@ -11,13 +11,19 @@ import (
 // StringIsNotSymlinkError is a function that defines error message returned by StringIsNotSymlink validator.
 // nolint: gochecknoglobals
 var StringIsNotSymlinkError = func(v *StringIsNotSymlink) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	return fmt.Sprintf("path '%s' is a symlink", v.Field)
 }
 
 // StringIsNotSymlink is a validator object
 type StringIsNotSymlink struct {
-	Name  string
-	Field string
+	Name    string
+	Field   string
+	Message string
 }
 
 // Validate adds an error if the Field is a symlink.

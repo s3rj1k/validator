@@ -11,13 +11,19 @@ import (
 // StringIsIPError is a function that defines error message returned by StringIsIP validator.
 // nolint: gochecknoglobals
 var StringIsIPError = func(v *StringIsIP) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	return fmt.Sprintf("'%s' must be either IP version 4 or 6", v.Field)
 }
 
 // StringIsIP is a validator object.
 type StringIsIP struct {
-	Name  string
-	Field string
+	Name    string
+	Field   string
+	Message string
 }
 
 // Validate adds an error if the Field is a valid IP address version 4 or 6.

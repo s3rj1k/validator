@@ -28,10 +28,4 @@ func Test_StringIsPresent(t *testing.T) {
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{StringIsPresentError(v)}, e.Get("Name"))
-
-	v = &StringIsPresent{"Name", ""}
-	e = validator.NewErrors()
-	v.Validate(e)
-	r.Equal(1, e.Count())
-	r.Equal([]string{StringIsPresentError(v)}, e.Get("Name"))
 }

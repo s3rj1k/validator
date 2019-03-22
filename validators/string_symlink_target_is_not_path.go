@@ -11,13 +11,19 @@ import (
 // StringSymlinkTargetIsNotPathError is a function that defines error message returned by StringSymlinkTargetIsNotPath validator.
 // nolint: gochecknoglobals
 var StringSymlinkTargetIsNotPathError = func(v *StringSymlinkTargetIsNotPath) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	return fmt.Sprintf("symlink's '%s' target is an existing path", v.Field)
 }
 
 // StringSymlinkTargetIsNotPath is a validator object
 type StringSymlinkTargetIsNotPath struct {
-	Name  string
-	Field string
+	Name    string
+	Field   string
+	Message string
 }
 
 // Validate adds an error if the Field is a symlink and it's target is an existing path.

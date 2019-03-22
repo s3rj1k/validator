@@ -9,6 +9,11 @@ import (
 // SliceLengthInRangeError is a function that defines error message returned by SliceLengthInRange validator.
 // nolint: gochecknoglobals
 var SliceLengthInRangeError = func(v *SliceLengthInRange) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	min := v.Min
 	max := v.Max
 
@@ -25,11 +30,12 @@ var SliceLengthInRangeError = func(v *SliceLengthInRange) string {
 
 // SliceLengthInRange is a validator object.
 type SliceLengthInRange struct {
-	Name   string
-	Field  interface{}
-	Min    int
-	Max    int
-	length int
+	Name    string
+	Field   interface{}
+	Min     int
+	Max     int
+	Message string
+	length  int
 }
 
 // Validate adds an error if the slice in Field is not in range between Min and Max (inclusive).
@@ -137,12 +143,7 @@ func (v *SliceLengthInRange) Validate(e *validator.Errors) {
 func lengthOK(length, min, max int) bool {
 
 	if max == -1 {
-
-		if length > 0 {
-			return false
-		}
-
-		return true
+		return length == 0
 	}
 
 	if min == 0 {

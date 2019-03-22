@@ -11,13 +11,19 @@ import (
 // StringIsFileError is a function that defines error message returned by StringIsFile validator.
 // nolint: gochecknoglobals
 var StringIsFileError = func(v *StringIsFile) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	return fmt.Sprintf("'%s' is not a file", v.Field)
 }
 
 // StringIsFile is a validator object.
 type StringIsFile struct {
-	Name  string
-	Field string
+	Name    string
+	Field   string
+	Message string
 }
 
 // Validate adds an error if the Field is not a file.

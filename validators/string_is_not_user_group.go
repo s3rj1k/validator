@@ -10,13 +10,19 @@ import (
 // StringIsNotUserGroupError is a function that defines error message returned by StringIsNotUserGroup validator.
 // nolint: gochecknoglobals
 var StringIsNotUserGroupError = func(v *StringIsNotUserGroup) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	return fmt.Sprintf("'%s' is a user group", v.Field)
 }
 
 // StringIsNotUserGroup is a validator object.
 type StringIsNotUserGroup struct {
-	Name  string
-	Field string
+	Name    string
+	Field   string
+	Message string
 }
 
 // Validate adds an error if the Field is a user group.

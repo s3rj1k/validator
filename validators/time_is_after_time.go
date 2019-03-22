@@ -10,6 +10,11 @@ import (
 // TimeIsAfterTimeError is a function that defines error message returned by TimeIsAfterTime validator.
 // nolint: gochecknoglobals
 var TimeIsAfterTimeError = func(v *TimeIsAfterTime) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	if len(v.ComparedName) == 0 {
 		return fmt.Sprintf("'%s' must be after '%s'", v.Field, v.ComparedField)
 	}
@@ -23,6 +28,7 @@ type TimeIsAfterTime struct {
 	Field         time.Time
 	ComparedName  string
 	ComparedField time.Time
+	Message       string
 }
 
 // Validate adds an error if the Field time is not after the ComparedField time.

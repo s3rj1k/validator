@@ -11,13 +11,19 @@ import (
 // StringIsUTFLetterNumError is a function that defines error message returned by StringIsUTFLetterNum validator.
 // nolint: gochecknoglobals
 var StringIsUTFLetterNumError = func(v *StringIsUTFLetterNum) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	return fmt.Sprintf("'%s' must contain only unicode letter/number characters", v.Field)
 }
 
 // StringIsUTFLetterNum is a validator object.
 type StringIsUTFLetterNum struct {
-	Name  string
-	Field string
+	Name    string
+	Field   string
+	Message string
 }
 
 // Validate adds an error if the Field contains anything except unicode letters/numbers (category L/N).

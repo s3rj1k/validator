@@ -52,7 +52,7 @@ func Test_StringFileIsNotExecutableDive(t *testing.T) {
 		v.Validate(e)
 
 		r.Equalf(!test.valid, e.HasAny(), "tc %d expecting error=%v got=%v", index, !test.valid, e.HasAny())
-		
+
 		if !test.valid {
 			r.Equalf(len(test.invalidIndexes), e.Count(), "tc %d wrong number of errors", index)
 

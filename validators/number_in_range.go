@@ -10,6 +10,11 @@ import (
 // NumberInRangeError is a function that defines error message returned by NumberInRange validator.
 // nolint: gochecknoglobals
 var NumberInRangeError = func(v *NumberInRange) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	e := fmt.Sprintf("'%s' not in range(%s, %s)", NumFieldToString(v.Field), NumFieldToString(v.Min), NumFieldToString(v.Max))
 
 	if v.CheckEqual {
@@ -26,6 +31,7 @@ type NumberInRange struct {
 	Min        interface{}
 	Max        interface{}
 	CheckEqual bool
+	Message    string
 }
 
 // Validate adds an error if the Field is not in range between Min and Max (inclusive).

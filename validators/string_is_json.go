@@ -11,13 +11,19 @@ import (
 // StringIsJSONError is a function that defines error message returned by StringIsJSON validator.
 // nolint: gochecknoglobals
 var StringIsJSONError = func(v *StringIsJSON) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	return fmt.Sprintf("'%s' must be a valid JSON", v.Field)
 }
 
 // StringIsJSON is a validator object.
 type StringIsJSON struct {
-	Name  string
-	Field string
+	Name    string
+	Field   string
+	Message string
 }
 
 // Validate adds an error if the Field is not a valid JSON.

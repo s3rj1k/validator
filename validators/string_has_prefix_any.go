@@ -11,6 +11,11 @@ import (
 // StringHasPrefixAnyError is a function that defines error message returned by StringHasPrefixAny validator.
 // nolint: gochecknoglobals
 var StringHasPrefixAnyError = func(v *StringHasPrefixAny) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	if len(v.ComparedName) == 0 {
 		return fmt.Sprintf("'%s' has no prefix from %v", v.Field, v.ComparedField)
 	}
@@ -24,6 +29,7 @@ type StringHasPrefixAny struct {
 	Field         string
 	ComparedName  string
 	ComparedField []string
+	Message       string
 }
 
 // Validate adds an error if the Field is not prefixed by at least one string from ComparedField.

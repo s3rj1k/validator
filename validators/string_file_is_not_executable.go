@@ -11,13 +11,19 @@ import (
 // StringFileIsNotExecutableError is a function that defines error message returned by StringFileIsNotExecutable validator.
 // nolint: gochecknoglobals
 var StringFileIsNotExecutableError = func(v *StringFileIsNotExecutable) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	return fmt.Sprintf("'%s' has execute bit set", v.Field)
 }
 
 // StringFileIsNotExecutable is a validator object.
 type StringFileIsNotExecutable struct {
-	Name  string
-	Field string
+	Name    string
+	Field   string
+	Message string
 }
 
 // Validate adds an error if the Field is a file with execute bit set.

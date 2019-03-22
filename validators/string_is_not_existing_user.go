@@ -11,13 +11,19 @@ import (
 // StringIsNotExistingUserError is a function that defines error message returned by StringIsNotExistingUser validator.
 // nolint: gochecknoglobals
 var StringIsNotExistingUserError = func(v *StringIsNotExistingUser) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	return fmt.Sprintf("'%s' user exists", v.Field)
 }
 
 // StringIsNotExistingUser is a validator object.
 type StringIsNotExistingUser struct {
-	Name  string
-	Field string
+	Name    string
+	Field   string
+	Message string
 }
 
 // Validate adds an error if the Field is an existing user.

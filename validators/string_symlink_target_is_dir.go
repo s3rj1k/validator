@@ -11,13 +11,19 @@ import (
 // StringSymlinkTargetIsDirError is a function that defines error message returned by StringSymlinkTargetIsDir validator.
 // nolint: gochecknoglobals
 var StringSymlinkTargetIsDirError = func(v *StringSymlinkTargetIsDir) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	return fmt.Sprintf("symlink's '%s' target is not a directory", v.Field)
 }
 
 // StringSymlinkTargetIsDir is a validator object
 type StringSymlinkTargetIsDir struct {
-	Name  string
-	Field string
+	Name    string
+	Field   string
+	Message string
 }
 
 // Validate adds an error if the Field is a symlink and it's target is not a directory.

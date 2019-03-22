@@ -11,6 +11,11 @@ import (
 // StringIsHashError is a function that defines error message returned by StringIsHash validator.
 // nolint: gochecknoglobals
 var StringIsHashError = func(v *StringIsHash) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	return fmt.Sprintf("'%s' is not a valid '%s' hash", v.Field, v.Algorithm)
 }
 
@@ -19,6 +24,7 @@ type StringIsHash struct {
 	Name      string
 	Field     string
 	Algorithm string
+	Message   string
 }
 
 // Validate adds an error if the Field is not formatted as a hash of provided type algorithm.

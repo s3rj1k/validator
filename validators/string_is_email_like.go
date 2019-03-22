@@ -11,13 +11,19 @@ import (
 // StringIsEmailLikeError is a function that defines error message returned by StringIsEmailLike validator.
 // nolint: gochecknoglobals
 var StringIsEmailLikeError = func(v *StringIsEmailLike) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	return fmt.Sprintf("%s does not match an email-like format", v.Field)
 }
 
 // StringIsEmailLike is a validator object.
 type StringIsEmailLike struct {
-	Name  string
-	Field string
+	Name    string
+	Field   string
+	Message string
 }
 
 // Validate adds an error if the Field does not correspond to "username@domain" structure.

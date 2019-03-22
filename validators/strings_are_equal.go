@@ -12,6 +12,10 @@ import (
 // nolint: gochecknoglobals
 var StringsAreEqualError = func(v *StringsAreEqual) string {
 
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	var caseName string
 
 	if v.CaseInsensitive {
@@ -35,6 +39,7 @@ type StringsAreEqual struct {
 	ComparedName    string
 	ComparedField   string
 	CaseInsensitive bool
+	Message         string
 }
 
 // Validate adds an error if the Field is not equal to ComparedField.

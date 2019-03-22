@@ -11,13 +11,19 @@ import (
 // StringIsNotDirError is a function that defines error message returned by StringIsNotDir validator.
 // nolint: gochecknoglobals
 var StringIsNotDirError = func(v *StringIsNotDir) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	return fmt.Sprintf("path '%s' is a dir", v.Field)
 }
 
 // StringIsNotDir is a validator object
 type StringIsNotDir struct {
-	Name  string
-	Field string
+	Name    string
+	Field   string
+	Message string
 }
 
 // Validate adds an error if the Field is a path to directory.

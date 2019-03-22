@@ -10,13 +10,19 @@ import (
 // StringIsFloatError is a function that defines error message returned by StringIsFloat validator.
 // nolint: gochecknoglobals
 var StringIsFloatError = func(v *StringIsFloat) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	return fmt.Sprintf("'%s' must be a float", v.Field)
 }
 
 // StringIsFloat is a validator object.
 type StringIsFloat struct {
-	Name  string
-	Field string
+	Name    string
+	Field   string
+	Message string
 }
 
 // Validate add an error if the Field is not a float. Empty string is valid.

@@ -12,13 +12,19 @@ import (
 // StringIsUTFNumericError is a function that defines error message returned by StringIsUTFNumeric validator.
 // nolint: gochecknoglobals
 var StringIsUTFNumericError = func(v *StringIsUTFNumeric) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	return fmt.Sprintf("'%s' must contain only unicode numbers", v.Field)
 }
 
 // StringIsUTFNumeric is a validator object
 type StringIsUTFNumeric struct {
-	Name  string
-	Field string
+	Name    string
+	Field   string
+	Message string
 }
 
 // Validate adds an error if the Field contains anything except unicode numbers (category N).

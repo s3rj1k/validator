@@ -11,13 +11,19 @@ import (
 // StringIsHTTPURLError is a function that defines error message returned by StringIsHTTPURL validator.
 // nolint: gochecknoglobals
 var StringIsHTTPURLError = func(v *StringIsHTTPURL) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	return fmt.Sprintf("'%s' is not a valid URL", v.Field)
 }
 
 // StringIsHTTPURL is a validator object
 type StringIsHTTPURL struct {
-	Name  string
-	Field string
+	Name    string
+	Field   string
+	Message string
 }
 
 // Validate adds an error if the Field is not a correctly formatted URL.

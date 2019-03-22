@@ -10,6 +10,11 @@ import (
 // TimeIsBeforeTimeError is a function that defines error message returned by TimeIsBeforeTime validator.
 // nolint: gochecknoglobals
 var TimeIsBeforeTimeError = func(v *TimeIsBeforeTime) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	if len(v.ComparedName) == 0 {
 		return fmt.Sprintf("'%s'  must be before '%s'", v.Field, v.ComparedField)
 	}
@@ -23,6 +28,7 @@ type TimeIsBeforeTime struct {
 	Field         time.Time
 	ComparedName  string
 	ComparedField time.Time
+	Message       string
 }
 
 // Validate adds an error if the Field time is not before the ComparedField time.

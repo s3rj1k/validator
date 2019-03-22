@@ -24,10 +24,4 @@ func Test_StringInclusion(t *testing.T) {
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{StringInclusionError(v)}, e.Get("Name"))
-
-	v = &StringInclusion{"Name", "Foo", l}
-	e = validator.NewErrors()
-	v.Validate(e)
-	r.Equal(1, e.Count())
-	r.Equal([]string{StringInclusionError(v)}, e.Get("Name"))
 }

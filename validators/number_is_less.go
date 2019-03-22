@@ -10,6 +10,11 @@ import (
 // NumberIsLessError is a function that defines error message returned by NumberIsLess validator.
 // nolint: gochecknoglobals
 var NumberIsLessError = func(v *NumberIsLess) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	errt := "is not less than"
 
 	if v.CheckEqual {
@@ -30,6 +35,7 @@ type NumberIsLess struct {
 	ComparedName  string
 	ComparedField interface{}
 	CheckEqual    bool
+	Message       string
 }
 
 // Validate adds an error if the Field is not less than the ComparedField.
