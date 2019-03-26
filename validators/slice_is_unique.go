@@ -2,7 +2,6 @@ package validators
 
 import (
 	"fmt"
-	"regexp"
 
 	"github.com/s3rj1k/validator"
 )
@@ -19,6 +18,8 @@ var SliceIsUniqueError = func(v *SliceIsUnique) string {
 }
 
 // SliceIsUnique is a validator object.
+// Validate adds an error if the slice in Field has not unique values.
+// Supports all Go basic types except for bool.
 type SliceIsUnique struct {
 	Name    string
 	Field   interface{}
@@ -26,7 +27,7 @@ type SliceIsUnique struct {
 }
 
 // Validate adds an error if the slice in Field has not unique values.
-// Supports all Go basic types except for bool https://tour.golang.org/basics/11
+// Supports all Go basic types except for bool.
 // nolint: gocyclo
 func (v *SliceIsUnique) Validate(e *validator.Errors) {
 
@@ -180,7 +181,7 @@ func (v *SliceIsUnique) Validate(e *validator.Errors) {
 
 	// assigning error to each duplicate element
 	for _, ind := range dupl {
-		v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), ind)
+		v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), ind)
 		e.Add(v.Name, SliceIsUniqueError(v))
 	}
 }

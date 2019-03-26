@@ -3,7 +3,6 @@ package validators
 import (
 	"fmt"
 	"net"
-	"regexp"
 
 	"github.com/s3rj1k/validator"
 )
@@ -20,6 +19,9 @@ var StringIsIPGlobalUnicastError = func(v *StringIsIPGlobalUnicast) string {
 }
 
 // StringIsIPGlobalUnicast is a validator object.
+// Validate adds an error if the Field is not a valid Global Unicast IP address.
+// Error is not added if ip is in IPv4 private address space or
+// local IPv6 unicast address space.
 type StringIsIPGlobalUnicast struct {
 	Name    string
 	Field   string
@@ -47,5 +49,5 @@ func (v *StringIsIPGlobalUnicast) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsIPGlobalUnicast) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

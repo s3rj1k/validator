@@ -2,7 +2,6 @@ package validators
 
 import (
 	"fmt"
-	"regexp"
 
 	"github.com/s3rj1k/validator"
 )
@@ -19,6 +18,8 @@ var StringIsPrintableASCIIError = func(v *StringIsPrintableASCII) string {
 }
 
 // StringIsPrintableASCII is a validator object.
+// Validate adds an error if the Field contains anything except for printable ASCII characters.
+// Empty string is valid.
 type StringIsPrintableASCII struct {
 	Name    string
 	Field   string
@@ -49,5 +50,5 @@ func (v *StringIsPrintableASCII) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsPrintableASCII) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

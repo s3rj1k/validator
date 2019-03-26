@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"regexp"
 	"strconv"
 	"strings"
 
@@ -32,6 +31,7 @@ var NumberIsValidUserUIDError = func(v *NumberIsValidUserUID) string {
 }
 
 // NumberIsValidUserUID is a validator object.
+// Validate adds an error if the Field is in range of UID_MIN, UID_MAX from '/etc/login.defs'.
 type NumberIsValidUserUID struct {
 	Name    string
 	Field   interface{}
@@ -72,7 +72,7 @@ func (v *NumberIsValidUserUID) SetField(s interface{}) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *NumberIsValidUserUID) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }
 
 // GetName is a getter on Name field.

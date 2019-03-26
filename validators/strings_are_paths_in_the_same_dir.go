@@ -3,7 +3,6 @@ package validators
 import (
 	"fmt"
 	"path/filepath"
-	"regexp"
 
 	"github.com/s3rj1k/validator"
 )
@@ -23,7 +22,9 @@ var StringsArePathsInTheSameDirError = func(v *StringsArePathsInTheSameDir) stri
 	return fmt.Sprintf("'%s' path is not in the same dir with '%s'", v.Name, v.ComparedName)
 }
 
-// StringsArePathsInTheSameDir is a validator object
+// StringsArePathsInTheSameDir is a validator object.
+// Validate adds an error if paths do not share same path tree to last path element.
+// Supplied paths are converted to absolute paths before comparison.
 type StringsArePathsInTheSameDir struct {
 	Name          string
 	Field         string
@@ -55,5 +56,5 @@ func (v *StringsArePathsInTheSameDir) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringsArePathsInTheSameDir) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

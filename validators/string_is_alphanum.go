@@ -2,7 +2,6 @@ package validators
 
 import (
 	"fmt"
-	"regexp"
 
 	"github.com/s3rj1k/validator"
 )
@@ -19,6 +18,8 @@ var StringIsAlphaNumError = func(v *StringIsAlphaNum) string {
 }
 
 // StringIsAlphaNum is a validator object.
+// Validate adds an error if the Field contains any symbols except for arabic numerals and latin letters.
+// Empty string is valid.
 type StringIsAlphaNum struct {
 	Name    string
 	Field   string
@@ -49,5 +50,5 @@ func (v *StringIsAlphaNum) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsAlphaNum) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

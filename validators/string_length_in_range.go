@@ -2,7 +2,6 @@ package validators
 
 import (
 	"fmt"
-	"regexp"
 	"unicode/utf8"
 
 	"github.com/s3rj1k/validator"
@@ -28,6 +27,9 @@ var StringLengthInRangeError = func(v *StringLengthInRange) string {
 }
 
 // StringLengthInRange is a validator object.
+// Validate adds an error if the Field length is not in range between Min and Max (inclusive).
+// If only Min provided - Max=length of string. If only Max provided - Min=0.
+// It is possible to provide either both or one of the Min/Max values.
 type StringLengthInRange struct {
 	Name    string
 	Field   string
@@ -63,5 +65,5 @@ func (v *StringLengthInRange) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringLengthInRange) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

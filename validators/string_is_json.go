@@ -3,7 +3,6 @@ package validators
 import (
 	"encoding/json"
 	"fmt"
-	"regexp"
 
 	"github.com/s3rj1k/validator"
 )
@@ -20,6 +19,7 @@ var StringIsJSONError = func(v *StringIsJSON) string {
 }
 
 // StringIsJSON is a validator object.
+// Validate adds an error if the Field is not a valid JSON.
 type StringIsJSON struct {
 	Name    string
 	Field   string
@@ -47,5 +47,5 @@ func (v *StringIsJSON) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsJSON) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

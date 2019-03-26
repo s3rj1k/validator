@@ -48,7 +48,7 @@ func (cv *NumberIsDivisibleBy) SetField(s interface{}) {
 
 // SetNameIndex sets index of slice element on Name. LEAVE UNCHANGED
 func (cv *NumberIsDivisibleBy) SetNameIndex(i int) {
-	cv.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(cv.Name, ""), i)
+	cv.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(cv.Name, ""), i)
 }
 
 // GetName is a getter on Name field. LEAVE UNCHANGED

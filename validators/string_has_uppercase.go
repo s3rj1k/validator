@@ -2,7 +2,6 @@ package validators
 
 import (
 	"fmt"
-	"regexp"
 
 	"github.com/s3rj1k/validator"
 )
@@ -19,6 +18,7 @@ var StringHasUpperCaseError = func(v *StringHasUpperCase) string {
 }
 
 // StringHasUpperCase is a validator object.
+// Validate adds an error if the Field has not uppercased letters. Empty string is valid.
 type StringHasUpperCase struct {
 	Name    string
 	Field   string
@@ -47,5 +47,5 @@ func (v *StringHasUpperCase) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringHasUpperCase) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

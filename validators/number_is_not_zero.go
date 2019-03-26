@@ -2,7 +2,6 @@ package validators
 
 import (
 	"fmt"
-	"regexp"
 
 	"github.com/s3rj1k/validator"
 )
@@ -19,6 +18,7 @@ var NumberIsNotZeroError = func(v *NumberIsNotZero) string {
 }
 
 // NumberIsNotZero is a validator object.
+// Validate adds an error if the Field equals to 0.
 type NumberIsNotZero struct {
 	Name    string
 	Field   interface{}
@@ -49,7 +49,7 @@ func (v *NumberIsNotZero) SetField(s interface{}) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *NumberIsNotZero) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }
 
 // GetName is a getter on Name field.

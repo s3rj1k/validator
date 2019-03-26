@@ -19,6 +19,7 @@ var TimeIsPresentError = func(v *TimeIsPresent) string {
 }
 
 // TimeIsPresent is a validator object.
+// Validate adds an error if the Field is the time default value.
 type TimeIsPresent struct {
 	Name    string
 	Field   time.Time

@@ -2,7 +2,6 @@ package validators
 
 import (
 	"fmt"
-	"regexp"
 
 	"github.com/s3rj1k/validator"
 )
@@ -25,6 +24,8 @@ var NumberInRangeError = func(v *NumberInRange) string {
 }
 
 // NumberInRange is a validator object.
+// Validate adds an error if the Field is not in range between Min and Max (inclusive).
+// Empty Min/Max values will be treated as 0 (zeros).
 type NumberInRange struct {
 	Name       string
 	Field      interface{}
@@ -73,7 +74,7 @@ func (v *NumberInRange) SetField(s interface{}) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *NumberInRange) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }
 
 // GetName is a getter on Name field.

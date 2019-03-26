@@ -2,7 +2,6 @@ package validators
 
 import (
 	"fmt"
-	"regexp"
 
 	"github.com/s3rj1k/validator"
 )
@@ -19,6 +18,8 @@ var StringIsRGBcolorError = func(v *StringIsRGBcolor) string {
 }
 
 // StringIsRGBcolor is a validator object.
+// Validate adds an error if the Field is not formatted as an RGB color.
+// Expected format is "rgb(RRR, GGG, BBB)".
 type StringIsRGBcolor struct {
 	Name    string
 	Field   string
@@ -43,5 +44,5 @@ func (v *StringIsRGBcolor) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsRGBcolor) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

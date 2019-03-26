@@ -20,6 +20,9 @@ var StringIsHashError = func(v *StringIsHash) string {
 }
 
 // StringIsHash is a validator object.
+// Validate adds an error if the Field is not formatted as a hash of provided type algorithm.
+// Algorithm can be one of ['md4', 'md5', 'sha1', 'sha256', 'sha384', 'sha512', 'ripemd128',
+// 'ripemd160', 'tiger128', 'tiger160', 'tiger192', 'crc32', 'crc32b'].
 type StringIsHash struct {
 	Name      string
 	Field     string
@@ -72,5 +75,5 @@ func (v *StringIsHash) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsHash) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

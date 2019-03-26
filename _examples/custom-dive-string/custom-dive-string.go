@@ -46,7 +46,7 @@ func (cv *StringHasLove) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name. LEAVE UNCHANGED
 func (cv *StringHasLove) SetNameIndex(i int) {
-	cv.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(cv.Name, ""), i)
+	cv.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(cv.Name, ""), i)
 }
 
 func main() {

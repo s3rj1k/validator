@@ -18,6 +18,9 @@ var SliceIsNotEmptyError = func(v *SliceIsNotEmpty) string {
 }
 
 // SliceIsNotEmpty is a validator object.
+// Validate adds an error if the slice in Field is empty.
+// Standard check adds an error if the slice is nil or of unsupported type.
+// Supports all Go basic types except for bool.
 type SliceIsNotEmpty struct {
 	Name    string
 	Field   interface{}
@@ -26,7 +29,7 @@ type SliceIsNotEmpty struct {
 
 // Validate adds an error if the slice in Field is empty.
 // Standard check adds an error if the slice is nil or of unsupported type.
-// Supports all Go basic types except for bool https://tour.golang.org/basics/11
+// Supports all Go basic types except for bool.
 // nolint: gocyclo
 func (v *SliceIsNotEmpty) Validate(e *validator.Errors) {
 

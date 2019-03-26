@@ -2,7 +2,6 @@ package validators
 
 import (
 	"fmt"
-	"regexp"
 	"strings"
 
 	"github.com/s3rj1k/validator"
@@ -33,6 +32,8 @@ var StringsAreEqualError = func(v *StringsAreEqual) string {
 }
 
 // StringsAreEqual is a validator object.
+// Validate adds an error if the Field is not equal to ComparedField.
+// CaseInsensitive flag can be set to make comparison case insensitive.
 type StringsAreEqual struct {
 	Name            string
 	Field           string
@@ -69,5 +70,5 @@ func (v *StringsAreEqual) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringsAreEqual) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

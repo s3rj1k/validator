@@ -3,7 +3,6 @@ package validators
 import (
 	"fmt"
 	"os/user"
-	"regexp"
 
 	"github.com/s3rj1k/validator"
 )
@@ -20,6 +19,7 @@ var StringIsExistingGroupError = func(v *StringIsExistingGroup) string {
 }
 
 // StringIsExistingGroup is a validator object.
+// Validate adds an error if the Field is a user group that does not exist.
 type StringIsExistingGroup struct {
 	Name    string
 	Field   string
@@ -44,5 +44,5 @@ func (v *StringIsExistingGroup) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsExistingGroup) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

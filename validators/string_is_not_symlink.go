@@ -3,7 +3,6 @@ package validators
 import (
 	"fmt"
 	"os"
-	"regexp"
 
 	"github.com/s3rj1k/validator"
 )
@@ -19,7 +18,8 @@ var StringIsNotSymlinkError = func(v *StringIsNotSymlink) string {
 	return fmt.Sprintf("path '%s' is a symlink", v.Field)
 }
 
-// StringIsNotSymlink is a validator object
+// StringIsNotSymlink is a validator object.
+// Validate adds an error if the Field is a symlink.
 type StringIsNotSymlink struct {
 	Name    string
 	Field   string
@@ -44,5 +44,5 @@ func (v *StringIsNotSymlink) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsNotSymlink) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

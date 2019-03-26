@@ -3,7 +3,6 @@ package validators
 import (
 	"fmt"
 	"os"
-	"regexp"
 
 	"github.com/s3rj1k/validator"
 )
@@ -19,7 +18,8 @@ var StringIsDirError = func(v *StringIsDir) string {
 	return fmt.Sprintf("path '%s' is not a dir", v.Field)
 }
 
-// StringIsDir is a validator object
+// StringIsDir is a validator object.
+// Validate adds an error if the Field is not a path to directory.
 type StringIsDir struct {
 	Name    string
 	Field   string
@@ -44,5 +44,5 @@ func (v *StringIsDir) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsDir) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

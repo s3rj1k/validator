@@ -3,7 +3,6 @@ package validators
 import (
 	"fmt"
 	"os"
-	"regexp"
 
 	"github.com/s3rj1k/validator"
 )
@@ -20,6 +19,7 @@ var StringFileIsExecutableError = func(v *StringFileIsExecutable) string {
 }
 
 // StringFileIsExecutable is a validator object.
+// Validate adds an error if the Field is a file without execute bit set.
 type StringFileIsExecutable struct {
 	Name    string
 	Field   string
@@ -52,5 +52,5 @@ func (v *StringFileIsExecutable) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringFileIsExecutable) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

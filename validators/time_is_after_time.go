@@ -23,6 +23,7 @@ var TimeIsAfterTimeError = func(v *TimeIsAfterTime) string {
 }
 
 // TimeIsAfterTime is a validator object.
+// Validate adds an error if the Field time is not after the ComparedField time.
 type TimeIsAfterTime struct {
 	Name          string
 	Field         time.Time

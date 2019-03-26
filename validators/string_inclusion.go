@@ -2,7 +2,6 @@ package validators
 
 import (
 	"fmt"
-	"regexp"
 
 	"github.com/s3rj1k/validator"
 )
@@ -18,7 +17,8 @@ var StringInclusionError = func(v *StringInclusion) string {
 	return fmt.Sprintf("'%s' is not in the whitelist %v", v.Field, v.Whitelist)
 }
 
-// StringInclusion is a validator object
+// StringInclusion is a validator object.
+// Validate adds an error if the Field is NOT one of the values from the Whitelist.
 type StringInclusion struct {
 	Name      string
 	Field     string
@@ -50,5 +50,5 @@ func (v *StringInclusion) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringInclusion) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

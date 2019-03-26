@@ -29,6 +29,11 @@ var SliceLengthInRangeError = func(v *SliceLengthInRange) string {
 }
 
 // SliceLengthInRange is a validator object.
+// Validate adds an error if the slice in Field is not in range between Min and Max (inclusive).
+// User can provide either both or only Min/Max fields.
+// If only Min provided - Max=length of slice. If only Max provided - Min=0.
+// Max=-1 -> slice must be empty.
+// Standard check adds an error if the slice is nil or of unsupported type.
 type SliceLengthInRange struct {
 	Name    string
 	Field   interface{}
@@ -41,7 +46,8 @@ type SliceLengthInRange struct {
 // Validate adds an error if the slice in Field is not in range between Min and Max (inclusive).
 // User can provide either both or only Min/Max fields.
 // If only Min provided - Max=length of slice. If only Max provided - Min=0.
-// Max=-1 -> slice must be empty
+// Max=-1 -> slice must be empty.
+// Standard check adds an error if the slice is nil or of unsupported type.
 // nolint: gocyclo
 func (v *SliceLengthInRange) Validate(e *validator.Errors) {
 

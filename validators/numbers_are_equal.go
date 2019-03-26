@@ -2,7 +2,6 @@ package validators
 
 import (
 	"fmt"
-	"regexp"
 
 	"github.com/s3rj1k/validator"
 )
@@ -23,6 +22,7 @@ var NumbersAreEqualError = func(v *NumbersAreEqual) string {
 }
 
 // NumbersAreEqual is a validator object.
+// Validate adds an error if the Field is not equal to the ComparedField.
 type NumbersAreEqual struct {
 	Name          string
 	Field         interface{}
@@ -62,7 +62,7 @@ func (v *NumbersAreEqual) SetField(s interface{}) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *NumbersAreEqual) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }
 
 // GetName is a getter on Name field.

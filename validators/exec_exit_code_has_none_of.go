@@ -23,6 +23,7 @@ var ExecExitCodeHasNoneOfError = func(v *ExecExitCodeHasNoneOf) string {
 }
 
 // ExecExitCodeHasNoneOf is a validator object.
+// Validate adds an error if the Command value after execution returns with any of defined status codes.
 type ExecExitCodeHasNoneOf struct {
 	Name           string
 	Command        []string

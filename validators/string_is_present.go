@@ -2,7 +2,6 @@ package validators
 
 import (
 	"fmt"
-	"regexp"
 	"strings"
 
 	"github.com/s3rj1k/validator"
@@ -20,6 +19,8 @@ var StringIsPresentError = func(v *StringIsPresent) string {
 }
 
 // StringIsPresent is a validator object.
+// Validate adds an error if the Field is empty or has only whitespaces.
+// If you don't want whitespaces - see StringIsNull validator.
 type StringIsPresent struct {
 	Name    string
 	Field   string
@@ -43,5 +44,5 @@ func (v *StringIsPresent) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsPresent) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

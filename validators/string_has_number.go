@@ -2,7 +2,6 @@ package validators
 
 import (
 	"fmt"
-	"regexp"
 
 	"github.com/s3rj1k/validator"
 )
@@ -19,6 +18,7 @@ var StringHasNumberError = func(v *StringHasNumber) string {
 }
 
 // StringHasNumber is a validator object.
+// Validate adds an error if the Field has no numbers.
 type StringHasNumber struct {
 	Name    string
 	Field   string
@@ -42,5 +42,5 @@ func (v *StringHasNumber) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringHasNumber) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

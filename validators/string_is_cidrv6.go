@@ -3,7 +3,6 @@ package validators
 import (
 	"fmt"
 	"net"
-	"regexp"
 
 	"github.com/s3rj1k/validator"
 )
@@ -20,6 +19,7 @@ var StringIsCIDRv6Error = func(v *StringIsCIDRv6) string {
 }
 
 // StringIsCIDRv6 is a validator object.
+// Validate adds an error if the Field is not a CIDR notation of IPv6 address.
 type StringIsCIDRv6 struct {
 	Name    string
 	Field   string
@@ -44,5 +44,5 @@ func (v *StringIsCIDRv6) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsCIDRv6) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

@@ -2,7 +2,6 @@ package validators
 
 import (
 	"fmt"
-	"regexp"
 	"strings"
 
 	"github.com/s3rj1k/validator"
@@ -20,6 +19,9 @@ var StringIsEmailLikeError = func(v *StringIsEmailLike) string {
 }
 
 // StringIsEmailLike is a validator object.
+// Validate adds an error if the Field does not correspond to "username@domain" structure.
+// It also checks that domain has a domain zone (but does not check if the zone is valid).
+// Also allows inner and outer whitespaces.
 type StringIsEmailLike struct {
 	Name    string
 	Field   string
@@ -61,5 +63,5 @@ func (v *StringIsEmailLike) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsEmailLike) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

@@ -3,7 +3,6 @@ package validators
 import (
 	"fmt"
 	"os/user"
-	"regexp"
 	"strconv"
 
 	"github.com/s3rj1k/validator"
@@ -21,6 +20,7 @@ var StringIsUserGroupOrWhitelistedError = func(v *StringIsUserGroupOrWhitelisted
 }
 
 // StringIsUserGroupOrWhitelisted is a validator object.
+// Validate adds an error if the Field is not a user group or whitelisted.
 type StringIsUserGroupOrWhitelisted struct {
 	Name      string
 	Field     string
@@ -28,7 +28,7 @@ type StringIsUserGroupOrWhitelisted struct {
 	Message   string
 }
 
-// Validate adds an error if the Field is not a user group or whitelisted
+// Validate adds an error if the Field is not a user group or whitelisted.
 func (v *StringIsUserGroupOrWhitelisted) Validate(e *validator.Errors) {
 
 	if IsGroupIsUserGroupOrWhitelisted(v.Field, v.Whitelist...) {
@@ -45,7 +45,7 @@ func (v *StringIsUserGroupOrWhitelisted) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsUserGroupOrWhitelisted) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }
 
 // IsGroupIsUserGroupOrWhitelisted checkes if name is an allowed name of group
