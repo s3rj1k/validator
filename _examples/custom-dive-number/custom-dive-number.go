@@ -10,7 +10,8 @@ import (
 )
 
 /*
-NumberValidator interface is used for NumberSliceDive:
+NumberValidator interface is used for NumberSliceDive.
+Implement all the methods on any struct to pass it to NumberSliceDive.
 
 type NumberValidator interface {
 	Validate(*validator.Errors)
@@ -22,7 +23,7 @@ type NumberValidator interface {
 
 // NumberIsDivisibleBy is a Validator object
 type NumberIsDivisibleBy struct {
-	Name string // Mandatory Field
+	Name string // Field is mandatory
 
 	// Amount of other fields are not limited
 	Field         int
@@ -46,12 +47,14 @@ func (cv *NumberIsDivisibleBy) SetField(s interface{}) {
 	cv.Field = s.(int) // change this casting to your type
 }
 
-// SetNameIndex sets index of slice element on Name. LEAVE UNCHANGED
+// SetNameIndex sets index of slice element on Name.
+// Do not change this method.
 func (cv *NumberIsDivisibleBy) SetNameIndex(i int) {
 	cv.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(cv.Name, ""), i)
 }
 
-// GetName is a getter on Name field. LEAVE UNCHANGED
+// GetName is a getter on Name field.
+// Do not change this method.
 func (cv *NumberIsDivisibleBy) GetName() string {
 	return cv.Name
 }
@@ -84,9 +87,9 @@ func main() {
 	)
 	if e != nil {
 		// to map
-		unpacked := e.Lookup("slice")
+		emap := e.Lookup("slice")
 
-		for k, v := range unpacked {
+		for k, v := range emap {
 			fmt.Printf("key: %s, value: [%s]\n", k, strings.Join(v, ", "))
 		}
 	}

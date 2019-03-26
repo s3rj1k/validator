@@ -1,4 +1,5 @@
-package validators
+// Package validators contains built-in validators for parent package "github.com/s3rj1k/validator"
+package validators // import "github.com/s3rj1k/validator/validators"
 
 import (
 	"errors"

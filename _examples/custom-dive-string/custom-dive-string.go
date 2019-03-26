@@ -10,7 +10,8 @@ import (
 )
 
 /*
-StringValidator interface is used for StringSliceDive:
+StringValidator interface is used for StringSliceDive.
+Implement all the methods on any struct to pass it to StringSliceDive.
 
 type StringValidator interface {
 	Validate(*v.Errors)
@@ -21,7 +22,7 @@ type StringValidator interface {
 
 // StringHasLove is a Validator object
 type StringHasLove struct {
-	Name string // Mandatory Field
+	Name string // Field is mandatory
 
 	// Amount/types of other fields are not limited
 	Field string
@@ -39,12 +40,14 @@ func (cv *StringHasLove) Validate(e *v.Errors) {
 	e.Add(cv.Name, fmt.Sprintf("'%s' has no love", cv.Field))
 }
 
-// SetField sets validator field. LEAVE UNCHANGED
+// SetField sets validator field.
+// Do not change this method.
 func (cv *StringHasLove) SetField(s string) {
 	cv.Field = s
 }
 
-// SetNameIndex sets index of slice element on Name. LEAVE UNCHANGED
+// SetNameIndex sets index of slice element on Name.
+// Do not change this method.
 func (cv *StringHasLove) SetNameIndex(i int) {
 	cv.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(cv.Name, ""), i)
 }
@@ -72,6 +75,6 @@ func main() {
 		},
 	)
 	if e != nil {
-		fmt.Println("slice errors: ", e.JSON())
+		fmt.Println(e) // Output: {"slice[3]":["'I do not' has no love"],"slice[4]":["'' has no love"]}
 	}
 }

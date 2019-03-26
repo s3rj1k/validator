@@ -1,7 +1,6 @@
 # github.com/s3rj1k/validator
 
-This package provides a framework for writing validations for Go applications. 
-It does provide you with few validators, but if you need others you can easly build them.
+This package provides a framework for writing validations for Go data structures.
 
 ## Installation
 
@@ -11,109 +10,98 @@ $ go get github.com/s3rj1k/validator
 
 ## Usage
 
-Using validate is pretty easy, just define `Validate` object for a struct.
+See examples below and in [_examples](https://github.com/s3rj1k/validator/tree/master/_examples) folder of this repo.
 
-Here is a pretty simple example:
-
-```go
-package main
-
-import (
-        "fmt"
-
-        v "github.com/s3rj1k/validator"
-)
-
-type User struct {
-        Name  string
-        Email string
-}
-
-func (u *User) Validate(errors *v.Errors) {
-        if u.Name == "" {
-                errors.Add("name", "Name must not be blank!")
-        }
-        if u.Email == "" {
-                errors.Add("email", "Email must not be blank!")
-        }
-}
-
-func main() {
-        err := v.Validate(&User{})
-        if err != nil {
-                fmt.Println(err)
-        }
-}
-```
-
-In the previous example a single `Validator` for the `User` struct was used. 
-To really get the benefit of using validator, one can create custom validators.
-
-```go
-package main
-
-import (
-        "fmt"
-        "strings"
-
-        v "github.com/s3rj1k/validator"
-)
-
-type User struct {
-        Name  string
-        Email string
-}
-
-type PresenceValidator struct {
-        Field string
-        Value string
-}
-
-func (v *PresenceValidator) Validate(errors *v.Errors) {
-        if v.Value == "" {
-                errors.Add(strings.ToLower(v.Field), fmt.Sprintf("%s must not be blank!", v.Field))
-        }
-}
-
-func main() {
-        u := User{Name: "", Email: ""}
-        err := v.Validate(&PresenceValidator{"Email", u.Email}, &PresenceValidator{"Name", u.Name})
-        if err != nil {
-                fmt.Println(err)
-        }
-}
-```
 
 ## Built-in Validators
 
-To make it even simpler, this package has a children package with some nice built-in validators.
+This package has a children package with some nice built-in validators. 
+*Number* validators support any *int* and *uint* types. *Slice* validators support all Go basic types except for bool.  
+
+
+Follow rules and recommendations:
+1. Validation can be done using *Validate* of *ValidateP* functions of the main package. The only difference is the structure of
+output errors. See [builtin-struct example.](https://github.com/s3rj1k/validator/blob/master/_examples/builtin-struct/builtin-struct.go)
+2. *Name* field **must** be passed to each built-in validator for proper validation.
+3. Build-in validators have defaul error messages. They can be redefined, see [errmsgchange](https://github.com/s3rj1k/validator/tree/master/_examples/errmsgchange) example.
+4. Note that validation errors is a custom type which has various methods for conveniece. See [godoc](https://godoc.org/github.com/s3rj1k/validator) for additional information.
+5. Note that *nil* Field passed to Number validators will be converted to zero which can lead to unexpected validation effect.
 
 ```go
 package main
 
 import (
-        "fmt"
+	"fmt"
 
-        "github.com/s3rj1k/validator"
-        "github.com/s3rj1k/validator/validators"
+	v "github.com/s3rj1k/validator"
+	vv "github.com/s3rj1k/validator/validators"
 )
 
 type User struct {
-        Name  string
-        Email string
+	Name  string
+	Email string
 }
 
-
 func main() {
-        u := User{Name: "", Email: ""}
-        err := validator.Validate(
-                &validators.EmailIsPresent{Name: "Email", Field: u.Email, Message: "Mail is not in the right format."},
-                &validators.StringIsPresent{Field: u.Name, Name: "Name"},
-        )
-        if err != nil {
-                fmt.Println(err)
-        }
+	u := User{Name: "", Email: ""}
+	e := v.Validate(
+		&vv.StringIsPresent{
+                        Name: "user.name", 
+                        Field: u.Name
+                        },
+		&vv.StringIsEmail{
+                        Name: "user.email", 
+                        Field: u.Email, 
+                        Message: "Mail is not in the right format." // custom error message
+                        },
+	)
+	if e != nil {
+		fmt.Println(e) // Output: {"user.email":["Mail is not in the right format."],"user.name":["'user.name' must not be blank"]}
+	}
 }
 ```
 
-All fields are required for each validators, except Message (every validator has a default error message).
+
+## Custom Validators
+
+To validate a struct just define `Validate` method for a struct.
+Below is a pretty simple example. Additional examples can be found in [_examples](https://github.com/s3rj1k/validator/tree/master/_examples) folder.
+
+Follow rules and recommendations:
+1. Add() method of v.Errors struct is the most important part where actual errors are added to the final validation results.
+Make sure that e.Add() is called in Validate method.
+2. For idiomatic usage of the validator - add a Name field to your struct (can have another name) and pass it as a first
+argument to e.Add() method. The Name field is optional for simple validations (see [custom-struct example](https://github.com/s3rj1k/validator/blob/master/_examples/custom-struct/custom-struct.go)), but is mandatory
+if you need to perform a dive (see any [dive examples](https://github.com/s3rj1k/validator/tree/master/_examples)). Omit the Name field ONLY if you are 100% sure in what you are doing.
+
+```go
+package main
+
+import (
+	"fmt"
+
+	v "github.com/s3rj1k/validator"
+)
+
+type User struct {
+	Name  string
+	Email string
+}
+
+func (u *User) Validate(e *v.Errors) {
+	if u.Name == "" {
+		e.Add("name", "Name must not be blank!")
+	}
+	if u.Email == "" {
+		e.Add("email", "Email must not be blank!")
+	}
+}
+
+func main() {
+	e := v.Validate(&User{})
+	if e != nil {
+		fmt.Println(e) // Output: {"email":["Email must not be blank!"],"name":["Name must not be blank!"]}
+	}
+}
+```
+
