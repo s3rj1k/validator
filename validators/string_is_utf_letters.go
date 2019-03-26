@@ -2,7 +2,6 @@ package validators
 
 import (
 	"fmt"
-	"regexp"
 	"unicode"
 
 	"github.com/s3rj1k/validator"
@@ -20,6 +19,8 @@ var StringIsUTFLettersError = func(v *StringIsUTFLetters) string {
 }
 
 // StringIsUTFLetters is a validator object.
+// Validate adds an error if the Field contains anything except unicode letters (category L)
+// Similar to StringIsAlpha but for all languages. Empty string is valid.
 type StringIsUTFLetters struct {
 	Name    string
 	Field   string
@@ -56,5 +57,5 @@ func (v *StringIsUTFLetters) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsUTFLetters) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

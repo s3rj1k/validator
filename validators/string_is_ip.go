@@ -3,7 +3,6 @@ package validators
 import (
 	"fmt"
 	"net"
-	"regexp"
 
 	"github.com/s3rj1k/validator"
 )
@@ -20,6 +19,7 @@ var StringIsIPError = func(v *StringIsIP) string {
 }
 
 // StringIsIP is a validator object.
+// Validate adds an error if the Field is a valid IP address version 4 or 6.
 type StringIsIP struct {
 	Name    string
 	Field   string
@@ -43,7 +43,7 @@ func (v *StringIsIP) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsIP) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }
 
 // checks if s is a valid IP

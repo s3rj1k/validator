@@ -2,7 +2,6 @@ package validators
 
 import (
 	"fmt"
-	"regexp"
 	"strings"
 
 	"github.com/s3rj1k/validator"
@@ -24,6 +23,7 @@ var StringHasPrefixAnyError = func(v *StringHasPrefixAny) string {
 }
 
 // StringHasPrefixAny is a validator object.
+// Validate adds an error if the Field is not prefixed by at least one string from ComparedField.
 type StringHasPrefixAny struct {
 	Name          string
 	Field         string
@@ -56,5 +56,5 @@ func (v *StringHasPrefixAny) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringHasPrefixAny) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

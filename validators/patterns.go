@@ -26,6 +26,7 @@ const (
 	HasAlpha           string = "[a-zA-Z]+"
 	HasNumber          string = "[0-9]+"
 	UnixFilePermission string = "^0[1-7][0-7]{2,3}$"
+	SetNameIndex       string = `\[[0-9]+\]$`
 )
 
 // nolint: gochecknoglobals
@@ -49,4 +50,5 @@ var (
 	rxHasAlpha           = regexp.MustCompile(HasAlpha)
 	rxHasNumber          = regexp.MustCompile(HasNumber)
 	rxUnixFilePermission = regexp.MustCompile(UnixFilePermission)
+	rxSetNameIndex       = regexp.MustCompile(SetNameIndex)
 )

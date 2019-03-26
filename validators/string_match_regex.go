@@ -19,6 +19,7 @@ var StringMatchRegexError = func(v *StringMatchRegex) string {
 }
 
 // StringMatchRegex is a validator object.
+// Validate adds an error if the Field does not match regular expression Regex.
 type StringMatchRegex struct {
 	Name    string
 	Field   string
@@ -43,5 +44,5 @@ func (v *StringMatchRegex) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringMatchRegex) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

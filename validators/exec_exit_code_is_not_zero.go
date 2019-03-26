@@ -23,6 +23,7 @@ var ExecExitCodeIsNotZeroError = func(v *ExecExitCodeIsNotZero) string {
 }
 
 // ExecExitCodeIsNotZero is a validator object.
+// Validate adds an error if the Command value after execution returns zero exit code.
 type ExecExitCodeIsNotZero struct {
 	Name           string
 	Command        []string

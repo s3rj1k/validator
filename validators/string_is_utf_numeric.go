@@ -2,7 +2,6 @@ package validators
 
 import (
 	"fmt"
-	"regexp"
 	"strings"
 	"unicode"
 
@@ -20,7 +19,9 @@ var StringIsUTFNumericError = func(v *StringIsUTFNumeric) string {
 	return fmt.Sprintf("'%s' must contain only unicode numbers", v.Field)
 }
 
-// StringIsUTFNumeric is a validator object
+// StringIsUTFNumeric is a validator object.
+// Validate adds an error if the Field contains anything except unicode numbers (category N).
+// Leading sign is allowed. Empty string is valid.
 type StringIsUTFNumeric struct {
 	Name    string
 	Field   string
@@ -66,5 +67,5 @@ func (v *StringIsUTFNumeric) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsUTFNumeric) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

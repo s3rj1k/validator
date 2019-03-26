@@ -2,7 +2,6 @@ package validators
 
 import (
 	"fmt"
-	"regexp"
 	"strings"
 
 	"github.com/s3rj1k/validator"
@@ -25,6 +24,7 @@ var StringHasSuffixError = func(v *StringHasSuffix) string {
 }
 
 // StringHasSuffix is a validator object.
+// Validate adds an error if the Field is not suffixed with ComparedField.
 type StringHasSuffix struct {
 	Name          string
 	Field         string
@@ -50,5 +50,5 @@ func (v *StringHasSuffix) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringHasSuffix) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

@@ -2,7 +2,6 @@ package validators
 
 import (
 	"fmt"
-	"regexp"
 
 	"github.com/s3rj1k/validator"
 )
@@ -19,6 +18,7 @@ var StringIsNumericError = func(v *StringIsNumeric) string {
 }
 
 // StringIsNumeric is a validator object.
+// Validate adds an error if the Field is not numeric. Empty string is valid.
 type StringIsNumeric struct {
 	Name    string
 	Field   string
@@ -48,5 +48,5 @@ func (v *StringIsNumeric) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsNumeric) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

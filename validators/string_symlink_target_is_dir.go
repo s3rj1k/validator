@@ -3,7 +3,6 @@ package validators
 import (
 	"fmt"
 	"os"
-	"regexp"
 
 	"github.com/s3rj1k/validator"
 )
@@ -19,7 +18,8 @@ var StringSymlinkTargetIsDirError = func(v *StringSymlinkTargetIsDir) string {
 	return fmt.Sprintf("symlink's '%s' target is not a directory", v.Field)
 }
 
-// StringSymlinkTargetIsDir is a validator object
+// StringSymlinkTargetIsDir is a validator object.
+// Validate adds an error if the Field is a symlink and it's target is not a directory.
 type StringSymlinkTargetIsDir struct {
 	Name    string
 	Field   string
@@ -50,5 +50,5 @@ func (v *StringSymlinkTargetIsDir) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringSymlinkTargetIsDir) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

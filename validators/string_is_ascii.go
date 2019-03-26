@@ -2,7 +2,6 @@ package validators
 
 import (
 	"fmt"
-	"regexp"
 
 	"github.com/s3rj1k/validator"
 )
@@ -18,7 +17,9 @@ var StringIsASCIIError = func(v *StringIsASCII) string {
 	return fmt.Sprintf("'%s' must contain ASCII chars only", v.Field)
 }
 
-// StringIsASCII is a validator object
+// StringIsASCII is a validator object.
+// Validate adds an error if the Field contains anything except for ASCII characters.
+// Empty string is valid.
 type StringIsASCII struct {
 	Name    string
 	Field   string
@@ -49,5 +50,5 @@ func (v *StringIsASCII) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsASCII) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

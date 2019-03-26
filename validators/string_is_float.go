@@ -2,7 +2,6 @@ package validators
 
 import (
 	"fmt"
-	"regexp"
 
 	"github.com/s3rj1k/validator"
 )
@@ -19,6 +18,7 @@ var StringIsFloatError = func(v *StringIsFloat) string {
 }
 
 // StringIsFloat is a validator object.
+// Validate add an error if the Field is not a float. Empty string is valid.
 type StringIsFloat struct {
 	Name    string
 	Field   string
@@ -48,5 +48,5 @@ func (v *StringIsFloat) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsFloat) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

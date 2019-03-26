@@ -3,7 +3,6 @@ package validators
 import (
 	"fmt"
 	"net/url"
-	"regexp"
 
 	"github.com/s3rj1k/validator"
 )
@@ -19,7 +18,8 @@ var StringIsHTTPURLError = func(v *StringIsHTTPURL) string {
 	return fmt.Sprintf("'%s' is not a valid URL", v.Field)
 }
 
-// StringIsHTTPURL is a validator object
+// StringIsHTTPURL is a validator object.
+// Validate adds an error if the Field is not a correctly formatted URL.
 type StringIsHTTPURL struct {
 	Name    string
 	Field   string
@@ -58,5 +58,5 @@ func (v *StringIsHTTPURL) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsHTTPURL) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

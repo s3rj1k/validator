@@ -19,7 +19,8 @@ var UUIDIsPresentError = func(v *UUIDIsPresent) string {
 	return fmt.Sprintf("'%s' must not be blank", v.Name)
 }
 
-// UUIDIsPresent is a validator object
+// UUIDIsPresent is a validator object.
+// Validate adds an error if the Field is an uuid default value (uuid.Nil).
 type UUIDIsPresent struct {
 	Name    string
 	Field   uuid.UUID

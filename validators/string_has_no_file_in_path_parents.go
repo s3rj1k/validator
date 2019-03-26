@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"regexp"
 
 	"github.com/s3rj1k/validator"
 )
@@ -20,14 +19,15 @@ var StringHasNoFileInPathParentsError = func(v *StringHasNoFileInPathParents) st
 	return fmt.Sprintf("path '%s' contains path to a file", v.Field)
 }
 
-// StringHasNoFileInPathParents is a validator object
+// StringHasNoFileInPathParents is a validator object.
+// Validate adds an error if the Field contains path to a file.
 type StringHasNoFileInPathParents struct {
 	Name    string
 	Field   string
 	Message string
 }
 
-// stringPathToPathParents converts single path to array of absolute path parents
+// stringPathToPathParents converts single path to array of absolute path parents.
 func stringPathToPathParents(path string) []string {
 
 	path, err := filepath.Abs(path)
@@ -77,5 +77,5 @@ func (v *StringHasNoFileInPathParents) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringHasNoFileInPathParents) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

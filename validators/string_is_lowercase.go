@@ -2,7 +2,6 @@ package validators
 
 import (
 	"fmt"
-	"regexp"
 	"strings"
 
 	"github.com/s3rj1k/validator"
@@ -20,6 +19,7 @@ var StringIsLowerCaseError = func(v *StringIsLowerCase) string {
 }
 
 // StringIsLowerCase is a validator object.
+// Validate adds an error if the Field is not lowercased. Empty string is valid.
 type StringIsLowerCase struct {
 	Name    string
 	Field   string
@@ -48,5 +48,5 @@ func (v *StringIsLowerCase) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsLowerCase) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

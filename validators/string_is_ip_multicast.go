@@ -3,7 +3,6 @@ package validators
 import (
 	"fmt"
 	"net"
-	"regexp"
 
 	"github.com/s3rj1k/validator"
 )
@@ -20,6 +19,7 @@ var StringIsIPMulticastError = func(v *StringIsIPMulticast) string {
 }
 
 // StringIsIPMulticast is a validator object.
+// Validate adds an error if the Field is not a multicast address.
 type StringIsIPMulticast struct {
 	Name    string
 	Field   string
@@ -45,5 +45,5 @@ func (v *StringIsIPMulticast) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsIPMulticast) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

@@ -2,7 +2,6 @@ package validators
 
 import (
 	"fmt"
-	"regexp"
 
 	"github.com/s3rj1k/validator"
 )
@@ -18,7 +17,8 @@ var StringIsBase64Error = func(v *StringIsBase64) string {
 	return fmt.Sprintf("'%s' must be base64 encoded", v.Field)
 }
 
-// StringIsBase64 is a validator object
+// StringIsBase64 is a validator object.
+// Validate adds an error if the Field is not base64 encoded. Empty string is valid.
 type StringIsBase64 struct {
 	Name    string
 	Field   string
@@ -47,5 +47,5 @@ func (v *StringIsBase64) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsBase64) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

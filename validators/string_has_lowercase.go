@@ -2,7 +2,6 @@ package validators
 
 import (
 	"fmt"
-	"regexp"
 
 	"github.com/s3rj1k/validator"
 )
@@ -18,7 +17,8 @@ var StringHasLowerCaseError = func(v *StringHasLowerCase) string {
 	return fmt.Sprintf("'%s' must contain at least 1 lowercase", v.Field)
 }
 
-// StringHasLowerCase is a validator object
+// StringHasLowerCase is a validator object.
+// Validate adds an error if the Field has not lowercased letters. Empty string is valid.
 type StringHasLowerCase struct {
 	Name    string
 	Field   string
@@ -47,5 +47,5 @@ func (v *StringHasLowerCase) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringHasLowerCase) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

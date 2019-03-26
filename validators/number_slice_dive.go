@@ -12,7 +12,8 @@ type NumberValidator interface {
 	GetName() string
 }
 
-// NumberSliceDive is a validator object
+// NumberSliceDive is a validator object.
+// Validate applies Validator to each value in the Field.
 type NumberSliceDive struct {
 	Validator NumberValidator
 	Field     interface{}

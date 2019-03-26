@@ -23,6 +23,7 @@ var ExecExitCodeHasAnyError = func(v *ExecExitCodeHasAny) string {
 }
 
 // ExecExitCodeHasAny is a validator object.
+// Validate adds an error if the Command value after execution returns with non of defined status codes.
 type ExecExitCodeHasAny struct {
 	Name           string
 	Command        []string

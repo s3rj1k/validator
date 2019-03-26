@@ -3,7 +3,6 @@ package validators
 import (
 	"fmt"
 	"os"
-	"regexp"
 
 	"github.com/s3rj1k/validator"
 )
@@ -19,7 +18,8 @@ var StringIsNotPathError = func(v *StringIsNotPath) string {
 	return fmt.Sprintf("path '%s' must not exist", v.Field)
 }
 
-// StringIsNotPath is a validator object
+// StringIsNotPath is a validator object.
+// Validate adds an error if the Field is an existing path.
 type StringIsNotPath struct {
 	Name    string
 	Field   string
@@ -42,5 +42,5 @@ func (v *StringIsNotPath) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsNotPath) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

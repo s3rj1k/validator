@@ -2,7 +2,6 @@ package validators
 
 import (
 	"fmt"
-	"regexp"
 
 	"github.com/s3rj1k/validator"
 )
@@ -19,13 +18,14 @@ var StringIsUnixFilePermissionError = func(v *StringIsUnixFilePermission) string
 }
 
 // StringIsUnixFilePermission is a validator object.
+// Validate adds an error if the Field is not a unix file permission.
 type StringIsUnixFilePermission struct {
 	Name    string
 	Field   string
 	Message string
 }
 
-// Validate adds an error if the Field is not a unix file permission
+// Validate adds an error if the Field is not a unix file permission.
 func (v *StringIsUnixFilePermission) Validate(e *validator.Errors) {
 
 	if rxUnixFilePermission.MatchString(v.Field) {
@@ -42,5 +42,5 @@ func (v *StringIsUnixFilePermission) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsUnixFilePermission) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

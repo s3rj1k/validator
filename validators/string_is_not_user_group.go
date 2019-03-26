@@ -2,7 +2,6 @@ package validators
 
 import (
 	"fmt"
-	"regexp"
 
 	"github.com/s3rj1k/validator"
 )
@@ -19,6 +18,7 @@ var StringIsNotUserGroupError = func(v *StringIsNotUserGroup) string {
 }
 
 // StringIsNotUserGroup is a validator object.
+// Validate adds an error if the Field is a user group.
 type StringIsNotUserGroup struct {
 	Name    string
 	Field   string
@@ -42,5 +42,5 @@ func (v *StringIsNotUserGroup) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsNotUserGroup) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", regexp.MustCompile(`\[[0-9]+\]$`).ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }
