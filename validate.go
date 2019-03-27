@@ -1,4 +1,5 @@
-package validator
+// Package validator provides a framework for writing validations for Go data structures.
+package validator // import "github.com/s3rj1k/validator"
 
 import (
 	"sync"

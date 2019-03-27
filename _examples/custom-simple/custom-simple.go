@@ -17,7 +17,7 @@ type Validator interface {
 
 // StringHasLove is a Validator object
 type StringHasLove struct {
-	Name string // Mandatory Field
+	Name string // Field strongly suggested to be used
 
 	// Amount/types of other fields are not limited
 	Field string
@@ -30,20 +30,20 @@ func (cv *StringHasLove) Validate(e *v.Errors) {
 		return
 	}
 
+	// Add an error. First argument must not be empty, use validator's Name field as path for consistency
 	e.Add(cv.Name, fmt.Sprintf("'%s' has no love", cv.Field))
 }
 
 func main() {
 
 	s := "I love donuts"
-
 	e := v.Validate(
 		&StringHasLove{
 			Name:  "donuts",
 			Field: s,
 		},
 	)
-	fmt.Println("donuts errors: ", e.JSON())
+	// e == nil
 
 	s = "I see dead people"
 	e = v.Validate(
@@ -52,5 +52,7 @@ func main() {
 			Field: s,
 		},
 	)
-	fmt.Println("dead errors: ", e.JSON())
+	if e != nil {
+		fmt.Println(e) // Output: {"dead":["'I see dead people' has no love"]}
+	}
 }
