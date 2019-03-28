@@ -45,6 +45,17 @@ func (e *Errors) Validate(validators ...Validator) {
 	wg.Wait()
 }
 
+// ValidateS runs n number of supplied Validator objects in single goroutine.
+func (e *Errors) ValidateS(validators ...Validator) {
+
+	// loop-over supplied validators
+	for _, v := range validators {
+
+		// run validation method
+		v.Validate(e)
+	}
+}
+
 // Validate wraps Validate method with dot notated JSON disabled.
 func Validate(validators ...Validator) *Errors {
 
@@ -69,6 +80,40 @@ func ValidateP(validators ...Validator) *Errors {
 
 	// run validators
 	e.Validate(validators...)
+
+	if !e.HasAny() {
+		return nil // return nil when there are no errors
+	}
+
+	return e
+}
+
+// ValidateSync wraps Validate method with dot notated JSON disabled.
+// Validations will run in single goroutine.
+func ValidateSync(validators ...Validator) *Errors {
+
+	// create errors object with dot notated JSON disabled
+	e := NewErrorsSync()
+
+	// run validators
+	e.ValidateS(validators...)
+
+	if !e.HasAny() {
+		return nil // return nil when there are no errors
+	}
+
+	return e
+}
+
+// ValidateSyncP wraps Validate method with dot notated JSON enabled.
+// Validations will run in single goroutine.
+func ValidateSyncP(validators ...Validator) *Errors {
+
+	// create errors object with dot notated JSON enabled
+	e := NewErrorsSyncP()
+
+	// run validators
+	e.ValidateS(validators...)
 
 	if !e.HasAny() {
 		return nil // return nil when there are no errors

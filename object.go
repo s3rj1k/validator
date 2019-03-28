@@ -14,6 +14,9 @@ type Errors struct {
 
 	// use dot notated JSON paths
 	dot bool
+
+	// run all validations in main goroutine
+	synchronous bool
 }
 
 // NewErrors returns a pointer to an initialized Errors object
@@ -33,5 +36,27 @@ func NewErrorsP() *Errors {
 		u:   &sync.RWMutex{},
 		m:   make(map[string][]string),
 		dot: true,
+	}
+}
+
+// NewErrorsSync returns a pointer to an initialized Errors object
+// with dot notated JSON disabled (no nested struct).
+// Validations will run in single goroutine.
+func NewErrorsSync() *Errors {
+	return &Errors{
+		m:           make(map[string][]string),
+		dot:         false,
+		synchronous: true,
+	}
+}
+
+// NewErrorsSyncP returns a pointer to an initialized Errors object
+// with dot notated JSON enabled (nested struct).
+// Validations will run in single goroutine.
+func NewErrorsSyncP() *Errors {
+	return &Errors{
+		m:           make(map[string][]string),
+		dot:         true,
+		synchronous: true,
 	}
 }
