@@ -117,8 +117,8 @@ func (e *Errors) Keys() []string {
 		keys = append(keys, key)
 	}
 
-	// sort paths in reverse order
-	sort.Sort(sort.Reverse(sort.StringSlice(keys)))
+	// casting keys to custom type that sorts slice in reverse order
+	sort.Sort(reverse(keys))
 
 	return keys
 }

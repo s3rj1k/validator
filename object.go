@@ -60,3 +60,10 @@ func NewErrorsSyncP() *Errors {
 		synchronous: true,
 	}
 }
+
+// reverse attaches sorting Interface to []string, sorting in reverse order.
+type reverse []string
+
+func (p reverse) Len() int           { return len(p) }
+func (p reverse) Less(i, j int) bool { return p[i] > p[j] }
+func (p reverse) Swap(i, j int)      { p[i], p[j] = p[j], p[i] }
