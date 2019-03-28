@@ -18,8 +18,10 @@ func (e *Errors) Add(path string, msg string) {
 		return
 	}
 
-	e.u.Lock()
-	defer e.u.Unlock()
+	if !e.synchronous {
+		e.u.Lock()
+		defer e.u.Unlock()
+	}
 
 	// initialize error messages slice when needed
 	if _, ok := e.m[path]; !ok {
@@ -135,8 +137,10 @@ func (e *Errors) sync() *gabs.Container {
 	// get all paths
 	paths := e.Keys()
 
-	e.u.Lock()
-	defer e.u.Unlock()
+	if !e.synchronous {
+		e.u.Lock()
+		defer e.u.Unlock()
+	}
 
 	for _, path := range paths {
 
