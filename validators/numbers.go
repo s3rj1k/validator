@@ -1,6 +1,8 @@
 package validators
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // Number represents a casted integer
 type Number struct {

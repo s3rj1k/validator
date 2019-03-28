@@ -11,6 +11,7 @@ import (
 
 func Test_NumberInRangeDive(t *testing.T) {
 
+	// nolint: maligned
 	var tests = []struct {
 		checkEqual     bool
 		field          interface{}
