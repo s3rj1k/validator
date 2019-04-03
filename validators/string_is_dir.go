@@ -28,10 +28,9 @@ type StringIsDir struct {
 
 // Validate adds an error if the Field is not a path to directory.
 func (v *StringIsDir) Validate(e *validator.Errors) {
-	if fi, err := os.Stat(v.Field); !os.IsNotExist(err) {
-		if mode := fi.Mode(); mode.IsDir() {
-			return
-		}
+
+	if isDir(v.Field) {
+		return
 	}
 
 	e.Add(v.Name, StringIsDirError(v))
@@ -45,4 +44,27 @@ func (v *StringIsDir) SetField(s string) {
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsDir) SetNameIndex(i int) {
 	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
+}
+
+func isDir(path string) bool {
+	if fi, err := os.Stat(path); !os.IsNotExist(err) {
+		if mode := fi.Mode(); mode.IsDir() {
+			return true
+		}
+	}
+
+	return false
+}
+
+func isFileWithMode(path string, mode os.FileMode) bool {
+
+	fi, err := os.Stat(path)
+	if err != nil {
+		return false
+	}
+	if fi.Mode()&mode != 0 {
+		return true
+	}
+
+	return false
 }

@@ -28,7 +28,7 @@ type StringIsPath struct {
 
 // Validate adds an error if the Field is a path that does not exist.
 func (v *StringIsPath) Validate(e *validator.Errors) {
-	if _, err := os.Stat(v.Field); !os.IsNotExist(err) {
+	if Exists(v.Field) {
 		return
 	}
 
@@ -43,4 +43,13 @@ func (v *StringIsPath) SetField(s string) {
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsPath) SetNameIndex(i int) {
 	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
+}
+
+// Exists returns true if path exists
+func Exists(path string) bool {
+	if _, err := os.Stat(path); !os.IsNotExist(err) {
+		return true
+	}
+
+	return false
 }
