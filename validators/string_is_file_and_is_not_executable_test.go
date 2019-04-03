@@ -10,7 +10,7 @@ import (
 )
 
 // nolint: gosec
-func Test_StringFileIsNotExecutable(t *testing.T) {
+func Test_StringIsFileAndIsNotExecutable(t *testing.T) {
 
 	r := require.New(t)
 
@@ -22,16 +22,16 @@ func Test_StringFileIsNotExecutable(t *testing.T) {
 	err = fd.Chmod(0111) // execute
 	r.Nil(err)
 
-	v := &StringFileIsNotExecutable{Name: "Name", Field: "/tmp/string_executable_file"}
+	v := &StringIsFileAndIsNotExecutable{Name: "Name", Field: "/tmp/string_executable_file"}
 	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
-	r.Equal([]string{StringFileIsNotExecutableError(v)}, e.Get("Name"))
+	r.Equal([]string{StringIsFileAndIsNotExecutableError(v)}, e.Get("Name"))
 
 	err = fd.Chmod(0666) // read & write
 	r.Nil(err)
 
-	v = &StringFileIsNotExecutable{Name: "Name", Field: "/tmp/string_executable_file"}
+	v = &StringIsFileAndIsNotExecutable{Name: "Name", Field: "/tmp/string_executable_file"}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
@@ -39,16 +39,16 @@ func Test_StringFileIsNotExecutable(t *testing.T) {
 	err = fd.Chmod(0333) // write & execute
 	r.Nil(err)
 
-	v = &StringFileIsNotExecutable{Name: "Name", Field: "/tmp/string_executable_file"}
+	v = &StringIsFileAndIsNotExecutable{Name: "Name", Field: "/tmp/string_executable_file"}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
-	r.Equal([]string{StringFileIsNotExecutableError(v)}, e.Get("Name"))
+	r.Equal([]string{StringIsFileAndIsNotExecutableError(v)}, e.Get("Name"))
 
 	err = fd.Chmod(0444) // read
 	r.Nil(err)
 
-	v = &StringFileIsNotExecutable{Name: "Name", Field: "/tmp/string_executable_file"}
+	v = &StringIsFileAndIsNotExecutable{Name: "Name", Field: "/tmp/string_executable_file"}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
@@ -56,18 +56,18 @@ func Test_StringFileIsNotExecutable(t *testing.T) {
 	err = fd.Chmod(0555) // read & execute
 	r.Nil(err)
 
-	v = &StringFileIsNotExecutable{Name: "Name", Field: "/tmp/string_executable_file"}
+	v = &StringIsFileAndIsNotExecutable{Name: "Name", Field: "/tmp/string_executable_file"}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
-	r.Equal([]string{StringFileIsNotExecutableError(v)}, e.Get("Name"))
+	r.Equal([]string{StringIsFileAndIsNotExecutableError(v)}, e.Get("Name"))
 
-	v = &StringFileIsNotExecutable{Name: "Name", Field: "/tmp"} // folder is not a file, no error
+	v = &StringIsFileAndIsNotExecutable{Name: "Name", Field: "/tmp"} // folder is not a file, no error
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
-	v = &StringFileIsNotExecutable{Name: "Name", Field: "/tmp/not_exist_at_all"} // not existing is OK
+	v = &StringIsFileAndIsNotExecutable{Name: "Name", Field: "/tmp/not_exist_at_all"} // not existing is OK
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())

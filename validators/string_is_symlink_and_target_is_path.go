@@ -7,9 +7,9 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
-// StringSymlinkTargetIsPathError is a function that defines error message returned by StringSymlinkTargetIsPath validator.
+// StringIsSymlinkAndTargetIsPathError is a function that defines error message returned by StringIsSymlinkAndTargetIsPath validator.
 // nolint: gochecknoglobals
-var StringSymlinkTargetIsPathError = func(v *StringSymlinkTargetIsPath) string {
+var StringIsSymlinkAndTargetIsPathError = func(v *StringIsSymlinkAndTargetIsPath) string {
 
 	if len(v.Message) > 0 {
 		return v.Message
@@ -18,16 +18,16 @@ var StringSymlinkTargetIsPathError = func(v *StringSymlinkTargetIsPath) string {
 	return fmt.Sprintf("symlink's '%s' target is not an existing path", v.Field)
 }
 
-// StringSymlinkTargetIsPath is a validator object.
+// StringIsSymlinkAndTargetIsPath is a validator object.
 // Validate adds an error if the Field is a symlink and it's target is not an existing path.
-type StringSymlinkTargetIsPath struct {
+type StringIsSymlinkAndTargetIsPath struct {
 	Name    string
 	Field   string
 	Message string
 }
 
 // Validate adds an error if the Field is a symlink and it's target is not an existing path.
-func (v *StringSymlinkTargetIsPath) Validate(e *validator.Errors) {
+func (v *StringIsSymlinkAndTargetIsPath) Validate(e *validator.Errors) {
 
 	target, err := os.Readlink(v.Field)
 	if err != nil {
@@ -38,15 +38,15 @@ func (v *StringSymlinkTargetIsPath) Validate(e *validator.Errors) {
 		return
 	}
 
-	e.Add(v.Name, StringSymlinkTargetIsPathError(v))
+	e.Add(v.Name, StringIsSymlinkAndTargetIsPathError(v))
 }
 
 // SetField sets validator field.
-func (v *StringSymlinkTargetIsPath) SetField(s string) {
+func (v *StringIsSymlinkAndTargetIsPath) SetField(s string) {
 	v.Field = s
 }
 
 // SetNameIndex sets index of slice element on Name.
-func (v *StringSymlinkTargetIsPath) SetNameIndex(i int) {
+func (v *StringIsSymlinkAndTargetIsPath) SetNameIndex(i int) {
 	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

@@ -10,7 +10,7 @@ import (
 )
 
 // nolint: gosec
-func Test_StringSymlinkTargetIsNotDir(t *testing.T) {
+func Test_StringIsSymlinkAndTargetIsDir(t *testing.T) {
 
 	r := require.New(t)
 
@@ -20,7 +20,7 @@ func Test_StringSymlinkTargetIsNotDir(t *testing.T) {
 	err = fd.Close()
 	r.Nil(err)
 
-	v := &StringSymlinkTargetIsNotDir{Name: "Name", Field: "/tmp/not_a_symlink"}
+	v := &StringIsSymlinkAndTargetIsDir{Name: "Name", Field: "/tmp/not_a_symlink"}
 	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count()) // not a symlink is OK
@@ -29,27 +29,27 @@ func Test_StringSymlinkTargetIsNotDir(t *testing.T) {
 	err = os.Symlink("/tmp/not_a_symlink", "/tmp/test_symlink") // symlink to file
 	r.Nil(err)
 
-	v = &StringSymlinkTargetIsNotDir{Name: "Name", Field: "/tmp/test_symlink"}
+	v = &StringIsSymlinkAndTargetIsDir{Name: "Name", Field: "/tmp/test_symlink"}
 	e = validator.NewErrors()
 	v.Validate(e)
-	r.Equal(0, e.Count()) // symlink to file is OK
+	r.Equal(1, e.Count()) // symlink to file is error
+	r.Equal([]string{StringIsSymlinkAndTargetIsDirError(v)}, e.Get("Name"))
 
 	_ = os.Remove("/tmp/test_symlink")
 	err = os.Symlink("/tmp", "/tmp/test_symlink") // symlink to folder
 	r.Nil(err)
 
-	v = &StringSymlinkTargetIsNotDir{Name: "Name", Field: "/tmp/test_symlink"}
+	v = &StringIsSymlinkAndTargetIsDir{Name: "Name", Field: "/tmp/test_symlink"}
 	e = validator.NewErrors()
 	v.Validate(e)
-	r.Equal(1, e.Count()) // symlink to folder is error
-	r.Equal([]string{StringSymlinkTargetIsNotDirError(v)}, e.Get("Name"))
+	r.Equal(0, e.Count()) // symlink to folder is good
 
 	err = os.Remove("/tmp/test_symlink")
 	r.Nil(err)
 	err = os.Remove("/tmp/not_a_symlink")
 	r.Nil(err)
 
-	v = &StringSymlinkTargetIsNotDir{Name: "Name", Field: "/tmp/test_symlink"}
+	v = &StringIsSymlinkAndTargetIsDir{Name: "Name", Field: "/tmp/test_symlink"}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count()) // does not exist is OK

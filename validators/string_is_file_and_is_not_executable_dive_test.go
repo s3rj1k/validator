@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func Test_StringFileIsExecutableDive(t *testing.T) {
+func Test_StringIsFileAndIsNotExecutableDive(t *testing.T) {
 
 	r := require.New(t)
 
@@ -35,7 +35,7 @@ func Test_StringFileIsExecutableDive(t *testing.T) {
 		valid          bool
 		invalidIndexes []int
 	}{
-		{[]string{"/tmp/not_exists_i_hope", "/tmp/executable_file", "/tmp", "/tmp/not_executable_file"}, false, []int{3}},
+		{[]string{"/tmp/not_exists_i_hope", "/tmp/executable_file", "/tmp", "/tmp/not_executable_file"}, false, []int{1}},
 		{[]string{" ", ""}, true, []int{}}, // not a file is OK
 		{nil, true, []int{}},               // not a file is OK
 	}
@@ -45,7 +45,7 @@ func Test_StringFileIsExecutableDive(t *testing.T) {
 
 	for index, test := range tests {
 		v := &StringSliceDive{
-			Validator: &StringFileIsExecutable{Name: "StringFileIsExecutableDive"},
+			Validator: &StringIsFileAndIsNotExecutable{Name: "StringIsFileAndIsNotExecutableDive"},
 			Field:     test.field,
 		}
 		e := validator.NewErrors()
@@ -58,7 +58,7 @@ func Test_StringFileIsExecutableDive(t *testing.T) {
 
 			errnames := []string{}
 			for _, i := range test.invalidIndexes {
-				errnames = append(errnames, fmt.Sprintf("StringFileIsExecutableDive[%d]", i))
+				errnames = append(errnames, fmt.Sprintf("StringIsFileAndIsNotExecutableDive[%d]", i))
 			}
 
 			for _, en := range errnames {

@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func Test_StringSymlinkTargetIsNotDirDive(t *testing.T) {
+func Test_StringIsSymlinkAndTargetIsNotDirDive(t *testing.T) {
 
 	r := require.New(t)
 
@@ -40,7 +40,7 @@ func Test_StringSymlinkTargetIsNotDirDive(t *testing.T) {
 
 	for index, test := range tests {
 		v := &StringSliceDive{
-			Validator: &StringSymlinkTargetIsNotDir{Name: "SymlinkTargetIsDir"},
+			Validator: &StringIsSymlinkAndTargetIsNotDir{Name: "SymlinkTargetIsDir"},
 			Field:     test.field,
 		}
 		e := validator.NewErrors()
