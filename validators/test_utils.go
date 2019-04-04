@@ -1,6 +1,7 @@
 package validators
 
 import (
+	"net"
 	"os"
 	"syscall"
 )
@@ -82,6 +83,13 @@ func _setfilemode(path string, mode os.FileMode) {
 // creates named pipe at path
 func _createnamedpipe(path string) {
 	err := syscall.Mkfifo(path, 0644)
+	if err != nil {
+		panic(err)
+	}
+}
+
+func _creatunixsocket(path string) {
+	_, err := net.Listen("unix", path)
 	if err != nil {
 		panic(err)
 	}
