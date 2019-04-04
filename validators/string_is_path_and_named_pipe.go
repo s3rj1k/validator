@@ -20,6 +20,7 @@ var StringIsPathAndNamedPipeError = func(v *StringIsPathAndNamedPipe) string {
 
 // StringIsPathAndNamedPipe is a validator object.
 // Validate adds an error if the Field is not an existing path or is an existing path without NamedPipe mode.
+// If Field is a symlink, the symlink's target will be assessed.
 type StringIsPathAndNamedPipe struct {
 	Name    string
 	Field   string
@@ -27,6 +28,7 @@ type StringIsPathAndNamedPipe struct {
 }
 
 // Validate adds an error if the Field is not an existing path or is an existing path without NamedPipe mode.
+// If Field is a symlink, the symlink's target will be assessed.
 func (v *StringIsPathAndNamedPipe) Validate(e *validator.Errors) {
 
 	if Exists(v.Field) && isFileWithMode(v.Field, os.ModeNamedPipe) {

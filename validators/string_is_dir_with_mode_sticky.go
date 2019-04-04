@@ -20,6 +20,7 @@ var StringIsDirWithModeStickyError = func(v *StringIsDirWithModeSticky) string {
 
 // StringIsDirWithModeSticky is a validator object.
 // Validate adds an error if the Field is not a dir or a dir without sticky mode.
+// If Field is a symlink, the symlink's target will be assessed.
 type StringIsDirWithModeSticky struct {
 	Name    string
 	Field   string
@@ -27,7 +28,6 @@ type StringIsDirWithModeSticky struct {
 }
 
 // Validate adds an error if the Field is not a dir or a dir without sticky mode.
-// If Field is a symlink, the symlink's target will be assessed.
 // If Field is a symlink, the symlink's target will be assessed.
 func (v *StringIsDirWithModeSticky) Validate(e *validator.Errors) {
 

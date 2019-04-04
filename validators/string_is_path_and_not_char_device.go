@@ -20,6 +20,7 @@ var StringIsPathAndNotCharDeviceError = func(v *StringIsPathAndNotCharDevice) st
 
 // StringIsPathAndNotCharDevice is a validator object.
 // Validate adds an error if the Field is not an existing path or is an existing path with CharDevice mode.
+// If Field is a symlink, the symlink's target will be assessed.
 type StringIsPathAndNotCharDevice struct {
 	Name    string
 	Field   string
@@ -27,6 +28,7 @@ type StringIsPathAndNotCharDevice struct {
 }
 
 // Validate adds an error if the Field is not an existing path or is an existing path with CharDevice mode.
+// If Field is a symlink, the symlink's target will be assessed.
 func (v *StringIsPathAndNotCharDevice) Validate(e *validator.Errors) {
 
 	if Exists(v.Field) && !isFileWithMode(v.Field, os.ModeCharDevice) {
