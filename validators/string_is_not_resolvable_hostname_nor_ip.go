@@ -9,14 +9,20 @@ import (
 // StringIsNotResolvableHostnameNorIPError is a function that defines error message returned by StringIsNotResolvableHostnameNorIP validator.
 // nolint: gochecknoglobals
 var StringIsNotResolvableHostnameNorIPError = func(v *StringIsNotResolvableHostnameNorIP) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	return fmt.Sprintf("'%s' is a resolvable hostname or an IP address", v.Field)
 }
 
 // StringIsNotResolvableHostnameNorIP is a validator object.
 // Validate adds an error if the Field is a resolvable hostname or an IP address.
 type StringIsNotResolvableHostnameNorIP struct {
-	Name  string
-	Field string
+	Name    string
+	Field   string
+	Message string
 }
 
 // Validate adds an error if the Field is a resolvable hostname or an IP address.

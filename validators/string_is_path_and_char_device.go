@@ -10,14 +10,20 @@ import (
 // StringIsPathAndCharDeviceError is a function that defines error message returned by StringIsPathAndCharDevice validator.
 // nolint: gochecknoglobals
 var StringIsPathAndCharDeviceError = func(v *StringIsPathAndCharDevice) string {
+
+	if len(v.Message) > 0 {
+		return v.Message
+	}
+
 	return fmt.Sprintf("'%s' is not an existing path or is an existing path without CharDevice mode", v.Field)
 }
 
 // StringIsPathAndCharDevice is a validator object.
 // Validate adds an error if the Field is not an existing path or is an existing path without CharDevice mode.
 type StringIsPathAndCharDevice struct {
-	Name  string
-	Field string
+	Name    string
+	Field   string
+	Message string
 }
 
 // Validate adds an error if the Field is not an existing path or is an existing path without CharDevice mode.
