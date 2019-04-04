@@ -7,9 +7,9 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
-// StringSymlinkTargetIsDirError is a function that defines error message returned by StringSymlinkTargetIsDir validator.
+// StringIsSymlinkAndTargetIsDirError is a function that defines error message returned by StringIsSymlinkAndTargetIsDir validator.
 // nolint: gochecknoglobals
-var StringSymlinkTargetIsDirError = func(v *StringSymlinkTargetIsDir) string {
+var StringIsSymlinkAndTargetIsDirError = func(v *StringIsSymlinkAndTargetIsDir) string {
 
 	if len(v.Message) > 0 {
 		return v.Message
@@ -18,16 +18,16 @@ var StringSymlinkTargetIsDirError = func(v *StringSymlinkTargetIsDir) string {
 	return fmt.Sprintf("symlink's '%s' target is not a directory", v.Field)
 }
 
-// StringSymlinkTargetIsDir is a validator object.
+// StringIsSymlinkAndTargetIsDir is a validator object.
 // Validate adds an error if the Field is a symlink and it's target is not a directory.
-type StringSymlinkTargetIsDir struct {
+type StringIsSymlinkAndTargetIsDir struct {
 	Name    string
 	Field   string
 	Message string
 }
 
 // Validate adds an error if the Field is a symlink and it's target is not a directory.
-func (v *StringSymlinkTargetIsDir) Validate(e *validator.Errors) {
+func (v *StringIsSymlinkAndTargetIsDir) Validate(e *validator.Errors) {
 
 	target, err := os.Readlink(v.Field)
 	if err != nil {
@@ -40,15 +40,15 @@ func (v *StringSymlinkTargetIsDir) Validate(e *validator.Errors) {
 		}
 	}
 
-	e.Add(v.Name, StringSymlinkTargetIsDirError(v))
+	e.Add(v.Name, StringIsSymlinkAndTargetIsDirError(v))
 }
 
 // SetField sets validator field.
-func (v *StringSymlinkTargetIsDir) SetField(s string) {
+func (v *StringIsSymlinkAndTargetIsDir) SetField(s string) {
 	v.Field = s
 }
 
 // SetNameIndex sets index of slice element on Name.
-func (v *StringSymlinkTargetIsDir) SetNameIndex(i int) {
+func (v *StringIsSymlinkAndTargetIsDir) SetNameIndex(i int) {
 	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func Test_StringSymlinkTargetIsPathDive(t *testing.T) {
+func Test_StringIsSymlinkAndTargetIsNotPathDive(t *testing.T) {
 
 	r := require.New(t)
 
@@ -46,14 +46,14 @@ func Test_StringSymlinkTargetIsPathDive(t *testing.T) {
 		valid          bool
 		invalidIndexes []int
 	}{
-		{[]string{"/tmp/not_a_symlink", "/tmp/symlink_to_file", "/tmp/symlink_to_folder", "/tmp/not_exists", "/tmp/symlink_target_not_exist"}, false, []int{4}},
+		{[]string{"/tmp/not_a_symlink", "/tmp/symlink_to_file", "/tmp/symlink_to_folder", "/tmp/not_exists", "/tmp/symlink_target_not_exist"}, false, []int{1, 2}},
 		{[]string{" ", ""}, true, []int{}}, // empty and nil are not errors of this validator
 		{nil, true, []int{}},
 	}
 
 	for index, test := range tests {
 		v := &StringSliceDive{
-			Validator: &StringSymlinkTargetIsPath{Name: "SymlinkTargetIsDir"},
+			Validator: &StringIsSymlinkAndTargetIsNotPath{Name: "SymlinkTargetIsDir"},
 			Field:     test.field,
 		}
 		e := validator.NewErrors()

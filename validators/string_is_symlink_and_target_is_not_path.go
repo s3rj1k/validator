@@ -7,9 +7,9 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
-// StringSymlinkTargetIsNotPathError is a function that defines error message returned by StringSymlinkTargetIsNotPath validator.
+// StringIsSymlinkAndTargetIsNotPathError is a function that defines error message returned by StringIsSymlinkAndTargetIsNotPath validator.
 // nolint: gochecknoglobals
-var StringSymlinkTargetIsNotPathError = func(v *StringSymlinkTargetIsNotPath) string {
+var StringIsSymlinkAndTargetIsNotPathError = func(v *StringIsSymlinkAndTargetIsNotPath) string {
 
 	if len(v.Message) > 0 {
 		return v.Message
@@ -18,16 +18,16 @@ var StringSymlinkTargetIsNotPathError = func(v *StringSymlinkTargetIsNotPath) st
 	return fmt.Sprintf("symlink's '%s' target is an existing path", v.Field)
 }
 
-// StringSymlinkTargetIsNotPath is a validator object.
+// StringIsSymlinkAndTargetIsNotPath is a validator object.
 // Validate adds an error if the Field is a symlink and it's target is an existing path.
-type StringSymlinkTargetIsNotPath struct {
+type StringIsSymlinkAndTargetIsNotPath struct {
 	Name    string
 	Field   string
 	Message string
 }
 
 // Validate adds an error if the Field is a symlink and it's target is an existing path.
-func (v *StringSymlinkTargetIsNotPath) Validate(e *validator.Errors) {
+func (v *StringIsSymlinkAndTargetIsNotPath) Validate(e *validator.Errors) {
 
 	target, err := os.Readlink(v.Field)
 	if err != nil {
@@ -38,15 +38,15 @@ func (v *StringSymlinkTargetIsNotPath) Validate(e *validator.Errors) {
 		return
 	}
 
-	e.Add(v.Name, StringSymlinkTargetIsNotPathError(v))
+	e.Add(v.Name, StringIsSymlinkAndTargetIsNotPathError(v))
 }
 
 // SetField sets validator field.
-func (v *StringSymlinkTargetIsNotPath) SetField(s string) {
+func (v *StringIsSymlinkAndTargetIsNotPath) SetField(s string) {
 	v.Field = s
 }
 
 // SetNameIndex sets index of slice element on Name.
-func (v *StringSymlinkTargetIsNotPath) SetNameIndex(i int) {
+func (v *StringIsSymlinkAndTargetIsNotPath) SetNameIndex(i int) {
 	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

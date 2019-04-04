@@ -7,9 +7,9 @@ import (
 	"github.com/s3rj1k/validator"
 )
 
-// StringFileIsNotExecutableError is a function that defines error message returned by StringFileIsNotExecutable validator.
+// StringIsFileAndIsNotExecutableError is a function that defines error message returned by StringIsFileAndIsNotExecutable validator.
 // nolint: gochecknoglobals
-var StringFileIsNotExecutableError = func(v *StringFileIsNotExecutable) string {
+var StringIsFileAndIsNotExecutableError = func(v *StringIsFileAndIsNotExecutable) string {
 
 	if len(v.Message) > 0 {
 		return v.Message
@@ -18,16 +18,16 @@ var StringFileIsNotExecutableError = func(v *StringFileIsNotExecutable) string {
 	return fmt.Sprintf("'%s' has execute bit set", v.Field)
 }
 
-// StringFileIsNotExecutable is a validator object.
+// StringIsFileAndIsNotExecutable is a validator object.
 // Validate adds an error if the Field is a file with execute bit set.
-type StringFileIsNotExecutable struct {
+type StringIsFileAndIsNotExecutable struct {
 	Name    string
 	Field   string
 	Message string
 }
 
 // Validate adds an error if the Field is a file with execute bit set.
-func (v *StringFileIsNotExecutable) Validate(e *validator.Errors) {
+func (v *StringIsFileAndIsNotExecutable) Validate(e *validator.Errors) {
 
 	fi, err := os.Stat(v.Field)
 	if err != nil {
@@ -38,15 +38,15 @@ func (v *StringFileIsNotExecutable) Validate(e *validator.Errors) {
 		return
 	}
 
-	e.Add(v.Name, StringFileIsNotExecutableError(v))
+	e.Add(v.Name, StringIsFileAndIsNotExecutableError(v))
 }
 
 // SetField sets validator field.
-func (v *StringFileIsNotExecutable) SetField(s string) {
+func (v *StringIsFileAndIsNotExecutable) SetField(s string) {
 	v.Field = s
 }
 
 // SetNameIndex sets index of slice element on Name.
-func (v *StringFileIsNotExecutable) SetNameIndex(i int) {
+func (v *StringIsFileAndIsNotExecutable) SetNameIndex(i int) {
 	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }
