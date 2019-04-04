@@ -62,9 +62,9 @@ func isFileWithMode(path string, mode os.FileMode) bool {
 	if err != nil {
 		return false
 	}
-	if fi.Mode()&mode != 0 {
-		return true
+	if mode == os.ModeType {
+		return fi.Mode()&mode == 0
 	}
 
-	return false
+	return fi.Mode()&mode != 0
 }
