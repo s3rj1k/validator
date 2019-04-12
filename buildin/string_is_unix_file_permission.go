@@ -42,5 +42,5 @@ func (v *StringIsUnixFilePermission) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsUnixFilePermission) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", RxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

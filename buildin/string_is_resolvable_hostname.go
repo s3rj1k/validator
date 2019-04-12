@@ -43,7 +43,7 @@ func (v *StringIsResolvableHostname) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsResolvableHostname) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", RxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }
 
 // isResolvableHostname if s is a resolvable host NAME. IP addresses return false.

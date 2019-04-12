@@ -50,5 +50,5 @@ var (
 	rxHasAlpha           = regexp.MustCompile(HasAlpha)
 	rxHasNumber          = regexp.MustCompile(HasNumber)
 	rxUnixFilePermission = regexp.MustCompile(UnixFilePermission)
-	rxSetNameIndex       = regexp.MustCompile(SetNameIndex)
+	RxSetNameIndex       = regexp.MustCompile(SetNameIndex)
 )

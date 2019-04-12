@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"regexp"
 	"strings"
 
 	v "github.com/s3rj1k/validator"
@@ -50,7 +49,7 @@ func (cv *NumberIsDivisibleBy) SetField(s interface{}) {
 // SetNameIndex sets index of slice element on Name.
 // Do not change this method.
 func (cv *NumberIsDivisibleBy) SetNameIndex(i int) {
-	cv.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(cv.Name, ""), i)
+	cv.Name = fmt.Sprintf("%s[%d]", vv.RxSetNameIndex.ReplaceAllString(cv.Name, ""), i)
 }
 
 // GetName is a getter on Name field.
