@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	v "github.com/s3rj1k/validator"
-	vv "github.com/s3rj1k/validator/validators"
+	vv "github.com/s3rj1k/validator/buildin"
 )
 
 /*
