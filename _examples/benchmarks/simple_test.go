@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	s3rj1k "github.com/s3rj1k/validator"
-	vv "github.com/s3rj1k/validator/validators"
+	vv "github.com/s3rj1k/validator/buildin"
 
 	goplayg "gopkg.in/go-playground/validator.v9"
 
