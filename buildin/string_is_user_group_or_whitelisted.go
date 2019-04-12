@@ -45,7 +45,7 @@ func (v *StringIsUserGroupOrWhitelisted) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsUserGroupOrWhitelisted) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", RxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }
 
 // IsGroupIsUserGroupOrWhitelisted checkes if name is an allowed name of group

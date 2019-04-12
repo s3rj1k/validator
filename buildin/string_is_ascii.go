@@ -50,5 +50,5 @@ func (v *StringIsASCII) SetField(s string) {
 
 // SetNameIndex sets index of slice element on Name.
 func (v *StringIsASCII) SetNameIndex(i int) {
-	v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), i)
+	v.Name = fmt.Sprintf("%s[%d]", RxSetNameIndex.ReplaceAllString(v.Name, ""), i)
 }

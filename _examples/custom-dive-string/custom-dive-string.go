@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"regexp"
 	"strings"
 
 	v "github.com/s3rj1k/validator"
@@ -49,7 +48,7 @@ func (cv *StringHasLove) SetField(s string) {
 // SetNameIndex sets index of slice element on Name.
 // Do not change this method.
 func (cv *StringHasLove) SetNameIndex(i int) {
-	cv.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(cv.Name, ""), i)
+	cv.Name = fmt.Sprintf("%s[%d]", vv.RxSetNameIndex.ReplaceAllString(cv.Name, ""), i)
 }
 
 func main() {

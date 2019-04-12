@@ -181,7 +181,7 @@ func (v *SliceIsUnique) Validate(e *validator.Errors) {
 
 	// assigning error to each duplicate element
 	for _, ind := range dupl {
-		v.Name = fmt.Sprintf("%s[%d]", rxSetNameIndex.ReplaceAllString(v.Name, ""), ind)
+		v.Name = fmt.Sprintf("%s[%d]", RxSetNameIndex.ReplaceAllString(v.Name, ""), ind)
 		e.Add(v.Name, SliceIsUniqueError(v))
 	}
 }
