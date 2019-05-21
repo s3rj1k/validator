@@ -10,7 +10,6 @@ import (
 
 // nolint: gosec
 func Test_StringIsDirWithModeSticky(t *testing.T) {
-
 	r := require.New(t)
 
 	var notexists, notdir, notstickydir, stickydir string

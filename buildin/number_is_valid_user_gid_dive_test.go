@@ -9,7 +9,6 @@ import (
 )
 
 func Test_NumberIsValidUserGIDDive(t *testing.T) {
-
 	r := require.New(t)
 
 	var tests = []struct {
@@ -46,5 +45,4 @@ func Test_NumberIsValidUserGIDDive(t *testing.T) {
 			}
 		}
 	}
-
 }

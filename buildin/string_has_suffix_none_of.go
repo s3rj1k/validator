@@ -10,7 +10,6 @@ import (
 // StringHasSuffixNoneOfError is a function that defines error message returned by StringHasSuffixNoneOf validator.
 // nolint: gochecknoglobals
 var StringHasSuffixNoneOfError = func(v *StringHasSuffixNoneOf) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -34,7 +33,6 @@ type StringHasSuffixNoneOf struct {
 
 // Validate adds an error if the Field is Suffixed by at least one string from ComparedField.
 func (v *StringHasSuffixNoneOf) Validate(e *validator.Errors) {
-
 	// if no excluding Suffixes - string is valid
 	if v.ComparedField == nil || len(v.ComparedField) == 0 {
 		return

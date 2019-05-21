@@ -9,7 +9,6 @@ import (
 // StringIsNullError is a function that defines error message returned by StringIsNull validator.
 // nolint: gochecknoglobals
 var StringIsNullError = func(v *StringIsNull) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}

@@ -3,14 +3,11 @@ package main
 import (
 	"testing"
 
+	asaskevich "github.com/asaskevich/govalidator"
+	ozzo "github.com/go-ozzo/ozzo-validation"
 	s3rj1k "github.com/s3rj1k/validator"
 	vv "github.com/s3rj1k/validator/buildin"
-
 	goplayg "gopkg.in/go-playground/validator.v9"
-
-	asaskevich "github.com/asaskevich/govalidator"
-
-	ozzo "github.com/go-ozzo/ozzo-validation"
 )
 
 type Test struct {
@@ -80,7 +77,6 @@ func Benchmark_s3rj1k_simple(b *testing.B) {
 var goplg = goplayg.New()
 
 func Benchmark_goplaygroud_simple(b *testing.B) {
-
 	for i := 0; i < b.N; i++ {
 		err := goplg.Struct(s)
 		_panicnoerr(err)

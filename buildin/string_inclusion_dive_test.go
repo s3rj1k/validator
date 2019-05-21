@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringInclusionDive(t *testing.T) {
-
 	r := require.New(t)
 
 	whitel := []string{"This", "is", "good", "this", "Dont", "ne ed", "", "need"}

@@ -1,4 +1,4 @@
-// Package validators contains built-in validators for parent package "github.com/s3rj1k/validator"
+// Package buildin contains built-in validators for parent package "github.com/s3rj1k/validator"
 package buildin // import "github.com/s3rj1k/validator/buildin"
 
 import (

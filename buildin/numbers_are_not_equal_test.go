@@ -8,7 +8,6 @@ import (
 )
 
 func Test_NumbersAreNotEqual(t *testing.T) {
-
 	r := require.New(t)
 
 	f := int32(90)

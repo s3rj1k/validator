@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsPort(t *testing.T) {
-
 	r := require.New(t)
 
 	v := &StringIsPort{Name: "Name", Field: "1"} // Port is OK > 0

@@ -9,7 +9,6 @@ import (
 // StringIsASCIIError is a function that defines error message returned by StringIsASCII validator.
 // nolint: gochecknoglobals
 var StringIsASCIIError = func(v *StringIsASCII) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -29,7 +28,6 @@ type StringIsASCII struct {
 // Validate adds an error if the Field contains anything except for ASCII characters.
 // Empty string is valid.
 func (v *StringIsASCII) Validate(e *validator.Errors) {
-
 	// null string is valid
 	if isNullString(v.Field) {
 		return

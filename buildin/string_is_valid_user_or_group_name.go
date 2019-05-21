@@ -9,7 +9,6 @@ import (
 // StringIsValidUserOrGroupNameError is a function that defines error message returned by StringIsValidUserOrGroupName validator.
 // nolint: gochecknoglobals
 var StringIsValidUserOrGroupNameError = func(v *StringIsValidUserOrGroupName) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -27,7 +26,6 @@ type StringIsValidUserOrGroupName struct {
 
 // Validate adds an error if the Field is not a valid user or group name.
 func (v *StringIsValidUserOrGroupName) Validate(e *validator.Errors) {
-
 	if isValidUserOrGroupName(v.Field) {
 		return
 	}
@@ -46,7 +44,6 @@ func (v *StringIsValidUserOrGroupName) SetNameIndex(i int) {
 }
 
 func isValidUserOrGroupName(name string) bool {
-
 	if len(name) < 1 || len(name) > 32 {
 		return false
 	}

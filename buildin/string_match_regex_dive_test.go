@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringMatchRegexDive(t *testing.T) {
-
 	r := require.New(t)
 
 	regex := Email
@@ -37,5 +36,4 @@ func Test_StringMatchRegexDive(t *testing.T) {
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(6, e.Count())
-
 }

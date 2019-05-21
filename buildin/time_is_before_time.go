@@ -10,7 +10,6 @@ import (
 // TimeIsBeforeTimeError is a function that defines error message returned by TimeIsBeforeTime validator.
 // nolint: gochecknoglobals
 var TimeIsBeforeTimeError = func(v *TimeIsBeforeTime) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}

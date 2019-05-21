@@ -10,7 +10,6 @@ import (
 // StringIsIPHasPTRError is a function that defines error message returned by StringIsIPHasPTR validator.
 // nolint: gochecknoglobals
 var StringIsIPHasPTRError = func(v *StringIsIPHasPTR) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -28,7 +27,6 @@ type StringIsIPHasPTR struct {
 
 // Validate adds an error if the Field is an IP address that does not have PTR record.
 func (v *StringIsIPHasPTR) Validate(e *validator.Errors) {
-
 	names, err := net.LookupAddr(v.Field)
 	if err == nil || names != nil || len(names) > 0 {
 		return

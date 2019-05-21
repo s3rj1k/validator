@@ -8,7 +8,6 @@ import (
 )
 
 func Test_NumberInRange(t *testing.T) {
-
 	// nolint: maligned
 	var tests = []struct {
 		checkEqual bool
@@ -46,7 +45,6 @@ func Test_NumberInRange(t *testing.T) {
 	r := require.New(t)
 
 	for index, tc := range tests {
-
 		v := &NumberInRange{
 			Name:       "InRange",
 			Field:      tc.field,

@@ -9,7 +9,6 @@ import (
 
 // nolint: gosec
 func Test_StringIsPathAndNotNamedPipe(t *testing.T) {
-
 	r := require.New(t)
 
 	var notexists, namedPipe string

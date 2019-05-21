@@ -9,7 +9,6 @@ import (
 // NumbersAreNotEqualError is a function that defines error message returned by NumbersAreNotEqual validator.
 // nolint: gochecknoglobals
 var NumbersAreNotEqualError = func(v *NumbersAreNotEqual) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -33,7 +32,6 @@ type NumbersAreNotEqual struct {
 
 // Validate adds an error if the Field is equal to the ComparedField.
 func (v *NumbersAreNotEqual) Validate(e *validator.Errors) {
-
 	fNum, err := cast(v.Field)
 	if err != nil {
 		e.Add(v.Name, err.Error())

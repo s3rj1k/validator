@@ -9,7 +9,6 @@ import (
 // StringIsRGBcolorError is a function that defines error message returned by StringIsRGBcolor validator.
 // nolint: gochecknoglobals
 var StringIsRGBcolorError = func(v *StringIsRGBcolor) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -29,7 +28,6 @@ type StringIsRGBcolor struct {
 // Validate adds an error if the Field is not formatted as an RGB color.
 // Expected format is "rgb(RRR, GGG, BBB)".
 func (v *StringIsRGBcolor) Validate(e *validator.Errors) {
-
 	if rxRGBcolor.MatchString(v.Field) {
 		return
 	}

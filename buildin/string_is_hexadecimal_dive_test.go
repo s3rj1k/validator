@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsHexadecimalDive(t *testing.T) {
-
 	r := require.New(t)
 
 	field := []string{"123456789", "abcdef", "ABCDEF"}

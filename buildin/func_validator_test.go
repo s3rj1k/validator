@@ -8,7 +8,6 @@ import (
 )
 
 func Test_FuncValidator(t *testing.T) {
-
 	r := require.New(t)
 
 	f := func(i interface{}) bool {

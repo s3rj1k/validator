@@ -10,7 +10,6 @@ import (
 // StringIsIPGlobalUnicastError is a function that defines error message returned by StringIsIPGlobalUnicast validator.
 // nolint: gochecknoglobals
 var StringIsIPGlobalUnicastError = func(v *StringIsIPGlobalUnicast) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -32,7 +31,6 @@ type StringIsIPGlobalUnicast struct {
 // Error is not added if ip is in IPv4 private address space or
 // local IPv6 unicast address space.
 func (v *StringIsIPGlobalUnicast) Validate(e *validator.Errors) {
-
 	ip := net.ParseIP(v.Field)
 
 	if ip.IsGlobalUnicast() {

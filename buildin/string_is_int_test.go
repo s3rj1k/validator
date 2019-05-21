@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsInt(t *testing.T) {
-
 	r := require.New(t)
 
 	v := &StringIsInt{Name: "Name", Field: "1988"} // must be int

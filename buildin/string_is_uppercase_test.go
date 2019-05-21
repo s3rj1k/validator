@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsUpperCase(t *testing.T) {
-
 	r := require.New(t)
 
 	v := &StringIsUpperCase{Name: "Name", Field: "ASFADG44"}

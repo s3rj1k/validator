@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringHasNoPrefixDive(t *testing.T) {
-
 	r := require.New(t)
 
 	sl := []string{"Foo", "Bar", "Bob", "What?"}

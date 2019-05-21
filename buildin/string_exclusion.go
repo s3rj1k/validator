@@ -9,7 +9,6 @@ import (
 // StringExclusionError is a function that defines error message returned by StringExclusion validator.
 // nolint: gochecknoglobals
 var StringExclusionError = func(v *StringExclusion) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -28,7 +27,6 @@ type StringExclusion struct {
 
 // Validate adds an error if the Field is one of the values from the Blacklist.
 func (v *StringExclusion) Validate(e *validator.Errors) {
-
 	var found = false
 
 	for _, l := range v.Blacklist {

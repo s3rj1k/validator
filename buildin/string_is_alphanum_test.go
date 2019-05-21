@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsAlphaNum(t *testing.T) {
-
 	r := require.New(t)
 
 	v := &StringIsAlphaNum{Name: "Name", Field: "ASfgg5452"}

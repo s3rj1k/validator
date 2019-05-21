@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsAlphaDive(t *testing.T) {
-
 	r := require.New(t)
 
 	field := []string{"Need", "onlY", "Letters", "No", "WhiteSpaces", ""} // 0 errors

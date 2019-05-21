@@ -10,7 +10,6 @@ import (
 // StringIsLowerCaseError is a function that defines error message returned by StringIsLowerCase validator.
 // nolint: gochecknoglobals
 var StringIsLowerCaseError = func(v *StringIsLowerCase) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -28,7 +27,6 @@ type StringIsLowerCase struct {
 
 // Validate adds an error if the Field is not lowercased. Empty string is valid.
 func (v *StringIsLowerCase) Validate(e *validator.Errors) {
-
 	// null string is valid
 	if isNullString(v.Field) {
 		return

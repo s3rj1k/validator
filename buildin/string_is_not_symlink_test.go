@@ -10,7 +10,6 @@ import (
 
 // nolint: gosec
 func Test_StringIsNotSymlink(t *testing.T) {
-
 	r := require.New(t)
 
 	fd, err := os.Create("/tmp/test")

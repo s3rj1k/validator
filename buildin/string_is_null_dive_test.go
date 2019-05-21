@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsNullDive(t *testing.T) {
-
 	r := require.New(t)
 
 	field := []string{"", "", ""}

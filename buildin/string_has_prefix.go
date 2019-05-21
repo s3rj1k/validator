@@ -10,7 +10,6 @@ import (
 // StringHasPrefixError is a function that defines error message returned by StringHasPrefix validator.
 // nolint: gochecknoglobals
 var StringHasPrefixError = func(v *StringHasPrefix) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -20,7 +19,6 @@ var StringHasPrefixError = func(v *StringHasPrefix) string {
 	}
 
 	return fmt.Sprintf("'%s' does not start with content of '%s'", v.Name, v.ComparedName)
-
 }
 
 // StringHasPrefix is a validator object.
@@ -35,7 +33,6 @@ type StringHasPrefix struct {
 
 // Validate adds an error if the Field is not prefixed with ComparedField.
 func (v *StringHasPrefix) Validate(e *validator.Errors) {
-
 	if strings.HasPrefix(v.Field, v.ComparedField) {
 		return
 	}

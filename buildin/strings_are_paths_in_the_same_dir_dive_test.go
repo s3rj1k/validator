@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringsArePathsInTheSameDirDive(t *testing.T) {
-
 	r := require.New(t)
 
 	sl := []string{"Foo", "/Bar", "/tmp/Bob", "//bin//What?"}

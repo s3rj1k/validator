@@ -9,7 +9,6 @@ import (
 // SliceIsUniqueError is a function that defines error message returned by SliceIsUnique validator.
 // nolint: gochecknoglobals
 var SliceIsUniqueError = func(v *SliceIsUnique) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -30,7 +29,6 @@ type SliceIsUnique struct {
 // Supports all Go basic types except for bool.
 // nolint: gocyclo
 func (v *SliceIsUnique) Validate(e *validator.Errors) {
-
 	var dupl = []int{} // indexes of duplicates
 
 	m := make(map[interface{}]struct{})

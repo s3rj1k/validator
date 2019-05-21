@@ -10,7 +10,6 @@ import (
 // StringIsJSONError is a function that defines error message returned by StringIsJSON validator.
 // nolint: gochecknoglobals
 var StringIsJSONError = func(v *StringIsJSON) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -28,7 +27,6 @@ type StringIsJSON struct {
 
 // Validate adds an error if the Field is not a valid JSON.
 func (v *StringIsJSON) Validate(e *validator.Errors) {
-
 	var js json.RawMessage
 
 	// successful unmarshalling is good

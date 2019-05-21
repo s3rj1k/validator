@@ -9,7 +9,6 @@ import (
 )
 
 func Test_NumberIsValidUserGID(t *testing.T) {
-
 	r := require.New(t)
 
 	testCases := []numTestCase{
@@ -64,7 +63,6 @@ func Test_NumberIsValidUserGID(t *testing.T) {
 	}
 
 	for index, tc := range testCases {
-
 		v := NumberIsValidUserGID{
 			Name:  tc.name,
 			Field: tc.field,

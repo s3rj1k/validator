@@ -10,7 +10,6 @@ import (
 // StringIsCIDRError is a function that defines error message returned by StringIsCIDR validator.
 // nolint: gochecknoglobals
 var StringIsCIDRError = func(v *StringIsCIDR) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -28,7 +27,6 @@ type StringIsCIDR struct {
 
 // Validate adds an error if the Field is not a valid CIDR notation address.
 func (v *StringIsCIDR) Validate(e *validator.Errors) {
-
 	_, _, err := net.ParseCIDR(v.Field)
 	if err == nil {
 		return

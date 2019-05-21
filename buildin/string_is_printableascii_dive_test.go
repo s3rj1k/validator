@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsPrintableASCIIDive(t *testing.T) {
-
 	r := require.New(t)
 
 	field := []string{"asd456", "0nlY", " ASC11", "!$#%()-=<>etc...,@", " ", ""}

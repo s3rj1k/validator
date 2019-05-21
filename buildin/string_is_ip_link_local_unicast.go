@@ -10,7 +10,6 @@ import (
 // StringIsIPLinkLocalUnicastError is a function that defines error message returned by StringIsIPLinkLocalUnicast validator.
 // nolint: gochecknoglobals
 var StringIsIPLinkLocalUnicastError = func(v *StringIsIPLinkLocalUnicast) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -28,7 +27,6 @@ type StringIsIPLinkLocalUnicast struct {
 
 // Validate adds an error if the Field is not a link-local unicast address.
 func (v *StringIsIPLinkLocalUnicast) Validate(e *validator.Errors) {
-
 	ip := net.ParseIP(v.Field)
 
 	if ip.IsLinkLocalUnicast() {

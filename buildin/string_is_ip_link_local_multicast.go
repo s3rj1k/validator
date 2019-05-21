@@ -10,7 +10,6 @@ import (
 // StringIsIPLinkLocalMulticastError is a function that defines error message returned by StringIsIPLinkLocalMulticast validator.
 // nolint: gochecknoglobals
 var StringIsIPLinkLocalMulticastError = func(v *StringIsIPLinkLocalMulticast) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -28,7 +27,6 @@ type StringIsIPLinkLocalMulticast struct {
 
 // Validate adds an error if the Field is not a link-local multicast address.
 func (v *StringIsIPLinkLocalMulticast) Validate(e *validator.Errors) {
-
 	ip := net.ParseIP(v.Field)
 
 	if ip.IsLinkLocalMulticast() {

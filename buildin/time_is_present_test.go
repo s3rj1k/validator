@@ -9,7 +9,6 @@ import (
 )
 
 func Test_TimeIsPresent(t *testing.T) {
-
 	r := require.New(t)
 
 	v := &TimeIsPresent{Name: "CreatedAt", Field: time.Now()}

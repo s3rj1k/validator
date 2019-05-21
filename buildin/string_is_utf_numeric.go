@@ -11,7 +11,6 @@ import (
 // StringIsUTFNumericError is a function that defines error message returned by StringIsUTFNumeric validator.
 // nolint: gochecknoglobals
 var StringIsUTFNumericError = func(v *StringIsUTFNumeric) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -31,7 +30,6 @@ type StringIsUTFNumeric struct {
 // Validate adds an error if the Field contains anything except unicode numbers (category N).
 // Leading sign is allowed. Empty string is valid.
 func (v *StringIsUTFNumeric) Validate(e *validator.Errors) {
-
 	var failed bool
 	var field = v.Field
 

@@ -10,7 +10,6 @@ import (
 // StringContainsAnyError is a function that defines error message returned by StringContainsAny validator.
 // nolint: gochecknoglobals
 var StringContainsAnyError = func(v *StringContainsAny) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -34,7 +33,6 @@ type StringContainsAny struct {
 
 // Validate adds an error if the Field does not contain at least one substrings from ComparedField.
 func (v *StringContainsAny) Validate(e *validator.Errors) {
-
 	// if no required substrings - string is valid
 	if v.ComparedField == nil || len(v.ComparedField) == 0 {
 		return

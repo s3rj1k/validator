@@ -9,7 +9,6 @@ import (
 )
 
 func Test_StringIsIPv6Dive(t *testing.T) {
-
 	r := require.New(t)
 
 	var tests = []struct {
@@ -34,7 +33,6 @@ func Test_StringIsIPv6Dive(t *testing.T) {
 		r.Equalf(!test.valid, e.HasAny(), "tc %d expecting error=%v got=%v", index, !test.valid, e.HasAny())
 
 		if !test.valid {
-
 			r.Equalf(len(test.invalidIndexes), e.Count(), "tc %d wrong number of errors", index)
 
 			errnames := []string{}

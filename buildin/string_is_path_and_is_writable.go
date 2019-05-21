@@ -10,7 +10,6 @@ import (
 // StringIsPathAndIsWritableError is a function that defines error message returned by StringIsPathAndIsWritable validator.
 // nolint: gochecknoglobals
 var StringIsPathAndIsWritableError = func(v *StringIsPathAndIsWritable) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -28,7 +27,6 @@ type StringIsPathAndIsWritable struct {
 
 // Validate adds an error if the Field is a path and is not writable.
 func (v *StringIsPathAndIsWritable) Validate(e *validator.Errors) {
-
 	if err := unix.Access(v.Field, unix.W_OK); err == nil {
 		return
 	}

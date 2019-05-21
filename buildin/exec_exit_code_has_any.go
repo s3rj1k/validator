@@ -14,7 +14,6 @@ import (
 // ExecExitCodeHasAnyError is a function that defines default error message returned by ExecExitCodeHasAny validator.
 // nolint: gochecknoglobals
 var ExecExitCodeHasAnyError = func(v *ExecExitCodeHasAny) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -34,7 +33,6 @@ type ExecExitCodeHasAny struct {
 
 // Validate adds an error if the Command value after execution returns with non of defined status codes.
 func (v *ExecExitCodeHasAny) Validate(e *validator.Errors) {
-
 	var timeout time.Time
 
 	if v.TimeoutSeconds == 0 {

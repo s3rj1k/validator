@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsIntDive(t *testing.T) {
-
 	r := require.New(t)
 
 	field := []string{"1", "+1", "0", "-12"}

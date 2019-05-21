@@ -10,7 +10,6 @@ import (
 )
 
 func Test_StringIsSymlinkAndTargetIsDirDive(t *testing.T) {
-
 	r := require.New(t)
 
 	fd, err := os.Create("/tmp/not_a_symlink") // nolint: gosec

@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsPortDive(t *testing.T) {
-
 	r := require.New(t)
 
 	field := []string{"1", "123", "65535"}

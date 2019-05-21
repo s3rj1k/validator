@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsUpperCaseDive(t *testing.T) {
-
 	r := require.New(t)
 
 	field := []string{"NEED", "ONLY", "UPPER CASES", "  ", ""}

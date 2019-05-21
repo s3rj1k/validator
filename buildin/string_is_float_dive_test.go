@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsFloatDive(t *testing.T) {
-
 	r := require.New(t)
 
 	field := []string{"1.5", "+1", "0", "-12.5"}

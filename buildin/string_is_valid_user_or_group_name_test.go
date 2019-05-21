@@ -9,7 +9,6 @@ import (
 )
 
 func Test_StringIsValidUserOrGroupName(t *testing.T) {
-
 	r := require.New(t)
 
 	var tests = []struct {

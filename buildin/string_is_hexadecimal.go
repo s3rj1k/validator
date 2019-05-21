@@ -9,7 +9,6 @@ import (
 // StringIsHexadecimalError is a function that defines error message returned by StringIsHexadecimal validator.
 // nolint: gochecknoglobals
 var StringIsHexadecimalError = func(v *StringIsHexadecimal) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -27,7 +26,6 @@ type StringIsHexadecimal struct {
 
 // Validate adds an error if the Field is not in a hexadecimal format.
 func (v *StringIsHexadecimal) Validate(e *validator.Errors) {
-
 	if rxHexadecimal.MatchString(v.Field) {
 		return
 	}

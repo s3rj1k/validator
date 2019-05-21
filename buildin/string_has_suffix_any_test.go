@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringHasSuffixAny(t *testing.T) {
-
 	r := require.New(t)
 
 	var tests = []struct {
@@ -38,5 +37,4 @@ func Test_StringHasSuffixAny(t *testing.T) {
 			r.Equalf([]string{StringHasSuffixAnyError(v)}, e.Get(v.Name), "tc %d", index)
 		}
 	}
-
 }

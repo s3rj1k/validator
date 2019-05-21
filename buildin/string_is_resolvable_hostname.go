@@ -10,7 +10,6 @@ import (
 // StringIsResolvableHostnameError is a function that defines error message returned by StringIsResolvableHostname validator.
 // nolint: gochecknoglobals
 var StringIsResolvableHostnameError = func(v *StringIsResolvableHostname) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -28,7 +27,6 @@ type StringIsResolvableHostname struct {
 
 // Validate adds an error if the Field is not a resolvable hostname.
 func (v *StringIsResolvableHostname) Validate(e *validator.Errors) {
-
 	if isResolvableHostname(v.Field) {
 		return
 	}
@@ -48,7 +46,6 @@ func (v *StringIsResolvableHostname) SetNameIndex(i int) {
 
 // isResolvableHostname if s is a resolvable host NAME. IP addresses return false.
 func isResolvableHostname(s string) bool {
-
 	// resolvable host is OK
 	addrs, err := net.LookupHost(s)
 	if err != nil || len(addrs) == 0 {

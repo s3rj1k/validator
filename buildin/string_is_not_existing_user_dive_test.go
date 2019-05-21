@@ -9,7 +9,6 @@ import (
 )
 
 func Test_StringIsNotExistingUserDive(t *testing.T) {
-
 	r := require.New(t)
 
 	var tests = []struct {
@@ -45,5 +44,4 @@ func Test_StringIsNotExistingUserDive(t *testing.T) {
 			}
 		}
 	}
-
 }

@@ -10,7 +10,6 @@ import (
 // StringIsPresentError is a function that defines error message returned by StringIsPresent validator.
 // nolint: gochecknoglobals
 var StringIsPresentError = func(v *StringIsPresent) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}

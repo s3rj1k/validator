@@ -9,7 +9,6 @@ import (
 )
 
 func Test_StringHasPrefixNoneOfDive(t *testing.T) {
-
 	r := require.New(t)
 
 	var tests = []struct {
@@ -54,5 +53,4 @@ func Test_StringHasPrefixNoneOfDive(t *testing.T) {
 			}
 		}
 	}
-
 }

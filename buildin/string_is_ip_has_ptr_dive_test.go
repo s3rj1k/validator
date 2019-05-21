@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsIPHasPTRDive(t *testing.T) {
-
 	r := require.New(t)
 
 	field := []string{"31.13.81.36", "199.59.149.230", "207.97.227.239"}

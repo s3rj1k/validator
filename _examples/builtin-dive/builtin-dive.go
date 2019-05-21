@@ -14,7 +14,6 @@ type users struct {
 }
 
 func main() {
-
 	u := &users{
 		names: []string{"Bob", "Alice", "John"},
 		ids:   []uint32{12, 13, 14, 0},
@@ -74,7 +73,6 @@ func main() {
 }
 
 func printmap(m map[string][]string) {
-
 	for k, v := range m {
 		fmt.Printf("Key: '%s'; Value: [%s]\n", k, strings.Join(v, ", "))
 	}

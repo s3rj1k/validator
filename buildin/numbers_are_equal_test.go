@@ -8,7 +8,6 @@ import (
 )
 
 func Test_NumbersAreEqual(t *testing.T) {
-
 	r := require.New(t)
 
 	f := []int32{100, 100, 100}

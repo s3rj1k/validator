@@ -9,7 +9,6 @@ import (
 // NumberIsGreaterError is a function that defines error message returned by NumberIsGreater validator.
 // nolint: gochecknoglobals
 var NumberIsGreaterError = func(v *NumberIsGreater) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -40,7 +39,6 @@ type NumberIsGreater struct {
 
 // Validate adds an error if the Field is not greater than the ComparedField.
 func (v *NumberIsGreater) Validate(e *validator.Errors) {
-
 	fNum, err := cast(v.Field)
 	if err != nil {
 		e.Add(v.Name, err.Error())
@@ -55,8 +53,14 @@ func (v *NumberIsGreater) Validate(e *validator.Errors) {
 		return
 	}
 
-	if isGreater(fNum, cfNum, v.CheckEqual) {
-		return
+	if v.CheckEqual {
+		if fNum.IsGreaterOrEqual(cfNum) {
+			return
+		}
+	} else {
+		if fNum.IsGreater(cfNum) {
+			return
+		}
 	}
 
 	e.Add(v.Name, NumberIsGreaterError(v))
@@ -75,18 +79,4 @@ func (v *NumberIsGreater) SetNameIndex(i int) {
 // GetName is a getter on Name field.
 func (v *NumberIsGreater) GetName() string {
 	return v.Name
-}
-
-// isGreater returns true if x > y or x>=y if checkEqual is true
-func isGreater(x, y *Number, checkEqual bool) bool {
-
-	if x.IsGreater(y) {
-		return true
-	}
-
-	if checkEqual && x.IsEqual(y) {
-		return true
-	}
-
-	return false
 }

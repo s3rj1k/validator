@@ -10,7 +10,6 @@ import (
 // StringIsPathAndSocketError is a function that defines error message returned by StringIsPathAndSocket validator.
 // nolint: gochecknoglobals
 var StringIsPathAndSocketError = func(v *StringIsPathAndSocket) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -30,7 +29,6 @@ type StringIsPathAndSocket struct {
 // Validate adds an error if the Field is not an existing path or is an existing path without Socket mode.
 // If Field is a symlink, the symlink's target will be assessed.
 func (v *StringIsPathAndSocket) Validate(e *validator.Errors) {
-
 	if Exists(v.Field) && isFileWithMode(v.Field, os.ModeSocket) {
 		return
 	}

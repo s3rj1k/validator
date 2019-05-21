@@ -10,7 +10,6 @@ import (
 // StringIsFileError is a function that defines error message returned by StringIsFile validator.
 // nolint: gochecknoglobals
 var StringIsFileError = func(v *StringIsFile) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -28,7 +27,6 @@ type StringIsFile struct {
 
 // Validate adds an error if the Field is not a file.
 func (v *StringIsFile) Validate(e *validator.Errors) {
-
 	if fi, err := os.Stat(v.Field); !os.IsNotExist(err) {
 		if !fi.IsDir() {
 			return

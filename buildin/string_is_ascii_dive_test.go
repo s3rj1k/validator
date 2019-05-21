@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsASCIIDive(t *testing.T) {
-
 	r := require.New(t)
 
 	field := []string{"Need", "0nlY", " ASC11", "!$#%()-=<>etc...,@", " ", ""} // 0 errors

@@ -9,7 +9,6 @@ import (
 // StringIsPrintableASCIIError is a function that defines error message returned by StringIsPrintableASCII validator.
 // nolint: gochecknoglobals
 var StringIsPrintableASCIIError = func(v *StringIsPrintableASCII) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -29,7 +28,6 @@ type StringIsPrintableASCII struct {
 // Validate adds an error if the Field contains anything except for printable ASCII characters.
 // Empty string is valid.
 func (v *StringIsPrintableASCII) Validate(e *validator.Errors) {
-
 	// null string is valid
 	if isNullString(v.Field) {
 		return

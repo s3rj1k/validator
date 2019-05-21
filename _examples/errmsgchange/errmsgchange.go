@@ -8,7 +8,6 @@ import (
 )
 
 func main() {
-
 	// each built-in validator has standard error message
 	e := v.Validate(
 		&vv.StringIsAlpha{

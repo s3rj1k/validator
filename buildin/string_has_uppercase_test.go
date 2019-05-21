@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringHasUpperCase(t *testing.T) {
-
 	r := require.New(t)
 
 	v := &StringHasUpperCase{Name: "Name", Field: "3w4asF@`"} // at least 1 upper case

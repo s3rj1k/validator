@@ -10,7 +10,6 @@ import (
 // StringIsIPIfaceLocalMulticastError is a function that defines error message returned by StringIsIPIfaceLocalMulticast validator.
 // nolint: gochecknoglobals
 var StringIsIPIfaceLocalMulticastError = func(v *StringIsIPIfaceLocalMulticast) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -28,7 +27,6 @@ type StringIsIPIfaceLocalMulticast struct {
 
 // Validate adds an error if the Field is not an interface-local multicast address.
 func (v *StringIsIPIfaceLocalMulticast) Validate(e *validator.Errors) {
-
 	ip := net.ParseIP(v.Field)
 
 	if ip.IsInterfaceLocalMulticast() {

@@ -12,7 +12,6 @@ import (
 
 // Add will add (append) a new error message to the list of errors using the given path.
 func (e *Errors) Add(path string, msg string) {
-
 	// check for nil, no errors
 	if e == nil {
 		return
@@ -34,7 +33,6 @@ func (e *Errors) Add(path string, msg string) {
 
 // Count returns the number of errors.
 func (e *Errors) Count() int {
-
 	var total int
 
 	// check for nil, no errors
@@ -58,7 +56,6 @@ func (e *Errors) HasAny() bool {
 
 // Exists returns 'true' if given path exist and has errors, else returns 'false'.
 func (e *Errors) Exists(path string) bool {
-
 	// check for nil, no errors
 	if e == nil {
 		return false
@@ -79,7 +76,6 @@ func (e *Errors) Exists(path string) bool {
 
 // Get returns an array of error messages for the given path.
 func (e *Errors) Get(path string) []string {
-
 	// check existence of given path
 	if !e.Exists(path) {
 		return []string{}
@@ -90,7 +86,6 @@ func (e *Errors) Get(path string) []string {
 
 // Lookup returns map of errors whose paths start with prefix.
 func (e *Errors) Lookup(prefix string) map[string][]string {
-
 	out := make(map[string][]string)
 
 	for _, path := range e.Keys() {
@@ -104,7 +99,6 @@ func (e *Errors) Lookup(prefix string) map[string][]string {
 
 // Keys returns all paths (sorted) which have errors.
 func (e *Errors) Keys() []string {
-
 	// check for nil, no errors
 	if e == nil {
 		return []string{}
@@ -125,7 +119,6 @@ func (e *Errors) Keys() []string {
 
 // sync synchronizes internal map with container interface.
 func (e *Errors) sync() *gabs.Container {
-
 	// container for dynamic JSON
 	c := gabs.New()
 
@@ -143,7 +136,6 @@ func (e *Errors) sync() *gabs.Container {
 	}
 
 	for _, path := range paths {
-
 		var err error
 
 		// get all errors

@@ -10,7 +10,6 @@ import (
 // StringIsPathAndDeviceError is a function that defines error message returned by StringIsPathAndDevice validator.
 // nolint: gochecknoglobals
 var StringIsPathAndDeviceError = func(v *StringIsPathAndDevice) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -30,7 +29,6 @@ type StringIsPathAndDevice struct {
 // Validate adds an error if the Field is not an existing path or is an existing path without Device mode.
 // If Field is a symlink, the symlink's target will be assessed.
 func (v *StringIsPathAndDevice) Validate(e *validator.Errors) {
-
 	if Exists(v.Field) && isFileWithMode(v.Field, os.ModeDevice) {
 		return
 	}

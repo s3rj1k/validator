@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsNumericDive(t *testing.T) {
-
 	r := require.New(t)
 
 	field := []string{"123", "555", "123 ", "55 55", "", "  "} // 0 errors

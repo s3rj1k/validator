@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringsArePathsNotInTheSameDir(t *testing.T) {
-
 	r := require.New(t)
 
 	var cases = []struct {

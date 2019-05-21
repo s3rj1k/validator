@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsUTFLetters(t *testing.T) {
-
 	r := require.New(t)
 
 	v := &StringIsUTFLetters{Name: "Name", Field: "asd品ʂля"}

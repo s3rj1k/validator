@@ -10,7 +10,6 @@ import (
 )
 
 func Test_StringIsHexadecimal(t *testing.T) {
-
 	r := require.New(t)
 
 	v := &StringIsHexadecimal{Name: "Name", Field: hex.EncodeToString([]byte("Hello"))} // hex here

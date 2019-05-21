@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsASCII(t *testing.T) {
-
 	r := require.New(t)
 
 	v := &StringIsASCII{Name: "Name", Field: "abc123"} // must be ASCII

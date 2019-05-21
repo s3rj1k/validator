@@ -21,7 +21,6 @@ type NumberSliceDive struct {
 
 // Validate applies Validator to each value in the Field.
 func (v *NumberSliceDive) Validate(e *validator.Errors) {
-
 	slice := v.Field
 
 	if slice == nil {
@@ -29,7 +28,6 @@ func (v *NumberSliceDive) Validate(e *validator.Errors) {
 	}
 
 	switch field := slice.(type) {
-
 	case []int8:
 		for i, val := range field {
 			v.Validator.SetField(val)
@@ -96,7 +94,6 @@ func (v *NumberSliceDive) Validate(e *validator.Errors) {
 			v.Validator.SetNameIndex(i)
 			v.Validator.Validate(e)
 		}
-
 	default:
 		e.Add(v.Validator.GetName(), ErrBadNumType.Error())
 		return

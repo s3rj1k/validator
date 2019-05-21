@@ -31,7 +31,6 @@ type NumberIsDivisibleBy struct {
 
 // Validate adds an error if Field has no love.
 func (cv *NumberIsDivisibleBy) Validate(e *v.Errors) {
-
 	// add your logic
 	if cv.Field%cv.ComparedField == 0 {
 		return
@@ -59,7 +58,6 @@ func (cv *NumberIsDivisibleBy) GetName() string {
 }
 
 func main() {
-
 	slice := []int{10, 33, 44, 57, 99, 100, 0, -3, -4}
 	divisor := 3
 

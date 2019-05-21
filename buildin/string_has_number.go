@@ -9,7 +9,6 @@ import (
 // StringHasNumberError is a function that defines error message returned by StringHasNumber validator.
 // nolint: gochecknoglobals
 var StringHasNumberError = func(v *StringHasNumber) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -27,7 +26,6 @@ type StringHasNumber struct {
 
 // Validate adds an error if the Field has no numbers.
 func (v *StringHasNumber) Validate(e *validator.Errors) {
-
 	if rxHasNumber.MatchString(v.Field) {
 		return
 	}

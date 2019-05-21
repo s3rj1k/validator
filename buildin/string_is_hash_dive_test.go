@@ -11,7 +11,6 @@ import (
 )
 
 func Test_StringIsHashDive(t *testing.T) {
-
 	r := require.New(t)
 
 	h := sha256.New()

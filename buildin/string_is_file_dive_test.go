@@ -10,7 +10,6 @@ import (
 )
 
 func Test_StringIsFileDive(t *testing.T) {
-
 	r := require.New(t)
 
 	fd, err := os.Create("/tmp/string_is_file_dive") // nolint: gosec

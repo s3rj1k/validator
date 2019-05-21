@@ -9,7 +9,6 @@ import (
 // StringIsBase64Error is a function that defines error message returned by StringIsBase64 validator.
 // nolint: gochecknoglobals
 var StringIsBase64Error = func(v *StringIsBase64) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -27,7 +26,6 @@ type StringIsBase64 struct {
 
 // Validate adds an error if the Field is not base64 encoded. Empty string is valid.
 func (v *StringIsBase64) Validate(e *validator.Errors) {
-
 	if isNullString(v.Field) {
 		return
 	}

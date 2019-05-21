@@ -10,7 +10,6 @@ import (
 // StringHasSuffixError is a function that defines error message returned by StringHasSuffix validator.
 // nolint: gochecknoglobals
 var StringHasSuffixError = func(v *StringHasSuffix) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -20,7 +19,6 @@ var StringHasSuffixError = func(v *StringHasSuffix) string {
 	}
 
 	return fmt.Sprintf("'%s' does not end with content of '%s'", v.Name, v.ComparedName)
-
 }
 
 // StringHasSuffix is a validator object.
@@ -35,7 +33,6 @@ type StringHasSuffix struct {
 
 // Validate adds an error if the Field is not suffixed with ComparedField.
 func (v *StringHasSuffix) Validate(e *validator.Errors) {
-
 	if strings.HasSuffix(v.Field, v.ComparedField) {
 		return
 	}

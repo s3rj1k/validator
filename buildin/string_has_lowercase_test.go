@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringHasLowerCase(t *testing.T) {
-
 	r := require.New(t)
 
 	v := &StringHasLowerCase{Name: "Name", Field: "3w4ASF^^#"} // at least 1 lowercase

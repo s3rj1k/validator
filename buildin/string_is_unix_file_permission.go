@@ -9,7 +9,6 @@ import (
 // StringIsUnixFilePermissionError is a function that defines error message returned by StringIsUnixFilePermission validator.
 // nolint: gochecknoglobals
 var StringIsUnixFilePermissionError = func(v *StringIsUnixFilePermission) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -27,7 +26,6 @@ type StringIsUnixFilePermission struct {
 
 // Validate adds an error if the Field is not a unix file permission.
 func (v *StringIsUnixFilePermission) Validate(e *validator.Errors) {
-
 	if rxUnixFilePermission.MatchString(v.Field) {
 		return
 	}

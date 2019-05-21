@@ -10,7 +10,6 @@ import (
 // StringIsIPError is a function that defines error message returned by StringIsIP validator.
 // nolint: gochecknoglobals
 var StringIsIPError = func(v *StringIsIP) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -28,7 +27,6 @@ type StringIsIP struct {
 
 // Validate adds an error if the Field is a valid IP address version 4 or 6.
 func (v *StringIsIP) Validate(e *validator.Errors) {
-
 	if isIP(v.Field) {
 		return
 	}
@@ -48,7 +46,6 @@ func (v *StringIsIP) SetNameIndex(i int) {
 
 // checks if s is a valid IP
 func isIP(s string) bool {
-
 	if len(s) == 0 {
 		return false
 	}

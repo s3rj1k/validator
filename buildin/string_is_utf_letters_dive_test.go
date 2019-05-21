@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsUTFLettersDive(t *testing.T) {
-
 	r := require.New(t)
 
 	field := []string{"Neeппd", "onlY", "Letнпters", "Nцo", "WhiццteSpaces", ""} // 0 errors

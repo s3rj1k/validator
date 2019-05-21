@@ -12,7 +12,6 @@ import (
 )
 
 func Test_StringIsHash(t *testing.T) {
-
 	r := require.New(t)
 
 	h := md5.New() // nolint: gosec

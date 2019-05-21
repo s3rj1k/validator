@@ -9,7 +9,6 @@ import (
 )
 
 func Test_ExecExitCodeHasAny(t *testing.T) {
-
 	r := require.New(t)
 
 	var tests = []struct {

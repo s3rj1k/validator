@@ -10,7 +10,6 @@ import (
 // StringIsValidShadowPasswordError is a function that defines error message returned by StringIsValidShadowPassword validator.
 // nolint: gochecknoglobals
 var StringIsValidShadowPasswordError = func(v *StringIsValidShadowPassword) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -28,7 +27,6 @@ type StringIsValidShadowPassword struct {
 
 // Validate adds an error if the Field is not a valid shadow password.
 func (v *StringIsValidShadowPassword) Validate(e *validator.Errors) {
-
 	if isValidShadowPasswd(v.Field) {
 		return
 	}
@@ -47,7 +45,6 @@ func (v *StringIsValidShadowPassword) SetNameIndex(i int) {
 }
 
 func isValidShadowPasswd(passwd string) bool {
-
 	hashLength := map[string]int{
 		"1": 22, // md5
 		"5": 43, // sha256

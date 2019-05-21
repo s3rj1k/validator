@@ -9,7 +9,6 @@ import (
 // StringIsResolvableHostnameOrIPv4Error is a function that defines error message returned by StringIsResolvableHostnameOrIPv4 validator.
 // nolint: gochecknoglobals
 var StringIsResolvableHostnameOrIPv4Error = func(v *StringIsResolvableHostnameOrIPv4) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -27,7 +26,6 @@ type StringIsResolvableHostnameOrIPv4 struct {
 
 // Validate adds an error if the Field is not a resolvable hostname and not an IPv4 address.
 func (v *StringIsResolvableHostnameOrIPv4) Validate(e *validator.Errors) {
-
 	if isResolvableHostname(v.Field) || isIPv4(v.Field) {
 		return
 	}

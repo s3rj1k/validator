@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringHasNoFilesInPathParents(t *testing.T) {
-
 	r := require.New(t)
 
 	v := StringHasNoFileInPathParents{Name: "Name", Field: "."} // at least 1 upper case

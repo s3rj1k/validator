@@ -11,7 +11,6 @@ import (
 // StringIsHashError is a function that defines error message returned by StringIsHash validator.
 // nolint: gochecknoglobals
 var StringIsHashError = func(v *StringIsHash) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -34,7 +33,6 @@ type StringIsHash struct {
 // Algorithm can be one of ['md4', 'md5', 'sha1', 'sha256', 'sha384', 'sha512', 'ripemd128',
 // 'ripemd160', 'tiger128', 'tiger160', 'tiger192', 'crc32', 'crc32b'].
 func (v *StringIsHash) Validate(e *validator.Errors) {
-
 	var invalidAlg = false
 
 	length := "0"

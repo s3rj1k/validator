@@ -9,7 +9,6 @@ import (
 // StringIsNotNumericError is a function that defines error message returned by StringIsNotNumeric validator.
 // nolint: gochecknoglobals
 var StringIsNotNumericError = func(v *StringIsNotNumeric) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -27,7 +26,6 @@ type StringIsNotNumeric struct {
 
 // Validate adds an error if the Field is numeric.
 func (v *StringIsNotNumeric) Validate(e *validator.Errors) {
-
 	if !rxNumeric.MatchString(v.Field) {
 		return
 	}

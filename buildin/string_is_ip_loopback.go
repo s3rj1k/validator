@@ -10,7 +10,6 @@ import (
 // StringIsIPLoopbackError is a function that defines error message returned by StringIsIPLoopback validator.
 // nolint: gochecknoglobals
 var StringIsIPLoopbackError = func(v *StringIsIPLoopback) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -28,7 +27,6 @@ type StringIsIPLoopback struct {
 
 // Validate adds an error if the Field is not a loopback address.
 func (v *StringIsIPLoopback) Validate(e *validator.Errors) {
-
 	ip := net.ParseIP(v.Field)
 
 	if ip.IsLoopback() {

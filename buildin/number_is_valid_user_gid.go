@@ -22,7 +22,6 @@ var (
 // NumberIsValidUserGIDError is a function that defines error message returned by NumberIsValidUserGID validator.
 // nolint: gochecknoglobals
 var NumberIsValidUserGIDError = func(v *NumberIsValidUserGID) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -40,7 +39,6 @@ type NumberIsValidUserGID struct {
 
 // Validate adds an error if the Field is in range of GID_MIN, GID_MAX from '/etc/login.defs'.
 func (v *NumberIsValidUserGID) Validate(e *validator.Errors) {
-
 	fNum, err := cast(v.Field)
 	if err != nil {
 		e.Add(v.Name, err.Error())
@@ -58,7 +56,6 @@ func (v *NumberIsValidUserGID) Validate(e *validator.Errors) {
 	if fNum.Value >= minUserGID &&
 		fNum.Value <= maxUserGID &&
 		!fNum.isNegative {
-
 		return
 	}
 
@@ -81,12 +78,9 @@ func (v *NumberIsValidUserGID) GetName() string {
 }
 
 // ReadUserGIDRange parses 'login.defs' file.
-func ReadUserGIDRange(path string) (uint64, uint64) {
-
-	var (
-		minUserGID = DefaultMinUserGID
-		maxUserGID = DefaultMaxUserGID
-	)
+func ReadUserGIDRange(path string) (minUserGID uint64, maxUserGID uint64) {
+	minUserGID = DefaultMinUserGID
+	maxUserGID = DefaultMaxUserGID
 
 	fd, err := os.Open(path)
 	if err != nil {
@@ -100,7 +94,6 @@ func ReadUserGIDRange(path string) (uint64, uint64) {
 	scanner := bufio.NewScanner(fd)
 
 	for scanner.Scan() {
-
 		fields := strings.Fields(scanner.Text())
 		if len(fields) != 2 {
 			continue
@@ -117,7 +110,6 @@ func ReadUserGIDRange(path string) (uint64, uint64) {
 				maxUserGID = i
 			}
 		}
-
 	}
 
 	return minUserGID, maxUserGID
