@@ -23,6 +23,7 @@ const (
 	hasUpperCase       string = ".*[[:upper:]]"
 	Passwd             string = "^[a-zA-Z0-9\\.\\/]+$" // nolint: gosec
 	UserGroupName      string = "^[a-z_][a-z0-9_-]*[$]?$"
+	UserGroupNameI     string = "^[a-zA-z_][a-zA-z0-9_-]*[$]?$"
 	HasAlpha           string = "[a-zA-Z]+"
 	HasNumber          string = "[0-9]+"
 	UnixFilePermission string = "^0[1-7][0-7]{2,3}$"
@@ -47,6 +48,7 @@ var (
 	rxHasUpperCase       = regexp.MustCompile(hasUpperCase)
 	rxPasswd             = regexp.MustCompile(Passwd)
 	rxUserGroupName      = regexp.MustCompile(UserGroupName)
+	rxUserGroupNameI     = regexp.MustCompile(UserGroupNameI)
 	rxHasAlpha           = regexp.MustCompile(HasAlpha)
 	rxHasNumber          = regexp.MustCompile(HasNumber)
 	rxUnixFilePermission = regexp.MustCompile(UnixFilePermission)
