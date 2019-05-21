@@ -9,6 +9,9 @@ all: clean build
 update:
 	$(GO_BIN) get -u
 	$(GO_BIN) mod tidy
+	cd buildin
+	$(GO_BIN) get -u
+	$(GO_BIN) mod tidy
 
 linter-install: check-gopath
 	cd ~
@@ -17,6 +20,8 @@ linter-install: check-gopath
 	$(GO_BIN) get -u github.com/mgechev/revive
 
 test:
+	$(GO_BIN) test -failfast ./...
+	cd buildin
 	$(GO_BIN) test -failfast ./...
 
 lint:

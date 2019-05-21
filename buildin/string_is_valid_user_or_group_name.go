@@ -13,21 +13,36 @@ var StringIsValidUserOrGroupNameError = func(v *StringIsValidUserOrGroupName) st
 		return v.Message
 	}
 
-	return fmt.Sprintf("'%s' is not a valid user or group name", v.Field)
+	var caseName string
+
+	if v.CaseInsensitive {
+		caseName = "name (case insensitive)"
+	} else {
+		caseName = "name"
+	}
+
+	return fmt.Sprintf("'%s' is not a valid user or group %s", v.Field, caseName)
 }
 
 // StringIsValidUserOrGroupName is a validator object.
 // Validate adds an error if the Field is not a valid user or group name.
 type StringIsValidUserOrGroupName struct {
-	Name    string
-	Field   string
-	Message string
+	Name            string
+	Field           string
+	Message         string
+	CaseInsensitive bool
 }
 
 // Validate adds an error if the Field is not a valid user or group name.
 func (v *StringIsValidUserOrGroupName) Validate(e *validator.Errors) {
-	if isValidUserOrGroupName(v.Field) {
-		return
+	if v.CaseInsensitive {
+		if isValidUserOrGroupNameCaseInsensitive(v.Field) {
+			return
+		}
+	} else {
+		if isValidUserOrGroupName(v.Field) {
+			return
+		}
 	}
 
 	e.Add(v.Name, StringIsValidUserOrGroupNameError(v))
@@ -49,6 +64,18 @@ func isValidUserOrGroupName(name string) bool {
 	}
 
 	if !rxUserGroupName.MatchString(name) {
+		return false
+	}
+
+	return true
+}
+
+func isValidUserOrGroupNameCaseInsensitive(name string) bool {
+	if len(name) < 1 || len(name) > 32 {
+		return false
+	}
+
+	if !rxUserGroupNameI.MatchString(name) {
 		return false
 	}
 
