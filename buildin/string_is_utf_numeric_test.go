@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsUTFNumeric(t *testing.T) {
-
 	r := require.New(t)
 
 	v := &StringIsUTFNumeric{Name: "Name", Field: "১522௫٣"}

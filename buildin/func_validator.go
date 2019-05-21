@@ -9,7 +9,6 @@ import (
 // FuncValidatorError is a function that defines error message returned by FuncValidator validator.
 // nolint: gochecknoglobals
 var FuncValidatorError = func(v *FuncValidator) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -27,7 +26,6 @@ type FuncValidator struct {
 
 // Validate is a validation method wrapper.
 func (v *FuncValidator) Validate(e *validator.Errors) {
-
 	if v.Fn(v.Field) {
 		return
 	}

@@ -10,7 +10,6 @@ import (
 // StringIsUTFLetterNumError is a function that defines error message returned by StringIsUTFLetterNum validator.
 // nolint: gochecknoglobals
 var StringIsUTFLetterNumError = func(v *StringIsUTFLetterNum) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}

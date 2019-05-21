@@ -10,7 +10,6 @@ import (
 
 // nolint: gosec
 func Test_StringIsPathAndNotSocket(t *testing.T) {
-
 	r := require.New(t)
 
 	var notexists, regularFile, unixSocket, fileWithSetUID, fileWithSetGID string

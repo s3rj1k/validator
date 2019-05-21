@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringInclusion(t *testing.T) {
-
 	r := require.New(t)
 
 	l := []string{"Mark", "Bates"}

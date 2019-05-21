@@ -10,7 +10,6 @@ import (
 // TimeIsAfterTimeError is a function that defines error message returned by TimeIsAfterTime validator.
 // nolint: gochecknoglobals
 var TimeIsAfterTimeError = func(v *TimeIsAfterTime) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}

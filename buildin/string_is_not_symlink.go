@@ -10,7 +10,6 @@ import (
 // StringIsNotSymlinkError is a function that defines error message returned by StringIsNotSymlink validator.
 // nolint: gochecknoglobals
 var StringIsNotSymlinkError = func(v *StringIsNotSymlink) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -28,7 +27,6 @@ type StringIsNotSymlink struct {
 
 // Validate adds an error if the Field is a symlink.
 func (v *StringIsNotSymlink) Validate(e *validator.Errors) {
-
 	_, err := os.Readlink(v.Field)
 	if err != nil {
 		return

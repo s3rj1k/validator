@@ -9,7 +9,6 @@ import (
 // StringIsNotRegularUserError is a function that defines error message returned by StringIsNotRegularUser validator.
 // nolint: gochecknoglobals
 var StringIsNotRegularUserError = func(v *StringIsNotRegularUser) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -26,7 +25,6 @@ type StringIsNotRegularUser struct {
 
 // Validate adds an error if the Field is a regular user.
 func (v *StringIsNotRegularUser) Validate(e *validator.Errors) {
-
 	if !IsUserIsRegularUserOrWhitelisted(v.Field) {
 		return
 	}

@@ -10,7 +10,6 @@ import (
 
 // nolint: gosec
 func Test_StringIsFile(t *testing.T) {
-
 	r := require.New(t)
 
 	fd, err := os.Create("/tmp/string_is_file_test")

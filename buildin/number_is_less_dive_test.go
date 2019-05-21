@@ -9,7 +9,6 @@ import (
 )
 
 func Test_NumberIsLessDive(t *testing.T) {
-
 	testCases := []numTestCase{
 		{
 			name:          "0",
@@ -58,7 +57,6 @@ func Test_NumberIsLessDive(t *testing.T) {
 	r := require.New(t)
 
 	for index, tc := range testCases {
-
 		v := NumberSliceDive{
 			Validator: &NumberIsLess{
 				Name:          tc.name,
@@ -74,7 +72,6 @@ func Test_NumberIsLessDive(t *testing.T) {
 		r.Equal(len(tc.invalidIndexes), e.Count(), fmt.Sprintf("tc '%d' expecting '%d' errors got '%d'", index, len(tc.invalidIndexes), e.Count()))
 
 		if len(tc.invalidIndexes) > 0 {
-
 			// case when Field is of a wrong type
 			if len(e.Get(tc.name)) == 1 && e.Get(tc.name)[0] == ErrBadNumType.Error() {
 				break

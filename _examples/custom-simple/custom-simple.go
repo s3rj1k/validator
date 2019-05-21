@@ -25,7 +25,6 @@ type StringHasLove struct {
 
 // Validate adds an error if Field has no love.
 func (cv *StringHasLove) Validate(e *v.Errors) {
-
 	if strings.Contains(strings.ToLower(cv.Field), "love") {
 		return
 	}
@@ -35,7 +34,6 @@ func (cv *StringHasLove) Validate(e *v.Errors) {
 }
 
 func main() {
-
 	s := "I love donuts"
 	e := v.Validate(
 		&StringHasLove{

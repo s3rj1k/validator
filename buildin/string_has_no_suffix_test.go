@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringHasNoSuffix(t *testing.T) {
-
 	r := require.New(t)
 
 	var cases = []struct {

@@ -12,7 +12,6 @@ type Number struct {
 
 // IsGreater returns true if x > y
 func (x *Number) IsGreater(y *Number) bool {
-
 	switch {
 	case x.isNegative && !y.isNegative:
 		return false
@@ -29,7 +28,6 @@ func (x *Number) IsGreater(y *Number) bool {
 
 // IsLess returns true if x < y
 func (x *Number) IsLess(y *Number) bool {
-
 	switch {
 	case x.isNegative && !y.isNegative:
 		return true
@@ -49,9 +47,52 @@ func (x *Number) IsEqual(y *Number) bool {
 	return x.Value == y.Value && x.isNegative == y.isNegative
 }
 
+// IsGreaterOrEqual returns true if x >= y
+func (x *Number) IsGreaterOrEqual(y *Number) bool {
+	if x.IsGreater(y) {
+		return true
+	}
+
+	if x.IsEqual(y) {
+		return true
+	}
+
+	return false
+}
+
+// IsLessOrEqual returns true if x <= y
+func (x *Number) IsLessOrEqual(y *Number) bool {
+	if x.IsLess(y) {
+		return true
+	}
+
+	if x.IsEqual(y) {
+		return true
+	}
+
+	return false
+}
+
+// InRange returns true if min < x < y
+func (x *Number) InRange(min, max *Number) bool {
+	if x.IsGreater(min) && x.IsLess(max) {
+		return true
+	}
+
+	return false
+}
+
+// InRangeOrEqual returns true if min <= x <= y
+func (x *Number) InRangeOrEqual(min, max *Number) bool {
+	if x.IsGreaterOrEqual(min) && x.IsLessOrEqual(max) {
+		return true
+	}
+
+	return false
+}
+
 // casts a into Number. Returns error if a is nil or not a integer
 func cast(a interface{}) (*Number, error) {
-
 	if a == nil {
 		return &Number{uint64(0), false}, nil
 	}
@@ -111,7 +152,6 @@ func cast(a interface{}) (*Number, error) {
 
 // NumFieldToString returns string representation of number field
 func NumFieldToString(field interface{}) string {
-
 	if field == nil {
 		return "0"
 	}

@@ -9,7 +9,6 @@ import (
 // SliceIsNotEmptyError is a function that defines error message returned by SliceIsNotEmpty validator.
 // nolint: gochecknoglobals
 var SliceIsNotEmptyError = func(v *SliceIsNotEmpty) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -32,7 +31,6 @@ type SliceIsNotEmpty struct {
 // Supports all Go basic types except for bool.
 // nolint: gocyclo
 func (v *SliceIsNotEmpty) Validate(e *validator.Errors) {
-
 	if v.Field == nil {
 		e.Add(v.Name, ErrNilValue.Error())
 

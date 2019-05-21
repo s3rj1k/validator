@@ -72,7 +72,6 @@ type StringIsStatusCode200 struct {
 
 // Validate is a method for struct of s3rj1k validator
 func (v *StringIsStatusCode200) Validate(e *v.Errors) {
-
 	if statusCode200(v.Field) {
 		return
 	}
@@ -90,13 +89,12 @@ func checkStatusCode200(value interface{}) error {
 	if statusCode200(value.(string)) {
 		return errors.New("status code not 200")
 	}
+
 	return nil
 }
 
 func Benchmark_s3rj1k_complex(b *testing.B) {
-
 	for i := 0; i < b.N; i++ {
-
 		err := v.Validate(
 			&StringIsStatusCode200{
 				Field: test.Field1,
@@ -115,12 +113,10 @@ func Benchmark_s3rj1k_complex(b *testing.B) {
 			},
 		)
 		_panicnoerr(err)
-
 	}
 }
 
 func Benchmark_goplayground_complex(b *testing.B) {
-
 	for i := 0; i < b.N; i++ {
 		err := gopl.Struct(test)
 		_panicnoerr(err)
@@ -141,7 +137,6 @@ func Benchmark_ozzo_complex(b *testing.B) {
 }
 
 func Benchmark_asaskevich_complex(b *testing.B) {
-
 	for i := 0; i < b.N; i++ {
 		_, err := asaskevich.ValidateStruct(test)
 		_panicnoerr(err)

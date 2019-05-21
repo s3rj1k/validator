@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsRGBcolor(t *testing.T) {
-
 	r := require.New(t)
 
 	v := &StringIsRGBcolor{Name: "Name", Field: "rgb(0,0,0)"} // hexcolor here

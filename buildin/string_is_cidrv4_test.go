@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsCIDRv4(t *testing.T) {
-
 	r := require.New(t)
 
 	var tests = []struct {

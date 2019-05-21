@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsNumeric(t *testing.T) {
-
 	r := require.New(t)
 
 	v := &StringIsNumeric{Name: "Name", Field: "0123456789"}

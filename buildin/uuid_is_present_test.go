@@ -9,7 +9,6 @@ import (
 )
 
 func Test_UUIDIsPresent(t *testing.T) {
-
 	r := require.New(t)
 
 	id, err := uuid.NewV4()

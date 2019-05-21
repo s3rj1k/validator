@@ -9,7 +9,6 @@ import (
 )
 
 func Test_NumberInRangeDive(t *testing.T) {
-
 	// nolint: maligned
 	var tests = []struct {
 		checkEqual     bool
@@ -67,5 +66,4 @@ func Test_NumberInRangeDive(t *testing.T) {
 			}
 		}
 	}
-
 }

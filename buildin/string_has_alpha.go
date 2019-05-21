@@ -9,7 +9,6 @@ import (
 // StringHasAlphaError is a function that defines error message returned by StringHasAlpha validator.
 // nolint: gochecknoglobals
 var StringHasAlphaError = func(v *StringHasAlpha) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -27,7 +26,6 @@ type StringHasAlpha struct {
 
 // Validate adds an error if the Field has no letters.
 func (v *StringHasAlpha) Validate(e *validator.Errors) {
-
 	if rxHasAlpha.MatchString(v.Field) {
 		return
 	}

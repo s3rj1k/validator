@@ -10,7 +10,6 @@ import (
 // StringIsEmailLikeError is a function that defines error message returned by StringIsEmailLike validator.
 // nolint: gochecknoglobals
 var StringIsEmailLikeError = func(v *StringIsEmailLike) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -32,7 +31,6 @@ type StringIsEmailLike struct {
 // It also checks that domain has a domain zone (but does not check if the zone is valid).
 // Also allows inner and outer whitespaces.
 func (v *StringIsEmailLike) Validate(e *validator.Errors) {
-
 	var validStructure = false
 	var domainZonePresent = false
 

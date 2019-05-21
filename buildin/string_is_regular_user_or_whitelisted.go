@@ -11,7 +11,6 @@ import (
 // StringIsRegularUserOrWhitelistedError is a function that defines error message returned by StringIsRegularUserOrWhitelisted validator.
 // nolint: gochecknoglobals
 var StringIsRegularUserOrWhitelistedError = func(v *StringIsRegularUserOrWhitelisted) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -30,7 +29,6 @@ type StringIsRegularUserOrWhitelisted struct {
 
 // Validate adds an error if the Field is not a regular user or whitelisted.
 func (v *StringIsRegularUserOrWhitelisted) Validate(e *validator.Errors) {
-
 	if IsUserIsRegularUserOrWhitelisted(v.Field, v.Whitelist...) {
 		return
 	}
@@ -50,7 +48,6 @@ func (v *StringIsRegularUserOrWhitelisted) SetNameIndex(i int) {
 
 // IsUserIsRegularUserOrWhitelisted checkes if user is regular (non-system or unclassified) user.
 func IsUserIsRegularUserOrWhitelisted(name string, whitelist ...string) bool {
-
 	// check whitelist of groups
 	for _, el := range whitelist {
 		if el == name {
@@ -58,12 +55,12 @@ func IsUserIsRegularUserOrWhitelisted(name string, whitelist ...string) bool {
 		}
 	}
 
-	user, err := user.Lookup(name)
+	userObj, err := user.Lookup(name)
 	if err != nil {
 		return false // fail on lookup error
 	}
 
-	uid, err := strconv.ParseUint(user.Uid, 10, 32)
+	uid, err := strconv.ParseUint(userObj.Uid, 10, 32)
 	if err != nil {
 		return false // fail on parse error
 	}

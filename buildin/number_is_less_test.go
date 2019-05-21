@@ -9,7 +9,6 @@ import (
 )
 
 func Test_NumberIsLess(t *testing.T) {
-
 	testCases := []numTestCase{
 		{
 			name:          "SliceOne",
@@ -63,7 +62,6 @@ func Test_NumberIsLess(t *testing.T) {
 	r := require.New(t)
 
 	for index, tc := range testCases {
-
 		v := NumberIsLess{
 			Name:          tc.name,
 			ComparedField: tc.comparedField,

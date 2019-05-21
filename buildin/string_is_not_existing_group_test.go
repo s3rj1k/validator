@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsNotExistingGroup(t *testing.T) {
-
 	r := require.New(t)
 
 	var tests = []struct {

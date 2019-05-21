@@ -10,7 +10,6 @@ import (
 // StringHasNoSuffixError is a function that defines error message returned by StringHasNoSuffix validator.
 // nolint: gochecknoglobals
 var StringHasNoSuffixError = func(v *StringHasNoSuffix) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -34,13 +33,11 @@ type StringHasNoSuffix struct {
 
 // Validate adds an error if the Field is suffixed with ComparedField.
 func (v *StringHasNoSuffix) Validate(e *validator.Errors) {
-
 	if !strings.HasSuffix(v.Field, v.ComparedField) {
 		return
 	}
 
 	e.Add(v.Name, StringHasNoSuffixError(v))
-
 }
 
 // SetField sets validator field.

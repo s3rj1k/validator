@@ -9,7 +9,6 @@ import (
 )
 
 func Test_StringIsSymlinkDive(t *testing.T) {
-
 	r := require.New(t)
 
 	_ = os.Remove("/tmp/test_symlink")

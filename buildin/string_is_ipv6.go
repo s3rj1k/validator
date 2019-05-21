@@ -11,7 +11,6 @@ import (
 // StringIsIPv6Error is a function that defines error message returned by StringIsIPv6 validator.
 // nolint: gochecknoglobals
 var StringIsIPv6Error = func(v *StringIsIPv6) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -29,7 +28,6 @@ type StringIsIPv6 struct {
 
 // Validate adds an error if the Field is not a valid IPv6 address.
 func (v *StringIsIPv6) Validate(e *validator.Errors) {
-
 	if isIPv6(v.Field) {
 		return
 	}
@@ -49,7 +47,6 @@ func (v *StringIsIPv6) SetNameIndex(i int) {
 
 // checks if s is a valid IPv6
 func isIPv6(s string) bool {
-
 	if len(s) == 0 {
 		return false
 	}

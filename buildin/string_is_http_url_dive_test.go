@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsHTTPURLDive(t *testing.T) {
-
 	r := require.New(t)
 
 	field := []string{"", "http://", "https://", "http", "google.com",

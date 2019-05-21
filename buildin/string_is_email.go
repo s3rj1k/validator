@@ -9,7 +9,6 @@ import (
 // StringIsEmailError is a function that defines error message returned by StringIsEmail validator.
 // nolint: gochecknoglobals
 var StringIsEmailError = func(v *StringIsEmail) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -32,7 +31,6 @@ func (v *StringIsEmail) Validate(e *validator.Errors) {
 	}
 
 	e.Add(v.Name, StringIsEmailError(v))
-
 }
 
 // SetField sets validator field.

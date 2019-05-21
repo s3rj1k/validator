@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsPresentDive(t *testing.T) {
-
 	r := require.New(t)
 
 	field := []string{"abc", " a", "3  3"}

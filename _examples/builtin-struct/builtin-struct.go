@@ -16,7 +16,6 @@ type user struct {
 }
 
 func main() {
-
 	u := &user{
 		firstName: "John",
 		lastName:  "doe",

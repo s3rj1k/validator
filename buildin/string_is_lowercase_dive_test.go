@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsLowerCaseDive(t *testing.T) {
-
 	r := require.New(t)
 
 	field := []string{"each", " is ", "lower case", "", " "} // 0 errors

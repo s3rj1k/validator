@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsFloat(t *testing.T) {
-
 	r := require.New(t)
 
 	v := &StringIsFloat{Name: "Name", Field: "15.22"} // must be float

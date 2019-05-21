@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsIPDive(t *testing.T) {
-
 	r := require.New(t)
 
 	field := []string{"684D:1111:222:3333:4444:5555:6:77", "0:0:0:0:0:0:0:0", "2001:db8:1::ab9:C0A8:102", "255.255.253.0", "19.117.63.126"}

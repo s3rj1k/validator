@@ -10,7 +10,6 @@ import (
 // StringIsPathWithSetUIDError is a function that defines error message returned by StringIsPathWithSetUID validator.
 // nolint: gochecknoglobals
 var StringIsPathWithSetUIDError = func(v *StringIsPathWithSetUID) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -30,7 +29,6 @@ type StringIsPathWithSetUID struct {
 // Validate adds an error if the Field is not an existing path or is an existing path without SetUID flag.
 // If Field is a symlink, the symlink's target will be assessed.
 func (v *StringIsPathWithSetUID) Validate(e *validator.Errors) {
-
 	if Exists(v.Field) && isFileWithMode(v.Field, os.ModeSetuid) {
 		return
 	}

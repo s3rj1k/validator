@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsBase64Dive(t *testing.T) {
-
 	r := require.New(t)
 
 	field := []string{"xoP4nZV8Gv9ceg==", "n/GNBg=="} // 0 errors

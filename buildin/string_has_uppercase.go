@@ -9,7 +9,6 @@ import (
 // StringHasUpperCaseError is a function that defines error message returned by StringHasUpperCase validator.
 // nolint: gochecknoglobals
 var StringHasUpperCaseError = func(v *StringHasUpperCase) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -27,7 +26,6 @@ type StringHasUpperCase struct {
 
 // Validate adds an error if the Field has not uppercased letters. Empty string is valid.
 func (v *StringHasUpperCase) Validate(e *validator.Errors) {
-
 	// null string is valid
 	if isNullString(v.Field) {
 		return

@@ -9,7 +9,6 @@ import (
 )
 
 func Test_StringIsPathDive(t *testing.T) {
-
 	r := require.New(t)
 
 	err := os.MkdirAll("/tmp/test_dir", 0666)

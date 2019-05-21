@@ -9,7 +9,6 @@ import (
 )
 
 func Test_StringIsPath(t *testing.T) {
-
 	r := require.New(t)
 
 	fd, err := os.Create("/tmp/test") // nolint: gosec

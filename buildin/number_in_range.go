@@ -9,7 +9,6 @@ import (
 // NumberInRangeError is a function that defines error message returned by NumberInRange validator.
 // nolint: gochecknoglobals
 var NumberInRangeError = func(v *NumberInRange) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -38,7 +37,6 @@ type NumberInRange struct {
 // Validate adds an error if the Field is not in range between Min and Max (inclusive).
 // Empty Min/Max values will be treated as 0 (zeros).
 func (v *NumberInRange) Validate(e *validator.Errors) {
-
 	fNum, err := cast(v.Field)
 	if err != nil {
 		e.Add(v.Name, err.Error())
@@ -60,8 +58,14 @@ func (v *NumberInRange) Validate(e *validator.Errors) {
 		return
 	}
 
-	if inRange(fNum, min, max, v.CheckEqual) {
-		return
+	if v.CheckEqual {
+		if fNum.InRangeOrEqual(min, max) {
+			return
+		}
+	} else {
+		if fNum.InRange(min, max) {
+			return
+		}
 	}
 
 	e.Add(v.Name, NumberInRangeError(v))
@@ -80,16 +84,4 @@ func (v *NumberInRange) SetNameIndex(i int) {
 // GetName is a getter on Name field.
 func (v *NumberInRange) GetName() string {
 	return v.Name
-}
-
-func inRange(x, min, max *Number, eq bool) bool {
-	if x.IsGreater(min) && x.IsLess(max) {
-		return true
-	}
-
-	if eq && (x.IsEqual(min) || x.IsEqual(max)) {
-		return true
-	}
-
-	return false
 }

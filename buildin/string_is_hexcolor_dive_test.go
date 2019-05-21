@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsHexcolorDive(t *testing.T) {
-
 	r := require.New(t)
 
 	field := []string{"#1f1f1F", "#AFAFAF", "#1AFFa1"}

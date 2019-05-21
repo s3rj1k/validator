@@ -9,7 +9,6 @@ import (
 // StringIsNotResolvableHostnameNorIPv6Error is a function that defines error message returned by StringIsNotResolvableHostnameNorIPv6 validator.
 // nolint: gochecknoglobals
 var StringIsNotResolvableHostnameNorIPv6Error = func(v *StringIsNotResolvableHostnameNorIPv6) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -27,7 +26,6 @@ type StringIsNotResolvableHostnameNorIPv6 struct {
 
 // Validate adds an error if the Field is a resolvable hostname or an IPv6 address.
 func (v *StringIsNotResolvableHostnameNorIPv6) Validate(e *validator.Errors) {
-
 	if !isResolvableHostname(v.Field) && !isIPv6(v.Field) {
 		return
 	}

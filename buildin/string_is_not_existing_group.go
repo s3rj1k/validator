@@ -10,7 +10,6 @@ import (
 // StringIsNotExistingGroupError is a function that defines error message returned by StringIsNotExistingGroup validator.
 // nolint: gochecknoglobals
 var StringIsNotExistingGroupError = func(v *StringIsNotExistingGroup) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -28,7 +27,6 @@ type StringIsNotExistingGroup struct {
 
 // Validate adds an error if the Field is a user group that exists.
 func (v *StringIsNotExistingGroup) Validate(e *validator.Errors) {
-
 	_, err := user.LookupGroup(v.Field)
 	if err != nil {
 		return

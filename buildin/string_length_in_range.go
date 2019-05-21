@@ -10,7 +10,6 @@ import (
 // StringLengthInRangeError is a function that defines error message returned by StringLengthInRange validator.
 // nolint: gochecknoglobals
 var StringLengthInRangeError = func(v *StringLengthInRange) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}

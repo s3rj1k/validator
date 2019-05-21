@@ -10,7 +10,6 @@ import (
 // StringIsDirWithoutModeStickyError is a function that defines error message returned by StringIsDirWithoutModeSticky validator.
 // nolint: gochecknoglobals
 var StringIsDirWithoutModeStickyError = func(v *StringIsDirWithoutModeSticky) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -30,7 +29,6 @@ type StringIsDirWithoutModeSticky struct {
 // Validate adds an error if the Field is not a dir or a dir with mode sticky.
 // If Field is a symlink, the symlink's target will be assessed.
 func (v *StringIsDirWithoutModeSticky) Validate(e *validator.Errors) {
-
 	if isDir(v.Field) && !isFileWithMode(v.Field, os.ModeSticky) {
 		return
 	}

@@ -10,7 +10,6 @@ import (
 // TimeIsPresentError is a function that defines error message returned by TimeIsPresent validator.
 // nolint: gochecknoglobals
 var TimeIsPresentError = func(v *TimeIsPresent) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}

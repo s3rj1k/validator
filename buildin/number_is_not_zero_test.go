@@ -8,7 +8,6 @@ import (
 )
 
 func Test_NumberIsNotZero(t *testing.T) {
-
 	r := require.New(t)
 
 	var zeros = []interface{}{int(0), int8(0), int16(0), int32(0), int64(0),
@@ -34,5 +33,4 @@ func Test_NumberIsNotZero(t *testing.T) {
 		r.Equal(1, e.Count())
 		r.Equal([]string{NumberIsNotZeroError(v)}, e.Get("Number"))
 	}
-
 }

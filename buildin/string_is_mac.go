@@ -10,7 +10,6 @@ import (
 // StringIsMACError is a function that defines error message returned by StringIsMAC validator.
 // nolint: gochecknoglobals
 var StringIsMACError = func(v *StringIsMAC) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -28,7 +27,6 @@ type StringIsMAC struct {
 
 // Validate adds an error if the Field is not a MAC address.
 func (v *StringIsMAC) Validate(e *validator.Errors) {
-
 	// using net ParseMAC
 	_, err := net.ParseMAC(v.Field)
 	if err == nil {

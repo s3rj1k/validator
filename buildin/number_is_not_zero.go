@@ -9,7 +9,6 @@ import (
 // NumberIsNotZeroError is a function that defines error message returned by NumberIsNotZero validator.
 // nolint: gochecknoglobals
 var NumberIsNotZeroError = func(v *NumberIsNotZero) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -27,7 +26,6 @@ type NumberIsNotZero struct {
 
 // Validate adds an error if the Field equals to 0.
 func (v *NumberIsNotZero) Validate(e *validator.Errors) {
-
 	fNum, err := cast(v.Field)
 	if err != nil {
 		e.Add(v.Name, err.Error())

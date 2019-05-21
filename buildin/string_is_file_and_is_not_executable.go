@@ -10,7 +10,6 @@ import (
 // StringIsFileAndIsNotExecutableError is a function that defines error message returned by StringIsFileAndIsNotExecutable validator.
 // nolint: gochecknoglobals
 var StringIsFileAndIsNotExecutableError = func(v *StringIsFileAndIsNotExecutable) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -28,7 +27,6 @@ type StringIsFileAndIsNotExecutable struct {
 
 // Validate adds an error if the Field is a file with execute bit set.
 func (v *StringIsFileAndIsNotExecutable) Validate(e *validator.Errors) {
-
 	fi, err := os.Stat(v.Field)
 	if err != nil {
 		return

@@ -10,7 +10,6 @@ import (
 // StringIsPathError is a function that defines error message returned by StringIsPath validator.
 // nolint: gochecknoglobals
 var StringIsPathError = func(v *StringIsPath) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}

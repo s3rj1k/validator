@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsJSONDive(t *testing.T) {
-
 	r := require.New(t)
 
 	field := []string{"{\"test\": \"sure\"}", "   {\"test\": \"sure\"}    ", "123"}

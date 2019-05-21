@@ -8,7 +8,6 @@ import (
 
 // creates but panics if already exists and on any errors
 func _createfile(path string) {
-
 	_, err := os.Stat(path)
 	if os.IsExist(err) {
 		panic(err)
@@ -53,7 +52,6 @@ func _silentdeleteMany(paths ...string) {
 
 // creates but panics if already exists
 func _createdir(path string) {
-
 	_, err := os.Stat(path)
 	if os.IsExist(err) {
 		panic(err)

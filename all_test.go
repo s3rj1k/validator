@@ -12,7 +12,7 @@ import (
 
 type a struct{}
 
-func (s *a) Validate(e *Errors) {
+func (*a) Validate(e *Errors) {
 	e.Add(
 		"a",
 		"a",
@@ -21,7 +21,7 @@ func (s *a) Validate(e *Errors) {
 
 type b struct{}
 
-func (s *b) Validate(e *Errors) {
+func (*b) Validate(e *Errors) {
 	e.Add(
 		"b",
 		"[0]b",
@@ -62,7 +62,7 @@ func (s *b) Validate(e *Errors) {
 
 type c struct{}
 
-func (s *c) Validate(e *Errors) {
+func (*c) Validate(e *Errors) {
 	e.Add(
 		"d.d",
 		"d",
@@ -71,11 +71,10 @@ func (s *c) Validate(e *Errors) {
 
 type z struct{}
 
-func (s *z) Validate(e *Errors) {
+func (*z) Validate(_ *Errors) {
 }
 
 func TestCount(t *testing.T) {
-
 	r := require.New(t)
 
 	e := Validate(&a{}, &b{})
@@ -86,7 +85,6 @@ func TestCount(t *testing.T) {
 }
 
 func TestCountP(t *testing.T) {
-
 	r := require.New(t)
 
 	e := ValidateP(&a{}, &b{})
@@ -97,7 +95,6 @@ func TestCountP(t *testing.T) {
 }
 
 func TestHasAny(t *testing.T) {
-
 	r := require.New(t)
 
 	e := Validate(&a{})
@@ -108,7 +105,6 @@ func TestHasAny(t *testing.T) {
 }
 
 func TestHasAnyP(t *testing.T) {
-
 	r := require.New(t)
 
 	e := ValidateP(&a{})
@@ -119,7 +115,6 @@ func TestHasAnyP(t *testing.T) {
 }
 
 func TestValidate(t *testing.T) {
-
 	r := require.New(t)
 
 	e := Validate(&a{}, &b{})
@@ -130,7 +125,6 @@ func TestValidate(t *testing.T) {
 }
 
 func TestValidateP(t *testing.T) {
-
 	r := require.New(t)
 
 	e := ValidateP(&a{}, &b{})
@@ -141,7 +135,6 @@ func TestValidateP(t *testing.T) {
 }
 
 func TestExists(t *testing.T) {
-
 	r := require.New(t)
 
 	e := Validate(&a{}, &b{})
@@ -164,7 +157,6 @@ func TestExists(t *testing.T) {
 }
 
 func TestExistsP(t *testing.T) {
-
 	r := require.New(t)
 
 	e := ValidateP(&a{}, &b{})
@@ -187,7 +179,6 @@ func TestExistsP(t *testing.T) {
 }
 
 func TestGet(t *testing.T) {
-
 	r := require.New(t)
 
 	e := Validate(&a{}, &b{})
@@ -226,7 +217,6 @@ func TestGet(t *testing.T) {
 }
 
 func TestGetP(t *testing.T) {
-
 	r := require.New(t)
 
 	e := ValidateP(&a{}, &b{})
@@ -265,7 +255,6 @@ func TestGetP(t *testing.T) {
 }
 
 func TestKeys(t *testing.T) {
-
 	r := require.New(t)
 
 	e := Validate(&a{}, &b{})
@@ -298,7 +287,6 @@ func TestKeys(t *testing.T) {
 }
 
 func TestKeysP(t *testing.T) {
-
 	r := require.New(t)
 
 	e := ValidateP(&a{}, &b{})
@@ -331,7 +319,6 @@ func TestKeysP(t *testing.T) {
 }
 
 func TestData(t *testing.T) {
-
 	r := require.New(t)
 
 	expectedType := make(map[string]interface{})
@@ -344,7 +331,6 @@ func TestData(t *testing.T) {
 }
 
 func TestDataP(t *testing.T) {
-
 	r := require.New(t)
 
 	expectedType := make(map[string]interface{})
@@ -357,7 +343,6 @@ func TestDataP(t *testing.T) {
 }
 
 func TestString(t *testing.T) {
-
 	r := require.New(t)
 
 	e := Validate(&c{})
@@ -373,7 +358,6 @@ func TestString(t *testing.T) {
 }
 
 func TestStringP(t *testing.T) {
-
 	r := require.New(t)
 
 	e := ValidateP(&c{})
@@ -389,7 +373,6 @@ func TestStringP(t *testing.T) {
 }
 
 func TestError(t *testing.T) {
-
 	r := require.New(t)
 
 	e := Validate(&c{})
@@ -401,7 +384,6 @@ func TestError(t *testing.T) {
 }
 
 func TestErrorP(t *testing.T) {
-
 	r := require.New(t)
 
 	e := ValidateP(&c{})
@@ -413,7 +395,6 @@ func TestErrorP(t *testing.T) {
 }
 
 func TestRaw(t *testing.T) {
-
 	r := require.New(t)
 
 	e := Validate(&c{})
@@ -428,7 +409,6 @@ func TestRaw(t *testing.T) {
 }
 
 func TestRawP(t *testing.T) {
-
 	r := require.New(t)
 
 	e := ValidateP(&c{})

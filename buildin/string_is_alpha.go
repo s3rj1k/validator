@@ -9,7 +9,6 @@ import (
 // StringIsAlphaError is a function that defines error message returned by StringIsAlpha validator.
 // nolint: gochecknoglobals
 var StringIsAlphaError = func(v *StringIsAlpha) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -29,7 +28,6 @@ type StringIsAlpha struct {
 // Validate adds an error if the Field contains anything except for latin letters.
 // Empty string is valid.
 func (v *StringIsAlpha) Validate(e *validator.Errors) {
-
 	// null string is valid
 	if isNullString(v.Field) {
 		return

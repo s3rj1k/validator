@@ -11,7 +11,6 @@ import (
 // StringHasNoFileInPathParentsError is a function that defines error message returned by StringHasNoFileInPathParents validator.
 // nolint: gochecknoglobals
 var StringHasNoFileInPathParentsError = func(v *StringHasNoFileInPathParents) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -29,7 +28,6 @@ type StringHasNoFileInPathParents struct {
 
 // stringPathToPathParents converts single path to array of absolute path parents.
 func stringPathToPathParents(path string) []string {
-
 	path, err := filepath.Abs(path)
 	if err != nil {
 		return nil
@@ -47,11 +45,9 @@ func stringPathToPathParents(path string) []string {
 
 // Validate adds an error if the Field contains path to a file.
 func (v *StringHasNoFileInPathParents) Validate(e *validator.Errors) {
-
 	var hasFileInPath bool
 
 	for _, path := range stringPathToPathParents(v.Field) {
-
 		fi, err := os.Stat(path)
 		if err != nil {
 			continue

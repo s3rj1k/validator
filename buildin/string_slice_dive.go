@@ -19,7 +19,6 @@ type StringSliceDive struct {
 
 // Validate applies Validator to each value in the Field.
 func (v *StringSliceDive) Validate(e *validator.Errors) {
-
 	slice := v.Field
 
 	if slice == nil {

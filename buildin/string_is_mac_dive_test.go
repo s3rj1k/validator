@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsMACDive(t *testing.T) {
-
 	r := require.New(t)
 
 	field := []string{"01:23:45:67:89:ab", "0a-1b-3c-4d-5e-6f", "0A:00:27:00:00:05"}

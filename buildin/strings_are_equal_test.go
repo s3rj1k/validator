@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringsAreEqual(t *testing.T) {
-
 	r := require.New(t)
 
 	var cases = []struct {
@@ -47,7 +46,6 @@ func Test_StringsAreEqual(t *testing.T) {
 }
 
 func Test_StringsAreIEqual(t *testing.T) {
-
 	r := require.New(t)
 
 	var cases = []struct {

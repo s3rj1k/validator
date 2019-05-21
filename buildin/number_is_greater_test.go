@@ -9,7 +9,6 @@ import (
 )
 
 func Test_NumberIsGreater(t *testing.T) {
-
 	testCases := []numTestCase{
 		{
 			name:          "SliceOne",
@@ -61,7 +60,6 @@ func Test_NumberIsGreater(t *testing.T) {
 	r := require.New(t)
 
 	for index, tc := range testCases {
-
 		v := NumberIsGreater{
 			Name:          tc.name,
 			ComparedField: tc.comparedField,

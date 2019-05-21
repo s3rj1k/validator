@@ -9,7 +9,6 @@ import (
 )
 
 func Test_StringHasPrefixAnyDive(t *testing.T) {
-
 	r := require.New(t)
 
 	var tests = []struct {
@@ -55,5 +54,4 @@ func Test_StringHasPrefixAnyDive(t *testing.T) {
 			}
 		}
 	}
-
 }

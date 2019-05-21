@@ -9,7 +9,6 @@ import (
 )
 
 func Test_StringIsExistingGroupDive(t *testing.T) {
-
 	r := require.New(t)
 
 	var tests = []struct {
@@ -45,5 +44,4 @@ func Test_StringIsExistingGroupDive(t *testing.T) {
 			}
 		}
 	}
-
 }

@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsPresent(t *testing.T) {
-
 	r := require.New(t)
 
 	v := &StringIsPresent{Name: "Name", Field: "Mark"}

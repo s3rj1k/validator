@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsEmailDive(t *testing.T) {
-
 	r := require.New(t)
 
 	field := []string{"", "foo@bar.com ", "x@x.x", "foo@bar.com.au", "foo+bar@bar.com",

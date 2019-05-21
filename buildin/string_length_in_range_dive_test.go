@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringLengthInRangeDive(t *testing.T) {
-
 	r := require.New(t)
 
 	min := 2

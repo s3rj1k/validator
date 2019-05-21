@@ -10,7 +10,6 @@ import (
 )
 
 func Test_StringIsBase64(t *testing.T) {
-
 	r := require.New(t)
 
 	sEnc := base64.StdEncoding.EncodeToString([]byte("abc123"))

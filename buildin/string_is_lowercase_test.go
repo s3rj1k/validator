@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsLowerCase(t *testing.T) {
-
 	r := require.New(t)
 
 	v := &StringIsLowerCase{Name: "Name", Field: "asdehr247"}

@@ -10,7 +10,6 @@ import (
 )
 
 func Test_StringIsPathAndIsWritableDive(t *testing.T) {
-
 	r := require.New(t)
 
 	_ = os.Remove("/tmp/string_writable_file")
@@ -60,7 +59,6 @@ func Test_StringIsPathAndIsWritableDive(t *testing.T) {
 		for _, en := range errnames {
 			r.Containsf(e.JSON(), en, "tc %d", index)
 		}
-
 	}
 
 	err = os.Chmod("/tmp/string_not_writable_file", 0777)

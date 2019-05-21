@@ -8,7 +8,6 @@ import (
 )
 
 func Test_NumbersAreNotEqualDive(t *testing.T) {
-
 	r := require.New(t)
 
 	f := []int{999, 999, 888, 999}

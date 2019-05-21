@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsIPLoopback(t *testing.T) {
-
 	r := require.New(t)
 
 	var tests = []struct {

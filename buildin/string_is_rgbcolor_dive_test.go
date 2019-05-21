@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsRGBColorDive(t *testing.T) {
-
 	r := require.New(t)
 
 	field := []string{"rgb(0,0,0)", "rgb(255,255,255)"}

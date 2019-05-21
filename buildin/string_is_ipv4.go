@@ -11,7 +11,6 @@ import (
 // StringIsIPv4Error is a function that defines error message returned by StringIsIPv4 validator.
 // nolint: gochecknoglobals
 var StringIsIPv4Error = func(v *StringIsIPv4) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -29,7 +28,6 @@ type StringIsIPv4 struct {
 
 // Validate adds an error if the Field is not a valid IPv4 address.
 func (v *StringIsIPv4) Validate(e *validator.Errors) {
-
 	if isIPv4(v.Field) {
 		return
 	}
@@ -49,7 +47,6 @@ func (v *StringIsIPv4) SetNameIndex(i int) {
 
 // checks if s is a valid IPv4
 func isIPv4(s string) bool {
-
 	if len(s) == 0 {
 		return false
 	}

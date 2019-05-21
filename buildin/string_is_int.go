@@ -9,7 +9,6 @@ import (
 // StringIsIntError is a function that defines error message returned by StringIsInt validator.
 // nolint: gochecknoglobals
 var StringIsIntError = func(v *StringIsInt) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -29,7 +28,6 @@ type StringIsInt struct {
 // Validate adds an error if the Field is not an integer.
 // Leading sign is allowed. Empty string is valid.
 func (v *StringIsInt) Validate(e *validator.Errors) {
-
 	// null string is valid
 	if isNullString(v.Field) {
 		return

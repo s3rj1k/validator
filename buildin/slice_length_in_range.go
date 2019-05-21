@@ -9,7 +9,6 @@ import (
 // SliceLengthInRangeError is a function that defines error message returned by SliceLengthInRange validator.
 // nolint: gochecknoglobals
 var SliceLengthInRangeError = func(v *SliceLengthInRange) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -50,7 +49,6 @@ type SliceLengthInRange struct {
 // Standard check adds an error if the slice is nil or of unsupported type.
 // nolint: gocyclo
 func (v *SliceLengthInRange) Validate(e *validator.Errors) {
-
 	if v.Field == nil {
 		e.Add(v.Name, ErrNilValue.Error())
 
@@ -147,7 +145,6 @@ func (v *SliceLengthInRange) Validate(e *validator.Errors) {
 }
 
 func lengthOK(length, min, max int) bool {
-
 	if max == -1 {
 		return length == 0
 	}

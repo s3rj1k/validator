@@ -14,7 +14,6 @@ import (
 // ExecExitCodeHasNoneOfError is a function that defines default error message returned by ExecExitCodeHasNoneOf validator.
 // nolint: gochecknoglobals
 var ExecExitCodeHasNoneOfError = func(v *ExecExitCodeHasNoneOf) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -34,7 +33,6 @@ type ExecExitCodeHasNoneOf struct {
 
 // Validate adds an error if the Command value after execution returns with any of defined status codes.
 func (v *ExecExitCodeHasNoneOf) Validate(e *validator.Errors) {
-
 	var timeout time.Time
 
 	if v.TimeoutSeconds == 0 {

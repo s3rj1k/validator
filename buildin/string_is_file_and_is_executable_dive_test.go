@@ -10,7 +10,6 @@ import (
 )
 
 func Test_StringIsFileAndIsExecutableDive(t *testing.T) {
-
 	r := require.New(t)
 
 	_ = os.Remove("/tmp/executable_file")

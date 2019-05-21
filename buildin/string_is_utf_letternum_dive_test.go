@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsUTFLetterNumDive(t *testing.T) {
-
 	r := require.New(t)
 
 	field := []string{"Need", "0nlY", "Letters", "And", "Numb3r5", "", "No", "whitespac3s"} // 0 errors

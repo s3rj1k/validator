@@ -11,7 +11,6 @@ import (
 // UUIDIsPresentError is a function that defines error message returned by UUIDIsPresent validator.
 // nolint: gochecknoglobals
 var UUIDIsPresentError = func(v *UUIDIsPresent) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}

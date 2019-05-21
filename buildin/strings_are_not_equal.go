@@ -10,7 +10,6 @@ import (
 // StringsAreNotEqualError is a function that defines error message returned by StringsAreNotEqual validator.
 // nolint: gochecknoglobals
 var StringsAreNotEqualError = func(v *StringsAreNotEqual) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -19,7 +18,6 @@ var StringsAreNotEqualError = func(v *StringsAreNotEqual) string {
 
 	if v.CaseInsensitive {
 		caseName = "iequal"
-
 	} else {
 		caseName = "equal"
 	}
@@ -46,15 +44,12 @@ type StringsAreNotEqual struct {
 // Validate adds an error if the Field is equal to ComparedField.
 // CaseInsensitive flag can be set to make comparison case insensitive.
 func (v *StringsAreNotEqual) Validate(e *validator.Errors) {
-
 	if v.CaseInsensitive {
 		if !strings.EqualFold(v.Field, v.ComparedField) {
-
 			return
 		}
 	} else {
 		if v.Field != v.ComparedField {
-
 			return
 		}
 	}

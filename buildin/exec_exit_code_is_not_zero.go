@@ -14,7 +14,6 @@ import (
 // ExecExitCodeIsNotZeroError is a function that defines default error message returned by ExecExitCodeIsNotZero validator.
 // nolint: gochecknoglobals
 var ExecExitCodeIsNotZeroError = func(v *ExecExitCodeIsNotZero) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -33,7 +32,6 @@ type ExecExitCodeIsNotZero struct {
 
 // Validate adds an error if the Command value after execution returns zero exit code.
 func (v *ExecExitCodeIsNotZero) Validate(e *validator.Errors) {
-
 	var timeout time.Time
 
 	if v.TimeoutSeconds == 0 {

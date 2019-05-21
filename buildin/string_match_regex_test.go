@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringMatchRegex(t *testing.T) {
-
 	r := require.New(t)
 
 	v := &StringMatchRegex{Name: "Phone", Field: "555-555-5555", Regex: "^([0-9]{3}-[0-9]{3}-[0-9]{4})$"}

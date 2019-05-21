@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringHasPrefixNoneOf(t *testing.T) {
-
 	r := require.New(t)
 
 	var tests = []struct {

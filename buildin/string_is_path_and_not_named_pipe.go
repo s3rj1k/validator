@@ -10,7 +10,6 @@ import (
 // StringIsPathAndNotNamedPipeError is a function that defines error message returned by StringIsPathAndNotNamedPipe validator.
 // nolint: gochecknoglobals
 var StringIsPathAndNotNamedPipeError = func(v *StringIsPathAndNotNamedPipe) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -30,7 +29,6 @@ type StringIsPathAndNotNamedPipe struct {
 // Validate adds an error if the Field is not an existing path or is an existing path with NamedPipe mode.
 // If Field is a symlink, the symlink's target will be assessed.
 func (v *StringIsPathAndNotNamedPipe) Validate(e *validator.Errors) {
-
 	if Exists(v.Field) && !isFileWithMode(v.Field, os.ModeNamedPipe) {
 		return
 	}

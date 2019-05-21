@@ -10,7 +10,6 @@ import (
 )
 
 func Test_StringIsNotUserGroupDive(t *testing.T) {
-
 	r := require.New(t)
 
 	var tests = []struct {

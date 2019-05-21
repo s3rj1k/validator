@@ -26,7 +26,6 @@ To use the validator you have to define a Validate method
 
 // Validate performs struct validaton
 func (cv *MyStruct) Validate(e *v.Errors) {
-
 	// validating that ID > 0 and URL is not empty
 	if cv.ID > 0 && cv.URL != "" {
 		return
@@ -41,7 +40,6 @@ func (cv *MyStruct) Validate(e *v.Errors) {
 }
 
 func main() {
-
 	ms := &MyStruct{ // no ID defined
 		URL: "www.google.com",
 	}

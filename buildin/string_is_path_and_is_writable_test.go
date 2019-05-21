@@ -10,7 +10,6 @@ import (
 
 // nolint: gosec
 func Test_StringIsPathAndIsWritable(t *testing.T) {
-
 	r := require.New(t)
 
 	_ = os.Remove("/tmp/string_writable_file")

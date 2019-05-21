@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsNull(t *testing.T) {
-
 	r := require.New(t)
 
 	v := &StringIsNull{Name: "Name", Field: ""}

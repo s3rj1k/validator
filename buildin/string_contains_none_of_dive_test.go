@@ -9,7 +9,6 @@ import (
 )
 
 func Test_StringContainsNoneOfDive(t *testing.T) {
-
 	r := require.New(t)
 
 	var tests = []struct {
@@ -48,5 +47,4 @@ func Test_StringContainsNoneOfDive(t *testing.T) {
 			}
 		}
 	}
-
 }

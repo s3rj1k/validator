@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsHexcolor(t *testing.T) {
-
 	r := require.New(t)
 
 	v := &StringIsHexcolor{Name: "Name", Field: "#b8f2b2"} // hexcolor here

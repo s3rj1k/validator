@@ -9,7 +9,6 @@ import (
 )
 
 func Test_TimeIsAfterTime(t *testing.T) {
-
 	r := require.New(t)
 
 	now := time.Now()

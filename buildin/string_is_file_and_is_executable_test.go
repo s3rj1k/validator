@@ -10,7 +10,6 @@ import (
 
 // nolint: gosec
 func Test_StringIsFileAndIsExecutable(t *testing.T) {
-
 	r := require.New(t)
 
 	_ = os.Remove("/tmp/string_executable_file")
@@ -74,5 +73,4 @@ func Test_StringIsFileAndIsExecutable(t *testing.T) {
 	r.Nil(err)
 	err = os.Remove("/tmp/string_executable_file")
 	r.Nil(err)
-
 }

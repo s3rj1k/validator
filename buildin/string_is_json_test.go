@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringIsJSON(t *testing.T) {
-
 	r := require.New(t)
 
 	v := &StringIsJSON{Name: "Name", Field: "{\"test\": \"sure\"}"}

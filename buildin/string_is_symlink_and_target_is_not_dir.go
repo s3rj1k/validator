@@ -10,7 +10,6 @@ import (
 // StringIsSymlinkAndTargetIsNotDirError is a function that defines error message returned by StringIsSymlinkAndTargetIsNotDir validator.
 // nolint: gochecknoglobals
 var StringIsSymlinkAndTargetIsNotDirError = func(v *StringIsSymlinkAndTargetIsNotDir) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -28,7 +27,6 @@ type StringIsSymlinkAndTargetIsNotDir struct {
 
 // Validate adds an error if the Field is a symlink and it's target is a directory.
 func (v *StringIsSymlinkAndTargetIsNotDir) Validate(e *validator.Errors) {
-
 	target, err := os.Readlink(v.Field)
 	if err != nil {
 		return

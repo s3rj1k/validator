@@ -10,7 +10,6 @@ import (
 // StringIsPathWithoutSetGIDError is a function that defines error message returned by StringIsPathWithoutSetGID validator.
 // nolint: gochecknoglobals
 var StringIsPathWithoutSetGIDError = func(v *StringIsPathWithoutSetGID) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -30,7 +29,6 @@ type StringIsPathWithoutSetGID struct {
 // Validate adds an error if the Field is not an existing path or is an existing path with SetGID flag.
 // If Field is a symlink, the symlink's target will be assessed.
 func (v *StringIsPathWithoutSetGID) Validate(e *validator.Errors) {
-
 	if Exists(v.Field) && !isFileWithMode(v.Field, os.ModeSetgid) {
 		return
 	}

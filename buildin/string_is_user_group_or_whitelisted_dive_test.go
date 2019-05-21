@@ -10,7 +10,6 @@ import (
 )
 
 func Test_StringIsUserGroupOrWhitelistedDive(t *testing.T) {
-
 	r := require.New(t)
 
 	var tests = []struct {

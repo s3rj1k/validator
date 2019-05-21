@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringExclusionDive(t *testing.T) {
-
 	r := require.New(t)
 
 	blackl := []string{}

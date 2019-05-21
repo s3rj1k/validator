@@ -9,7 +9,6 @@ import (
 )
 
 func Test_StringHasSuffixNoneOfDive(t *testing.T) {
-
 	r := require.New(t)
 
 	var tests = []struct {

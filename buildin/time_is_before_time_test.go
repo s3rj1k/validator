@@ -9,7 +9,6 @@ import (
 )
 
 func Test_TimeIsBeforeTime(t *testing.T) {
-
 	r := require.New(t)
 
 	now := time.Now()

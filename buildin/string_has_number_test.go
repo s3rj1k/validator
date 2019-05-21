@@ -8,7 +8,6 @@ import (
 )
 
 func Test_StringHasNumber(t *testing.T) {
-
 	r := require.New(t)
 
 	var tests = []struct {

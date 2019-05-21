@@ -9,7 +9,6 @@ import (
 // StringIsHexcolorError is a function that defines error message returned by StringIsHexcolor validator.
 // nolint: gochecknoglobals
 var StringIsHexcolorError = func(v *StringIsHexcolor) string {
-
 	if len(v.Message) > 0 {
 		return v.Message
 	}
@@ -29,7 +28,6 @@ type StringIsHexcolor struct {
 // Validate adds an error if the Field is not formatted as a hexadecimal color.
 // Leading '#' is required (e.g. "#1f1f1F", "#F00").
 func (v *StringIsHexcolor) Validate(e *validator.Errors) {
-
 	if rxHexcolor.MatchString(v.Field) {
 		return
 	}

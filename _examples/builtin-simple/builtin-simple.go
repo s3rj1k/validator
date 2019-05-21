@@ -13,7 +13,6 @@ type user struct {
 }
 
 func main() {
-
 	u := &user{}
 
 	// validate each field using separate validator structure
