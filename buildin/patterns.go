@@ -28,6 +28,8 @@ const (
 	HasNumber          string = "[0-9]+"
 	UnixFilePermission string = "^0[1-7][0-7]{2,3}$"
 	SetNameIndex       string = `\[[0-9]+\]$`
+	UUID                      = `^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$`
+	UUIDv4                    = `^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[8,9,a,b][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$`
 )
 
 // nolint: gochecknoglobals
@@ -52,5 +54,7 @@ var (
 	rxHasAlpha           = regexp.MustCompile(HasAlpha)
 	rxHasNumber          = regexp.MustCompile(HasNumber)
 	rxUnixFilePermission = regexp.MustCompile(UnixFilePermission)
+	rxUUID               = regexp.MustCompile(UUID)
+	rxUUIDv4             = regexp.MustCompile(UUIDv4)
 	RxSetNameIndex       = regexp.MustCompile(SetNameIndex)
 )
