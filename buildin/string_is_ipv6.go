@@ -52,9 +52,9 @@ func isIPv6(s string) bool {
 	}
 
 	ip := net.ParseIP(s)
-	if ip.To16() == nil || len(ip) != net.IPv6len || !strings.Contains(s, ":") {
-		return false
+	if len(ip.To16()) == net.IPv6len && strings.Contains(s, ":") {
+		return true
 	}
 
-	return true
+	return false
 }

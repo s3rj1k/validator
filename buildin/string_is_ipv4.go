@@ -52,9 +52,9 @@ func isIPv4(s string) bool {
 	}
 
 	ip := net.ParseIP(s)
-	if ip.To4() == nil || !strings.Contains(s, ".") {
-		return false
+	if len(ip.To4()) == net.IPv4len && strings.Contains(s, ".") {
+		return true
 	}
 
-	return true
+	return false
 }
