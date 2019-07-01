@@ -18,7 +18,7 @@ var StringMatchRegexError = func(v *StringMatchRegex) string {
 }
 
 // StringMatchRegex is a validator object.
-// Validate adds an error if the Field does not match regular expression Regex.
+// Validate adds an error if the Field does not match regular expression.
 type StringMatchRegex struct {
 	Name    string
 	Field   string
@@ -26,7 +26,7 @@ type StringMatchRegex struct {
 	Message string
 }
 
-// Validate adds an error if the Field does not match regular expression Regex.
+// Validate adds an error if the Field does not match regular expression.
 func (v *StringMatchRegex) Validate(e *validator.Errors) {
 	r := regexp.MustCompile(v.Regex)
 	if r.Match([]byte(v.Field)) {
