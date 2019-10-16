@@ -45,9 +45,11 @@ func (v *StringIsDir) SetNameIndex(i int) {
 }
 
 func isDir(path string) bool {
-	if fi, err := os.Stat(path); !os.IsNotExist(err) {
-		if mode := fi.Mode(); mode.IsDir() {
-			return true
+	if fi, err := os.Stat(path); err == nil {
+		if os.IsExist(err) {
+			if mode := fi.Mode(); mode.IsDir() {
+				return true
+			}
 		}
 	}
 
