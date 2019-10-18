@@ -38,8 +38,8 @@ func Test_StringHasPrefixNoneOfDive(t *testing.T) {
 		}
 
 		e := validator.NewErrors()
-		v.Validate(e)
 
+		v.Validate(e)
 		r.Equalf(!test.valid, e.HasAny(), "tc %d expecting error=%v got=%v", index, !test.valid, e.HasAny())
 
 		if !test.valid {

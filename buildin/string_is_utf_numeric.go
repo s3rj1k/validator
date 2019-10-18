@@ -30,8 +30,10 @@ type StringIsUTFNumeric struct {
 // Validate adds an error if the Field contains anything except unicode numbers (category N).
 // Leading sign is allowed. Empty string is valid.
 func (v *StringIsUTFNumeric) Validate(e *validator.Errors) {
-	var failed bool
-	var field = v.Field
+	var (
+		failed bool
+		field  = v.Field
+	)
 
 	// null string is valid
 	if isNullString(field) {

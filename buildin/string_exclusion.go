@@ -32,6 +32,7 @@ func (v *StringExclusion) Validate(e *validator.Errors) {
 	for _, l := range v.Blacklist {
 		if l == v.Field {
 			found = true
+
 			break
 		}
 	}

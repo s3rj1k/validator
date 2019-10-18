@@ -19,6 +19,7 @@ func Test_StringIsPrintableASCIIDive(t *testing.T) {
 		Field: field,
 	}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(0, e.Count())
 

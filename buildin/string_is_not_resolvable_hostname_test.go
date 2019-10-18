@@ -31,9 +31,10 @@ func Test_StringIsNotResolvableHostname(t *testing.T) {
 	for index, test := range tests {
 		v := &StringIsNotResolvableHostname{Name: "RHN", Field: test.field}
 		e := validator.NewErrors()
-		v.Validate(e)
 
+		v.Validate(e)
 		r.Equalf(!test.valid, e.HasAny(), "tc %d expecting error=%v got=%v", index, !test.valid, e.HasAny())
+
 		if !test.valid {
 			r.Equalf([]string{StringIsNotResolvableHostnameError(v)}, e.Get(v.Name), "tc %d", index)
 		}

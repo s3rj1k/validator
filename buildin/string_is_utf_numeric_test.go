@@ -12,6 +12,7 @@ func Test_StringIsUTFNumeric(t *testing.T) {
 
 	v := &StringIsUTFNumeric{Name: "Name", Field: "১522௫٣"}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(0, e.Count())
 

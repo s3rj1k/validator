@@ -16,6 +16,7 @@ func Test_NumbersAreEqual(t *testing.T) {
 	for _, i := range f {
 		v := &NumbersAreEqual{Name: "Number", Field: i, ComparedField: c}
 		e := validator.NewErrors()
+
 		v.Validate(e)
 		r.Equal(0, e.Count())
 	}
@@ -25,6 +26,7 @@ func Test_NumbersAreEqual(t *testing.T) {
 	for _, i := range f {
 		v := &NumbersAreEqual{Name: "Number", Field: i, ComparedField: c2}
 		e := validator.NewErrors()
+
 		v.Validate(e)
 		r.Equal(0, e.Count())
 	}
@@ -34,6 +36,7 @@ func Test_NumbersAreEqual(t *testing.T) {
 	for _, i := range f {
 		v := &NumbersAreEqual{Name: "Number", Field: i, ComparedField: c3}
 		e := validator.NewErrors()
+
 		v.Validate(e)
 		r.Equal(0, e.Count())
 	}
@@ -43,6 +46,7 @@ func Test_NumbersAreEqual(t *testing.T) {
 	for _, i := range f2 {
 		v := &NumbersAreEqual{Name: "Number", Field: i, ComparedField: c3}
 		e := validator.NewErrors()
+
 		v.Validate(e)
 		r.Equal(1, e.Count())
 		r.Equal([]string{ErrBadNumType.Error()}, e.Get("Number"))
@@ -53,6 +57,7 @@ func Test_NumbersAreEqual(t *testing.T) {
 	for _, i := range f3 {
 		v := &NumbersAreEqual{Name: "Number", Field: i, ComparedField: c3}
 		e := validator.NewErrors()
+
 		v.Validate(e)
 		r.Equal(1, e.Count())
 		r.Equal([]string{ErrBadNumType.Error()}, e.Get("Number"))

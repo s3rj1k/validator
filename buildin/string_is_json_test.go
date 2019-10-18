@@ -12,6 +12,7 @@ func Test_StringIsJSON(t *testing.T) {
 
 	v := &StringIsJSON{Name: "Name", Field: "{\"test\": \"sure\"}"}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(0, e.Count())
 

@@ -69,6 +69,7 @@ func Test_NumberIsLess(t *testing.T) {
 			CheckEqual:    tc.checkEqual,
 		}
 		e := validator.NewErrors()
+
 		v.Validate(e)
 		r.Equal(tc.errNum, e.Count(), fmt.Sprintf("tc %d number of errors is wrong %v", index, e))
 	}

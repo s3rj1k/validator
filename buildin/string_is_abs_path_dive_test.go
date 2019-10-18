@@ -16,7 +16,7 @@ func Test_StringIsAbsPathDive(t *testing.T) {
 		valid          bool
 		invalidIndexes []int
 	}{
-		{[]string{"/var/", "/usr/local/bin", "/tmp/test", "/"}, true, []int{}},
+		{[]string{"/var/", "/usr/local/bin", regularFile, "/"}, true, []int{}},
 		{[]string{"/tmp//test/test", "./test", "test", "//", "/tmp/test//"}, false, []int{0, 1, 2, 3, 4}},
 		{[]string{" ", ""}, false, []int{0, 1}},
 		{nil, false, []int{0}},
@@ -28,8 +28,8 @@ func Test_StringIsAbsPathDive(t *testing.T) {
 			Field:     test.field,
 		}
 		e := validator.NewErrors()
-		v.Validate(e)
 
+		v.Validate(e)
 		r.Equalf(!test.valid, e.HasAny(), "tc %d expecting error=%v got=%v", index, !test.valid, e.HasAny())
 
 		if !test.valid {

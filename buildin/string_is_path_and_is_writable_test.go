@@ -12,20 +12,21 @@ import (
 func Test_StringIsPathAndIsWritable(t *testing.T) {
 	r := require.New(t)
 
-	_ = os.Remove("/tmp/string_writable_file")
+	_ = os.Remove(writableFile)
 
-	fd, err := os.Create("/tmp/string_writable_file")
+	fd, err := os.Create(writableFile)
 	r.Nil(err)
 
-	v := &StringIsPathAndIsWritable{Name: "Name", Field: "/tmp/string_writable_file"}
+	v := &StringIsPathAndIsWritable{Name: "Name", Field: writableFile}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
 	err = fd.Chmod(0000)
 	r.Nil(err)
 
-	v = &StringIsPathAndIsWritable{Name: "Name", Field: "/tmp/string_writable_file"}
+	v = &StringIsPathAndIsWritable{Name: "Name", Field: writableFile}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
@@ -37,31 +38,31 @@ func Test_StringIsPathAndIsWritable(t *testing.T) {
 	err = fd.Close()
 	r.Nil(err)
 
-	err = os.Remove("/tmp/string_writable_file")
+	err = os.Remove(writableFile)
 	r.Nil(err)
 
-	_ = os.Remove("/tmp/string_writable_dir")
+	_ = os.Remove(writableDir)
 
-	err = os.MkdirAll("/tmp/string_writable_dir", 0777)
+	err = os.MkdirAll(writableDir, 0777)
 	r.Nil(err)
 
-	v = &StringIsPathAndIsWritable{Name: "Name", Field: "/tmp/string_writable_dir"}
+	v = &StringIsPathAndIsWritable{Name: "Name", Field: writableDir}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
-	err = os.Chmod("/tmp/string_writable_dir", 0000)
+	err = os.Chmod(writableDir, 0000)
 	r.Nil(err)
 
-	v = &StringIsPathAndIsWritable{Name: "Name", Field: "/tmp/string_writable_dir"}
+	v = &StringIsPathAndIsWritable{Name: "Name", Field: writableDir}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{StringIsPathAndIsWritableError(v)}, e.Get("Name"))
 
-	err = os.Chmod("/tmp/string_writable_dir", 0777)
+	err = os.Chmod(writableDir, 0777)
 	r.Nil(err)
 
-	err = os.Remove("/tmp/string_writable_dir")
+	err = os.Remove(writableDir)
 	r.Nil(err)
 }

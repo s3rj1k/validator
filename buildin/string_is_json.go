@@ -30,8 +30,7 @@ func (v *StringIsJSON) Validate(e *validator.Errors) {
 	var js json.RawMessage
 
 	// successful unmarshalling is good
-	err := json.Unmarshal([]byte(v.Field), &js)
-	if err == nil {
+	if err := json.Unmarshal([]byte(v.Field), &js); err == nil {
 		return
 	}
 

@@ -14,8 +14,8 @@ func Test_StringIsAbsPath(t *testing.T) {
 		field string
 		valid bool
 	}{
-		{"/tmp/test/", true},
-		{"/tmp/test", true},
+		{regularFile + "/", true},
+		{regularFile, true},
 		{"/tmp", true},
 		{"/", true},
 		{"/tmp/ test/", true},
@@ -38,8 +38,8 @@ func Test_StringIsAbsPath(t *testing.T) {
 	for index, test := range tests {
 		v := &StringIsAbsPath{Name: "AbsPath", Field: test.field}
 		e := validator.NewErrors()
-		v.Validate(e)
 
+		v.Validate(e)
 		r.Equalf(!test.valid, e.HasAny(), "tc %d expecting error=%v got=%v", index, !test.valid, e.HasAny())
 
 		if !test.valid {

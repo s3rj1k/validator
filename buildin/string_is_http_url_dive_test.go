@@ -23,6 +23,7 @@ func Test_StringIsHTTPURLDive(t *testing.T) {
 		Field: field,
 	}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(7, e.Count())
 }

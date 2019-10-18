@@ -12,6 +12,7 @@ func Test_StringIsRegex(t *testing.T) {
 
 	v := &StringIsRegex{Name: "Regexp", Field: "^([0-9]{3}-[0-9]{3}-[0-9]{4})$"}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(0, e.Count())
 

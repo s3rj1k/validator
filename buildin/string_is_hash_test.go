@@ -15,6 +15,7 @@ func Test_StringIsHash(t *testing.T) {
 	r := require.New(t)
 
 	h := md5.New() // nolint: gosec
+
 	_, err := io.WriteString(h, "Hello World!")
 	if err != nil {
 		t.Fatalf("unexpected error %s", err)
@@ -22,10 +23,12 @@ func Test_StringIsHash(t *testing.T) {
 
 	v := &StringIsHash{Name: "Name", Algorithm: "md5", Field: fmt.Sprintf("%x", h.Sum(nil))} // md5
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
 	h = sha256.New()
+
 	_, err = io.WriteString(h, "Hello World!")
 	if err != nil {
 		t.Fatalf("unexpected error %s", err)

@@ -32,8 +32,8 @@ func Test_StringIsUserGroupOrWhitelisted(t *testing.T) {
 	for index, test := range tests {
 		v := &StringIsUserGroupOrWhitelisted{Name: "Passwd", Field: test.field, Whitelist: test.whitelist}
 		e := validator.NewErrors()
-		v.Validate(e)
 
+		v.Validate(e)
 		r.Equalf(!test.valid, e.HasAny(), "tc %d expecting error=%v got=%v", index, !test.valid, e.HasAny())
 
 		if !test.valid {

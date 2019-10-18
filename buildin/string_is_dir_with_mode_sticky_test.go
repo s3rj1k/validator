@@ -12,30 +12,24 @@ import (
 func Test_StringIsDirWithModeSticky(t *testing.T) {
 	r := require.New(t)
 
-	var notexists, notdir, notstickydir, stickydir string
-	notexists = "/tmp/testnotexists"
-	notdir = "/tmp/testnotdir"
-	notstickydir = "/tmp/testnotstickydir"
-	stickydir = "/tmp/teststickydir"
-
 	// setup
-	_silentdeleteMany(notexists, notdir, notstickydir, stickydir)
-	_createdirs(notstickydir, stickydir)
-	_setfilemode(stickydir, os.ModeSticky)
-	_createfile(notdir)
+	_silentdeleteMany(notExists, notDir, notStickyDir, stickyDir)
+	_createdirs(notStickyDir, stickyDir)
+	_setfilemode(stickyDir, os.ModeSticky)
+	_createfile(notDir)
 
 	// teardown
-	defer _silentdeleteMany(notstickydir, stickydir, notdir)
+	defer _silentdeleteMany(notStickyDir, stickyDir, notDir)
 
 	var tests = []struct {
 		field string
 		valid bool
 	}{
-		{stickydir, true},
+		{stickyDir, true},
 
-		{notexists, false},
-		{notdir, false},
-		{notstickydir, false},
+		{notExists, false},
+		{notDir, false},
+		{notStickyDir, false},
 
 		{"", false},
 	}
@@ -43,8 +37,8 @@ func Test_StringIsDirWithModeSticky(t *testing.T) {
 	for index, test := range tests {
 		v := &StringIsDirWithModeSticky{Name: "StickyDir", Field: test.field}
 		e := validator.NewErrors()
-		v.Validate(e)
 
+		v.Validate(e)
 		r.Equalf(!test.valid, e.HasAny(), "tc %d expecting error=%v got=%v", index, !test.valid, e.HasAny())
 
 		if !test.valid {

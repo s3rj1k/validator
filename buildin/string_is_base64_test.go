@@ -15,6 +15,7 @@ func Test_StringIsBase64(t *testing.T) {
 	sEnc := base64.StdEncoding.EncodeToString([]byte("abc123"))
 	v := &StringIsBase64{Name: "Name", Field: sEnc} // must be base64 string
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(0, e.Count())
 

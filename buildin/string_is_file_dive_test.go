@@ -12,7 +12,7 @@ import (
 func Test_StringIsFileDive(t *testing.T) {
 	r := require.New(t)
 
-	fd, err := os.Create("/tmp/string_is_file_dive") // nolint: gosec
+	fd, err := os.Create(regularFile) // nolint: gosec
 	r.Nil(err)
 
 	err = fd.Close()
@@ -23,7 +23,7 @@ func Test_StringIsFileDive(t *testing.T) {
 		valid          bool
 		invalidIndexes []int
 	}{
-		{[]string{"/tmp/not_exists_i_hope", "/tmp/string_is_file_dive", "/tmp"}, false, []int{0, 2}},
+		{[]string{notExists, regularFile, "/tmp"}, false, []int{0, 2}},
 		{[]string{" ", ""}, false, []int{0, 1}}, // not a files
 		{nil, false, []int{0}},                  // not a file
 	}
@@ -52,6 +52,6 @@ func Test_StringIsFileDive(t *testing.T) {
 		}
 	}
 
-	err = os.Remove("/tmp/string_is_file_dive")
+	err = os.Remove(regularFile)
 	r.Nil(err)
 }

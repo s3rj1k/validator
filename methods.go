@@ -151,6 +151,7 @@ func (e *Errors) sync() *gabs.Container {
 			} else { // use plain JSON paths
 				err = c.ArrayAppend(val, path)
 			}
+
 			if err != nil {
 				panic(err) // WTF?!
 			}

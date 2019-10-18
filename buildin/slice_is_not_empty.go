@@ -104,6 +104,7 @@ func (v *SliceIsNotEmpty) Validate(e *validator.Errors) {
 		}
 	default:
 		e.Add(v.Name, ErrBadSliceType.Error())
+
 		return
 	}
 

@@ -12,6 +12,7 @@ func Test_StringIsFloat(t *testing.T) {
 
 	v := &StringIsFloat{Name: "Name", Field: "15.22"} // must be float
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(0, e.Count())
 

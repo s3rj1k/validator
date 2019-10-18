@@ -12,6 +12,7 @@ func Test_StringMatchRegex(t *testing.T) {
 
 	v := &StringMatchRegex{Name: "Phone", Field: "555-555-5555", Regex: "^([0-9]{3}-[0-9]{3}-[0-9]{4})$"}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(0, e.Count())
 

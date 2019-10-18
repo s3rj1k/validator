@@ -274,6 +274,7 @@ func TestKeys(t *testing.T) {
 
 	// test correct sort order of keys
 	k := e.Keys()
+
 	rand.Seed(time.Now().UnixNano())
 	rand.Shuffle(len(k), func(i, j int) { k[i], k[j] = k[j], k[i] })
 
@@ -306,6 +307,7 @@ func TestKeysP(t *testing.T) {
 
 	// test correct sort order of keys
 	k := e.Keys()
+
 	rand.Seed(time.Now().UnixNano())
 	rand.Shuffle(len(k), func(i, j int) { k[i], k[j] = k[j], k[i] })
 

@@ -59,6 +59,7 @@ func (v *ExecExitCodeIsZero) Validate(e *validator.Errors) {
 
 	if ctx.Err() == context.DeadlineExceeded {
 		e.Add(v.Name, ExecExitCodeIsZeroError(v))
+
 		return
 	}
 

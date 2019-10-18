@@ -17,6 +17,7 @@ func Test_StringHasNoSuffixDive(t *testing.T) {
 		Field:     sl,
 	}
 	e := validator.NewErrorsP()
+
 	v.Validate(e)
 	r.Equal(1, e.Count()) // 4(total) - 3 strings in sl that do not have matched suffix
 }

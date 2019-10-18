@@ -30,6 +30,7 @@ func Test_ExecExitCodeIsNotZero(t *testing.T) {
 		v.Validate(e)
 
 		r.Equalf(!test.valid, e.HasAny(), "tc %d expecting error=%v got=%v", index, !test.valid, e.HasAny())
+
 		if !test.valid {
 			r.Equalf([]string{ExecExitCodeIsNotZeroError(v)}, e.Get(v.Name), "tc %d", index)
 		}

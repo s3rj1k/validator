@@ -170,6 +170,7 @@ func (v *SliceIsUnique) Validate(e *validator.Errors) {
 		}
 	default:
 		e.Add(v.Name, ErrBadSliceType.Error())
+
 		return
 	}
 

@@ -24,6 +24,7 @@ func Test_StringHasPrefix(t *testing.T) {
 	for _, testCase := range cases {
 		v := StringHasPrefix{Name: "strings", Field: testCase.str1, ComparedField: testCase.str2}
 		e := validator.NewErrors()
+
 		v.Validate(e)
 		r.Equal(testCase.expected, !e.HasAny(), "Str1: %s, Str2: %s", testCase.str1, testCase.str2)
 	}
@@ -31,8 +32,10 @@ func Test_StringHasPrefix(t *testing.T) {
 	for _, testCase := range cases {
 		v := StringHasPrefix{Name: "strings1", Field: testCase.str1, ComparedField: testCase.str2, ComparedName: "strings2"}
 		e := validator.NewErrors()
+
 		v.Validate(e)
 		r.Equal(testCase.expected, !e.HasAny(), "Str1: %s, Str2: %s", testCase.str1, testCase.str2)
+
 		if !testCase.expected {
 			r.Contains(e.Get("strings1"), "'strings1' does not start with content of 'strings2'")
 		}
@@ -40,6 +43,7 @@ func Test_StringHasPrefix(t *testing.T) {
 
 	v := StringHasPrefix{Name: "strings", Field: "test_fail", ComparedField: "zzz"}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{"'test_fail' does not start with 'zzz'"}, e.Get("strings"))

@@ -32,8 +32,8 @@ func Test_StringIsRegularUserOrWhitelisted(t *testing.T) {
 	for index, test := range tests {
 		v := &StringIsRegularUserOrWhitelisted{Name: "Passwd", Field: test.field, Whitelist: test.whitelist}
 		e := validator.NewErrors()
-		v.Validate(e)
 
+		v.Validate(e)
 		r.Equalf(!test.valid, e.HasAny(), "tc %d expecting error=%v got=%v", index, !test.valid, e.HasAny())
 
 		if !test.valid {

@@ -33,8 +33,8 @@ func Test_StringContainsNoneOf(t *testing.T) {
 	for index, test := range tests {
 		v := &StringContainsNoneOf{Name: "StringContains", Field: test.field, ComparedField: test.comparedField}
 		e := validator.NewErrors()
-		v.Validate(e)
 
+		v.Validate(e)
 		r.Equalf(!test.valid, e.HasAny(), "tc %d expecting error=%v got=%v", index, !test.valid, e.HasAny())
 
 		if !test.valid {

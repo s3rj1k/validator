@@ -31,8 +31,8 @@ func Test_StringIsValidUserOrGroupNameCaseSensative(t *testing.T) {
 	for index, test := range tests {
 		v := &StringIsValidUserOrGroupName{Name: "Passwd", Field: test.field}
 		e := validator.NewErrors()
-		v.Validate(e)
 
+		v.Validate(e)
 		r.Equalf(!test.valid, e.HasAny(), "tc %d expecting error=%v got=%v", index, !test.valid, e.HasAny())
 
 		if !test.valid {
@@ -64,8 +64,8 @@ func Test_StringIsValidUserOrGroupNameCaseInsensative(t *testing.T) {
 	for index, test := range tests {
 		v := &StringIsValidUserOrGroupName{Name: "Passwd", Field: test.field, CaseInsensitive: true}
 		e := validator.NewErrors()
-		v.Validate(e)
 
+		v.Validate(e)
 		r.Equalf(!test.valid, e.HasAny(), "tc %d expecting error=%v got=%v", index, !test.valid, e.HasAny())
 
 		if !test.valid {

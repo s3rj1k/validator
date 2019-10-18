@@ -22,6 +22,7 @@ func Test_NumberIsNotZero(t *testing.T) {
 	for _, n := range nonzeros {
 		v := &NumberIsNotZero{Name: "Number", Field: n}
 		e := validator.NewErrors()
+
 		v.Validate(e)
 		r.Equal(0, e.Count())
 	}
@@ -29,6 +30,7 @@ func Test_NumberIsNotZero(t *testing.T) {
 	for _, n := range zeros {
 		v := &NumberIsNotZero{Name: "Number", Field: n}
 		e := validator.NewErrors()
+
 		v.Validate(e)
 		r.Equal(1, e.Count())
 		r.Equal([]string{NumberIsNotZeroError(v)}, e.Get("Number"))

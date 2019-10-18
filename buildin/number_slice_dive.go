@@ -96,6 +96,7 @@ func (v *NumberSliceDive) Validate(e *validator.Errors) {
 		}
 	default:
 		e.Add(v.Validator.GetName(), ErrBadNumType.Error())
+
 		return
 	}
 }

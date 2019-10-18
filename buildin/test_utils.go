@@ -6,6 +6,39 @@ import (
 	"syscall"
 )
 
+const (
+	notExists   = "/tmp/testNotExists"
+	regularFile = "/tmp/testRegularFile"
+
+	dir        = "/tmp/testDir"
+	anotherDir = "/tmp/testAnotherDir"
+
+	notDir       = "/tmp/testNotDir"
+	notStickyDir = "/tmp/testNotStickyDir"
+	writableDir  = "/tmp/testWritableDir"
+	stickyDir    = "/tmp/testStickyDir"
+
+	notWritableFile = "/tmp/testNotWritableFile"
+	writableFile    = "/tmp/testWritableFile"
+
+	fileWithSetGID = "/tmp/testFileWithSetGID"
+	fileWithSetUID = "/tmp/testFileWithSetUID"
+
+	namedPipe  = "/tmp/testNamedPipe"
+	unixSocket = "/tmp/testUnixSocket"
+
+	executableFile    = "/tmp/testExecutableFile"
+	notExecutableFile = "/tmp/testNotExecutableFile"
+
+	symlink        = "/tmp/testSymlink"
+	anotherSymlink = "/tmp/testAnotherSymlink"
+	notSymlink     = "/tmp/testNotSymlink"
+
+	symlinkTargetNotExist = "/tmp/testSymlinkTargetNotExist"
+	symlinkTargetIsFile   = "/tmp/testSymlinkTargetIsFile"
+	symlinkTargetIsDir    = "/tmp/testSymlinkTargetIsDir"
+)
+
 // creates but panics if already exists and on any errors
 func _createfile(path string) {
 	_, err := os.Stat(path)
@@ -32,7 +65,7 @@ func _createfiles(paths ...string) {
 }
 
 // creates path with mode
-func _createfilewithmode(path string, mode os.FileMode) {
+func _createfilewithmode(path string, mode os.FileMode) { // nolint: unused,deadcode
 	_createfile(path)
 	_setfilemode(path, mode)
 }
@@ -79,14 +112,14 @@ func _setfilemode(path string, mode os.FileMode) {
 }
 
 // creates named pipe at path
-func _createnamedpipe(path string) {
+func _createnamedpipe(path string) { // nolint: unparam
 	err := syscall.Mkfifo(path, 0644)
 	if err != nil {
 		panic(err)
 	}
 }
 
-func _creatunixsocket(path string) {
+func _creatunixsocket(path string) { // nolint: unparam
 	_, err := net.Listen("unix", path)
 	if err != nil {
 		panic(err)

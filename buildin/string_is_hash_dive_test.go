@@ -14,6 +14,7 @@ func Test_StringIsHashDive(t *testing.T) {
 	r := require.New(t)
 
 	h := sha256.New()
+
 	_, err := io.WriteString(h, "Hello World!")
 	if err != nil {
 		t.Fatalf("unexpected error %s", err)
@@ -31,6 +32,7 @@ func Test_StringIsHashDive(t *testing.T) {
 		Field: field,
 	}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(0, e.Count())
 

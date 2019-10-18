@@ -12,6 +12,7 @@ func Test_StringIsPort(t *testing.T) {
 
 	v := &StringIsPort{Name: "Name", Field: "1"} // Port is OK > 0
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(0, e.Count())
 

@@ -12,16 +12,17 @@ import (
 func Test_StringIsFileAndIsNotExecutable(t *testing.T) {
 	r := require.New(t)
 
-	_ = os.Remove("/tmp/string_executable_file")
+	_ = os.Remove(executableFile)
 
-	fd, err := os.Create("/tmp/string_executable_file")
+	fd, err := os.Create(executableFile)
 	r.Nil(err)
 
 	err = fd.Chmod(0111) // execute
 	r.Nil(err)
 
-	v := &StringIsFileAndIsNotExecutable{Name: "Name", Field: "/tmp/string_executable_file"}
+	v := &StringIsFileAndIsNotExecutable{Name: "Name", Field: executableFile}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{StringIsFileAndIsNotExecutableError(v)}, e.Get("Name"))
@@ -29,7 +30,7 @@ func Test_StringIsFileAndIsNotExecutable(t *testing.T) {
 	err = fd.Chmod(0666) // read & write
 	r.Nil(err)
 
-	v = &StringIsFileAndIsNotExecutable{Name: "Name", Field: "/tmp/string_executable_file"}
+	v = &StringIsFileAndIsNotExecutable{Name: "Name", Field: executableFile}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
@@ -37,7 +38,7 @@ func Test_StringIsFileAndIsNotExecutable(t *testing.T) {
 	err = fd.Chmod(0333) // write & execute
 	r.Nil(err)
 
-	v = &StringIsFileAndIsNotExecutable{Name: "Name", Field: "/tmp/string_executable_file"}
+	v = &StringIsFileAndIsNotExecutable{Name: "Name", Field: executableFile}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
@@ -46,7 +47,7 @@ func Test_StringIsFileAndIsNotExecutable(t *testing.T) {
 	err = fd.Chmod(0444) // read
 	r.Nil(err)
 
-	v = &StringIsFileAndIsNotExecutable{Name: "Name", Field: "/tmp/string_executable_file"}
+	v = &StringIsFileAndIsNotExecutable{Name: "Name", Field: executableFile}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
@@ -54,7 +55,7 @@ func Test_StringIsFileAndIsNotExecutable(t *testing.T) {
 	err = fd.Chmod(0555) // read & execute
 	r.Nil(err)
 
-	v = &StringIsFileAndIsNotExecutable{Name: "Name", Field: "/tmp/string_executable_file"}
+	v = &StringIsFileAndIsNotExecutable{Name: "Name", Field: executableFile}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
@@ -65,13 +66,13 @@ func Test_StringIsFileAndIsNotExecutable(t *testing.T) {
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
-	v = &StringIsFileAndIsNotExecutable{Name: "Name", Field: "/tmp/not_exist_at_all"} // not existing is OK
+	v = &StringIsFileAndIsNotExecutable{Name: "Name", Field: notExists} // not existing is OK
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
 	err = fd.Close()
 	r.Nil(err)
-	err = os.Remove("/tmp/string_executable_file")
+	err = os.Remove(executableFile)
 	r.Nil(err)
 }

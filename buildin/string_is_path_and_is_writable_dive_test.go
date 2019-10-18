@@ -12,9 +12,9 @@ import (
 func Test_StringIsPathAndIsWritableDive(t *testing.T) {
 	r := require.New(t)
 
-	_ = os.Remove("/tmp/string_writable_file")
+	_ = os.Remove(writableFile)
 
-	fd, err := os.Create("/tmp/string_writable_file")
+	fd, err := os.Create(writableFile)
 	r.Nil(err)
 
 	err = fd.Chmod(0777)
@@ -23,9 +23,9 @@ func Test_StringIsPathAndIsWritableDive(t *testing.T) {
 	err = fd.Close()
 	r.Nil(err)
 
-	_ = os.Remove("/tmp/string_not_writable_file")
+	_ = os.Remove(notWritableFile)
 
-	fd, err = os.Create("/tmp/string_not_writable_file")
+	fd, err = os.Create(notWritableFile)
 	r.Nil(err)
 
 	err = fd.Chmod(0000)
@@ -38,7 +38,7 @@ func Test_StringIsPathAndIsWritableDive(t *testing.T) {
 		field          []string
 		invalidIndexes []int
 	}{
-		{[]string{"/tmp/not_exists_i_hope", "/tmp/string_not_writable_file", "/tmp/string_writable_file"}, []int{0, 1}},
+		{[]string{notExists, notWritableFile, writableFile}, []int{0, 1}},
 	}
 
 	for index, test := range tests {
@@ -47,8 +47,8 @@ func Test_StringIsPathAndIsWritableDive(t *testing.T) {
 			Field:     test.field,
 		}
 		e := validator.NewErrors()
-		v.Validate(e)
 
+		v.Validate(e)
 		r.Equalf(len(test.invalidIndexes), e.Count(), "tc %d wrong number of errors", index)
 
 		errnames := []string{}
@@ -61,15 +61,15 @@ func Test_StringIsPathAndIsWritableDive(t *testing.T) {
 		}
 	}
 
-	err = os.Chmod("/tmp/string_not_writable_file", 0777)
+	err = os.Chmod(notWritableFile, 0777)
 	r.Nil(err)
 
-	err = os.Remove("/tmp/string_not_writable_file")
+	err = os.Remove(notWritableFile)
 	r.Nil(err)
 
-	err = os.Chmod("/tmp/string_writable_file", 0777)
+	err = os.Chmod(writableFile, 0777)
 	r.Nil(err)
 
-	err = os.Remove("/tmp/string_writable_file")
+	err = os.Remove(writableFile)
 	r.Nil(err)
 }

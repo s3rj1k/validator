@@ -30,12 +30,14 @@ func Test_StringLengthInRange(t *testing.T) {
 	for _, test := range tests {
 		v := &StringLengthInRange{Name: "email", Field: test.value, Min: test.min, Max: test.max}
 		e := validator.NewErrors()
+
 		v.Validate(e)
 		r.Equal(test.expected, !e.HasAny(), fmt.Sprintf("Value: %s, Min:%d, Max:%d", test.value, test.min, test.max))
 	}
 
 	v := &StringLengthInRange{Name: "email", Field: "1234567", Min: 40, Max: 50}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{StringLengthInRangeError(v)}, e.Get("email"))

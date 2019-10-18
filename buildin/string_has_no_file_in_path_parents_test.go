@@ -12,6 +12,7 @@ func Test_StringHasNoFilesInPathParents(t *testing.T) {
 
 	v := StringHasNoFileInPathParents{Name: "Name", Field: "."} // at least 1 upper case
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(0, e.Count())
 

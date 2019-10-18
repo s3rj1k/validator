@@ -14,6 +14,7 @@ func Test_StringExclusion(t *testing.T) {
 
 	v := &StringExclusion{Name: "Name", Field: "Woody", Blacklist: l}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(0, e.Count())
 

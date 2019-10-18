@@ -12,6 +12,7 @@ func Test_StringIsUTFLetters(t *testing.T) {
 
 	v := &StringIsUTFLetters{Name: "Name", Field: "asd品ʂля"}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(0, e.Count())
 

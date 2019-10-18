@@ -12,6 +12,7 @@ func Test_StringIsASCII(t *testing.T) {
 
 	v := &StringIsASCII{Name: "Name", Field: "abc123"} // must be ASCII
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(0, e.Count())
 

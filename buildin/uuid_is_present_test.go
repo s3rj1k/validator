@@ -16,6 +16,7 @@ func Test_UUIDIsPresent(t *testing.T) {
 
 	v := &UUIDIsPresent{Name: "Name", Field: id}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(0, e.Count())
 

@@ -31,9 +31,10 @@ func Test_StringIsIPHasPTR(t *testing.T) {
 	for index, test := range tests {
 		v := &StringIsIPHasPTR{Name: "IP", Field: test.field}
 		e := validator.NewErrors()
-		v.Validate(e)
 
+		v.Validate(e)
 		r.Equalf(!test.valid, e.HasAny(), "tc %d", index)
+
 		if !test.valid {
 			r.Equalf([]string{StringIsIPHasPTRError(v)}, e.Get(v.Name), "tc %d", index)
 		}

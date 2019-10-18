@@ -11,12 +11,8 @@ import (
 func Test_StringIsPathAndDevice(t *testing.T) {
 	r := require.New(t)
 
-	var notexists, namedPipe string
-	notexists = "/tmp/testnotexists"
-	namedPipe = "/tmp/testnamedPipe"
-
 	// setup
-	_silentdeleteMany(notexists, namedPipe)
+	_silentdeleteMany(notExists, namedPipe)
 	_createnamedpipe(namedPipe)
 
 	// teardown
@@ -28,7 +24,7 @@ func Test_StringIsPathAndDevice(t *testing.T) {
 	}{
 		{"/dev/tty", true},
 
-		{notexists, false},
+		{notExists, false},
 		{namedPipe, false},
 		{"/dev/null", true},
 
@@ -38,8 +34,8 @@ func Test_StringIsPathAndDevice(t *testing.T) {
 	for index, test := range tests {
 		v := &StringIsPathAndDevice{Name: "FileModes", Field: test.field}
 		e := validator.NewErrors()
-		v.Validate(e)
 
+		v.Validate(e)
 		r.Equalf(!test.valid, e.HasAny(), "tc %d expecting error=%v got=%v", index, !test.valid, e.HasAny())
 
 		if !test.valid {
