@@ -12,18 +12,9 @@ import (
 func Test_StringIsPathAndRegularFile(t *testing.T) {
 	r := require.New(t)
 
-	var notexists, regularFile, unixSocket, fileWithSetUID, fileWithSetGID string
-	notexists = "/tmp/testnotexists"
-	regularFile = "/tmp/testregularFile"
-
-	unixSocket = "/tmp/testunixSocket"
-	fileWithSetUID = "/tmp/testfileWithSetUID"
-	fileWithSetGID = "/tmp/testfileWithSetGID"
-
 	// setup
-	_silentdeleteMany(notexists, regularFile, unixSocket, fileWithSetUID, fileWithSetGID)
+	_silentdeleteMany(notExists, regularFile, unixSocket, fileWithSetUID, fileWithSetGID)
 	_createfiles(regularFile, fileWithSetGID, fileWithSetUID)
-
 	_setfilemode(fileWithSetGID, os.ModeSetgid)
 	_setfilemode(fileWithSetUID, os.ModeSetuid)
 	_creatunixsocket(unixSocket)
@@ -35,7 +26,7 @@ func Test_StringIsPathAndRegularFile(t *testing.T) {
 		field string
 		valid bool
 	}{
-		{notexists, false},
+		{notExists, false},
 
 		{regularFile, true},
 
@@ -50,8 +41,8 @@ func Test_StringIsPathAndRegularFile(t *testing.T) {
 	for index, test := range tests {
 		v := &StringIsPathAndRegularFile{Name: "FileModes", Field: test.field}
 		e := validator.NewErrors()
-		v.Validate(e)
 
+		v.Validate(e)
 		r.Equalf(!test.valid, e.HasAny(), "tc %d expecting error=%v got=%v", index, !test.valid, e.HasAny())
 
 		if !test.valid {

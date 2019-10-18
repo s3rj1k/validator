@@ -31,8 +31,10 @@ type StringIsEmailLike struct {
 // It also checks that domain has a domain zone (but does not check if the zone is valid).
 // Also allows inner and outer whitespaces.
 func (v *StringIsEmailLike) Validate(e *validator.Errors) {
-	var validStructure = false
-	var domainZonePresent = false
+	var (
+		validStructure    = false
+		domainZonePresent = false
+	)
 
 	parts := strings.Split(v.Field, "@")
 
@@ -50,6 +52,7 @@ func (v *StringIsEmailLike) Validate(e *validator.Errors) {
 
 	if !validStructure || !domainZonePresent {
 		e.Add(v.Name, StringIsEmailLikeError(v))
+
 		return
 	}
 }

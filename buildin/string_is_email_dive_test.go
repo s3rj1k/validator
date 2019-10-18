@@ -21,6 +21,7 @@ func Test_StringIsEmailDive(t *testing.T) {
 		Field: field,
 	}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(5, e.Count())
 }

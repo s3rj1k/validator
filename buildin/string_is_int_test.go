@@ -12,6 +12,7 @@ func Test_StringIsInt(t *testing.T) {
 
 	v := &StringIsInt{Name: "Name", Field: "1988"} // must be int
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(0, e.Count())
 

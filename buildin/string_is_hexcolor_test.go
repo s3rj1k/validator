@@ -12,6 +12,7 @@ func Test_StringIsHexcolor(t *testing.T) {
 
 	v := &StringIsHexcolor{Name: "Name", Field: "#b8f2b2"} // hexcolor here
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(0, e.Count())
 

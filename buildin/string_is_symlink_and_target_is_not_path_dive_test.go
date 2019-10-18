@@ -12,31 +12,31 @@ import (
 func Test_StringIsSymlinkAndTargetIsNotPathDive(t *testing.T) {
 	r := require.New(t)
 
-	fd, err := os.Create("/tmp/not_a_symlink") // nolint: gosec
+	fd, err := os.Create(notSymlink) // nolint: gosec
 	r.Nil(err)
 
 	err = fd.Close()
 	r.Nil(err)
 
-	_ = os.Remove("/tmp/symlink_to_file")
-	err = os.Symlink("/tmp/not_a_symlink", "/tmp/symlink_to_file") // symlink to file
+	_ = os.Remove(symlinkTargetIsFile)
+	err = os.Symlink(notSymlink, symlinkTargetIsFile) // symlink to file
 	r.Nil(err)
 
-	_ = os.Remove("/tmp/symlink_to_folder")
-	err = os.Symlink("/tmp", "/tmp/symlink_to_folder") // symlink to folder
+	_ = os.Remove(symlinkTargetIsDir)
+	err = os.Symlink("/tmp", symlinkTargetIsDir) // symlink to folder
 	r.Nil(err)
 
-	fd, err = os.Create("/tmp/to_be_deleted") // nolint: gosec
+	fd, err = os.Create(regularFile) // nolint: gosec
 	r.Nil(err)
 
 	err = fd.Close()
 	r.Nil(err)
 
-	_ = os.Remove("/tmp/symlink_target_not_exist")
-	err = os.Symlink("/tmp/to_be_deleted", "/tmp/symlink_target_not_exist")
+	_ = os.Remove(symlinkTargetNotExist)
+	err = os.Symlink(regularFile, symlinkTargetNotExist)
 	r.Nil(err)
 
-	err = os.Remove("/tmp/to_be_deleted")
+	err = os.Remove(regularFile)
 	r.Nil(err)
 
 	var tests = []struct {
@@ -44,7 +44,7 @@ func Test_StringIsSymlinkAndTargetIsNotPathDive(t *testing.T) {
 		valid          bool
 		invalidIndexes []int
 	}{
-		{[]string{"/tmp/not_a_symlink", "/tmp/symlink_to_file", "/tmp/symlink_to_folder", "/tmp/not_exists", "/tmp/symlink_target_not_exist"}, false, []int{1, 2}},
+		{[]string{notSymlink, symlinkTargetIsFile, symlinkTargetIsDir, notExists, symlinkTargetNotExist}, false, []int{1, 2}},
 		{[]string{" ", ""}, true, []int{}}, // empty and nil are not errors of this validator
 		{nil, true, []int{}},
 	}
@@ -55,8 +55,8 @@ func Test_StringIsSymlinkAndTargetIsNotPathDive(t *testing.T) {
 			Field:     test.field,
 		}
 		e := validator.NewErrors()
-		v.Validate(e)
 
+		v.Validate(e)
 		r.Equalf(!test.valid, e.HasAny(), "tc %d expecting error=%v got=%v", index, !test.valid, e.HasAny())
 
 		if !test.valid {
@@ -73,10 +73,12 @@ func Test_StringIsSymlinkAndTargetIsNotPathDive(t *testing.T) {
 		}
 	}
 
-	err = os.Remove("/tmp/symlink_to_file")
+	err = os.Remove(symlinkTargetIsFile)
 	r.Nil(err)
-	err = os.Remove("/tmp/symlink_to_folder")
+
+	err = os.Remove(symlinkTargetIsDir)
 	r.Nil(err)
-	err = os.Remove("/tmp/symlink_target_not_exist")
+
+	err = os.Remove(symlinkTargetNotExist)
 	r.Nil(err)
 }

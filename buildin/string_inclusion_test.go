@@ -14,6 +14,7 @@ func Test_StringInclusion(t *testing.T) {
 
 	v := &StringInclusion{Name: "Name", Field: "Mark", Whitelist: l}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(0, e.Count())
 

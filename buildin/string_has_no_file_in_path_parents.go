@@ -58,6 +58,7 @@ func (v *StringHasNoFileInPathParents) Validate(e *validator.Errors) {
 		}
 
 		hasFileInPath = true
+
 		break
 	}
 

@@ -14,6 +14,7 @@ func Test_StringIsHexadecimal(t *testing.T) {
 
 	v := &StringIsHexadecimal{Name: "Name", Field: hex.EncodeToString([]byte("Hello"))} // hex here
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(0, e.Count())
 

@@ -12,7 +12,7 @@ import (
 func Test_StringIsNotFileDive(t *testing.T) {
 	r := require.New(t)
 
-	fd, err := os.Create("/tmp/string_is_not_file_dive") // nolint: gosec
+	fd, err := os.Create(regularFile) // nolint: gosec
 	r.Nil(err)
 
 	err = fd.Close()
@@ -23,7 +23,7 @@ func Test_StringIsNotFileDive(t *testing.T) {
 		valid          bool
 		invalidIndexes []int
 	}{
-		{[]string{"/tmp/not_exists_i_hope", "/tmp/string_is_not_file_dive", "/tmp"}, false, []int{1}},
+		{[]string{notExists, regularFile, "/tmp"}, false, []int{1}},
 		{[]string{" ", ""}, true, []int{}}, // not a file
 		{nil, true, []int{}},               // not a file
 	}
@@ -33,10 +33,12 @@ func Test_StringIsNotFileDive(t *testing.T) {
 			Validator: &StringIsNotFile{Name: "StringIsNotFile"},
 			Field:     test.field,
 		}
-		e := validator.NewErrors()
-		v.Validate(e)
 
+		e := validator.NewErrors()
+
+		v.Validate(e)
 		r.Equalf(!test.valid, e.HasAny(), "tc %d", index)
+
 		if !test.valid {
 			r.Equalf(len(test.invalidIndexes), e.Count(), "tc %d wrong number of errors", index)
 
@@ -51,6 +53,6 @@ func Test_StringIsNotFileDive(t *testing.T) {
 		}
 	}
 
-	err = os.Remove("/tmp/string_is_not_file_dive")
+	err = os.Remove(regularFile)
 	r.Nil(err)
 }

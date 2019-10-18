@@ -26,8 +26,8 @@ func Test_StringIsExistingUser(t *testing.T) {
 	for index, test := range tests {
 		v := &StringIsExistingUser{Name: "UserE", Field: test.field}
 		e := validator.NewErrors()
-		v.Validate(e)
 
+		v.Validate(e)
 		r.Equalf(!test.valid, e.HasAny(), "tc %d expecting error=%v got=%v", index, !test.valid, e.HasAny())
 
 		if !test.valid {

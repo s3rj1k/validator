@@ -12,6 +12,7 @@ func Test_StringHasLowerCase(t *testing.T) {
 
 	v := &StringHasLowerCase{Name: "Name", Field: "3w4ASF^^#"} // at least 1 lowercase
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(0, e.Count())
 

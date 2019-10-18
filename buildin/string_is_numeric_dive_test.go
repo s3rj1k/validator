@@ -19,6 +19,7 @@ func Test_StringIsNumericDive(t *testing.T) {
 		Field: field,
 	}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(3, e.Count())
 

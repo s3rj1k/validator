@@ -30,8 +30,8 @@ func Test_StringIsCIDRv6(t *testing.T) {
 	for index, test := range tests {
 		v := &StringIsCIDRv6{Name: "CIDRv4", Field: test.field}
 		e := validator.NewErrors()
-		v.Validate(e)
 
+		v.Validate(e)
 		r.Equalf(!test.valid, e.HasAny(), "tc %d expecting error=%v got=%v", index, !test.valid, e.HasAny())
 
 		if !test.valid {

@@ -45,9 +45,10 @@ func Test_StringIsValidUUIDv4(t *testing.T) {
 	for index, test := range tests {
 		v := &StringIsValidUUIDv4{Name: "UUIDv4", Field: test.field}
 		e := validator.NewErrors()
-		v.Validate(e)
 
+		v.Validate(e)
 		r.Equalf(!test.valid, e.HasAny(), "tc %d expecting error=%v got=%v", index, !test.valid, e.HasAny())
+
 		if !test.valid {
 			r.Equalf([]string{StringIsValidUUIDv4Error(v)}, e.Get(v.Name), "tc %d", index)
 		}

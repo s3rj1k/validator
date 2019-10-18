@@ -39,6 +39,7 @@ func Test_SliceIsUnique(t *testing.T) {
 
 	v := &SliceIsUnique{Name: "Slice", Field: nil}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{ErrNilValue.Error()}, e.Get(v.Name))

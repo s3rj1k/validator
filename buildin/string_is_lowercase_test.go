@@ -12,6 +12,7 @@ func Test_StringIsLowerCase(t *testing.T) {
 
 	v := &StringIsLowerCase{Name: "Name", Field: "asdehr247"}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(0, e.Count())
 

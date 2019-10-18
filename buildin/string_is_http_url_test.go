@@ -31,13 +31,14 @@ func Test_StringIsHTTPURL(t *testing.T) {
 	for _, test := range tests {
 		v := &StringIsHTTPURL{Name: "URL", Field: test.url}
 		e := validator.NewErrors()
-		v.Validate(e)
 
+		v.Validate(e)
 		r.Equal(test.valid, !e.HasAny(), test.url, e.Error())
 	}
 
 	v := &StringIsHTTPURL{Name: "URL", Field: "http://"}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{StringIsHTTPURLError(v)}, e.Get("URL"))

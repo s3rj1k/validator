@@ -1,6 +1,7 @@
 package buildin
 
 import (
+	"fmt"
 	"os"
 	"testing"
 
@@ -12,38 +13,38 @@ import (
 func Test_StringIsNotDir(t *testing.T) {
 	r := require.New(t)
 
-	fd, err := os.Create("/tmp/test")
+	fd, err := os.Create(regularFile)
 	r.Nil(err)
 
 	err = fd.Close()
 	r.Nil(err)
 
-	v := StringIsNotDir{Name: "Name", Field: "/tmp/test"}
+	v := StringIsNotDir{Name: "Name", Field: regularFile}
 	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
-	err = os.Remove("/tmp/test")
+	err = os.Remove(regularFile)
 	r.Nil(err)
 
-	v = StringIsNotDir{Name: "Name", Field: "/tmp/test"}
+	v = StringIsNotDir{Name: "Name", Field: regularFile}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
-	err = os.MkdirAll("/tmp/test_dir", 0666)
+	err = os.MkdirAll(dir, 0666)
 	r.Nil(err)
 
-	v = StringIsNotDir{Name: "Name", Field: "/tmp/test_dir"}
+	v = StringIsNotDir{Name: "Name", Field: dir}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
-	r.Equal([]string{"path '/tmp/test_dir' is a dir"}, e.Get("Name"))
+	r.Equal([]string{fmt.Sprintf("path '%s' is a dir", dir)}, e.Get("Name"))
 
-	err = os.RemoveAll("/tmp/test_dir")
+	err = os.RemoveAll(dir)
 	r.Nil(err)
 
-	v = StringIsNotDir{Name: "Name", Field: "/tmp/test_dir"}
+	v = StringIsNotDir{Name: "Name", Field: dir}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())

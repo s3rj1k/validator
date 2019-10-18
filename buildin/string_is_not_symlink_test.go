@@ -1,6 +1,7 @@
 package buildin
 
 import (
+	"fmt"
 	"os"
 	"testing"
 
@@ -12,39 +13,40 @@ import (
 func Test_StringIsNotSymlink(t *testing.T) {
 	r := require.New(t)
 
-	fd, err := os.Create("/tmp/test")
+	fd, err := os.Create(regularFile)
 	r.Nil(err)
 
 	err = fd.Close()
 	r.Nil(err)
 
-	v := StringIsNotSymlink{Name: "Name", Field: "/tmp/test"}
+	v := StringIsNotSymlink{Name: "Name", Field: regularFile}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
-	err = os.Remove("/tmp/test")
+	err = os.Remove(regularFile)
 	r.Nil(err)
 
-	v = StringIsNotSymlink{Name: "Name", Field: "/tmp/test"}
+	v = StringIsNotSymlink{Name: "Name", Field: regularFile}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())
 
-	_ = os.Remove("/tmp/test_symlink")
-	err = os.Symlink("/tmp", "/tmp/test_symlink")
+	_ = os.Remove(symlink)
+	err = os.Symlink("/tmp", symlink)
 	r.Nil(err)
 
-	v = StringIsNotSymlink{Name: "Name", Field: "/tmp/test_symlink"}
+	v = StringIsNotSymlink{Name: "Name", Field: symlink}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
-	r.Equal([]string{"path '/tmp/test_symlink' is a symlink"}, e.Get("Name"))
+	r.Equal([]string{fmt.Sprintf("path '%s' is a symlink", symlink)}, e.Get("Name"))
 
-	err = os.Remove("/tmp/test_symlink")
+	err = os.Remove(symlink)
 	r.Nil(err)
 
-	v = StringIsNotSymlink{Name: "Name", Field: "/tmp/test_symlink"}
+	v = StringIsNotSymlink{Name: "Name", Field: symlink}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())

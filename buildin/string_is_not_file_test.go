@@ -12,22 +12,22 @@ import (
 func Test_StringIsNotFile(t *testing.T) {
 	r := require.New(t)
 
-	fd, err := os.Create("/tmp/string_is_file_test")
+	fd, err := os.Create(regularFile)
 	r.Nil(err)
 
 	err = fd.Close()
 	r.Nil(err)
 
-	v := &StringIsNotFile{Name: "Name", Field: "/tmp/string_is_file_test"}
+	v := &StringIsNotFile{Name: "Name", Field: regularFile}
 	e := validator.NewErrors()
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{StringIsNotFileError(v)}, e.Get("Name"))
 
-	err = os.Remove("/tmp/string_is_file_test")
+	err = os.Remove(regularFile)
 	r.Nil(err)
 
-	v = &StringIsNotFile{Name: "Name", Field: "/tmp/string_is_file_test"}
+	v = &StringIsNotFile{Name: "Name", Field: regularFile}
 	e = validator.NewErrors()
 	v.Validate(e)
 	r.Equal(0, e.Count())

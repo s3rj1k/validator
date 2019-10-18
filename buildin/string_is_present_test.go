@@ -12,6 +12,7 @@ func Test_StringIsPresent(t *testing.T) {
 
 	v := &StringIsPresent{Name: "Name", Field: "Mark"}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(0, e.Count())
 

@@ -31,9 +31,10 @@ func Test_StringIsIP(t *testing.T) {
 	for index, test := range tests {
 		v := &StringIsIP{Name: "IP", Field: test.field}
 		e := validator.NewErrors()
-		v.Validate(e)
 
+		v.Validate(e)
 		r.Equalf(!test.valid, e.HasAny(), "tc %d", index)
+
 		if !test.valid {
 			r.Equalf([]string{StringIsIPError(v)}, e.Get(v.Name), "tc %d", index)
 		}

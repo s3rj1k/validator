@@ -17,6 +17,7 @@ func Test_StringHasPrefixDive(t *testing.T) {
 		Field:     sl,
 	}
 	e := validator.NewErrorsP()
+
 	v.Validate(e)
 	r.Equal(3, e.Count()) // 4(total) - 1 strings in sl that have matched prefix
 }

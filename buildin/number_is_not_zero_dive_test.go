@@ -46,6 +46,7 @@ func Test_NumberIsNotZeroDive(t *testing.T) {
 			Field: tc.field,
 		}
 		e := validator.NewErrors()
+
 		v.Validate(e)
 
 		// check number of errors

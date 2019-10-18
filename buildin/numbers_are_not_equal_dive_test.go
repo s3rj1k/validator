@@ -21,6 +21,7 @@ func Test_NumbersAreNotEqualDive(t *testing.T) {
 		Field: f,
 	}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(1, e.Count())
 

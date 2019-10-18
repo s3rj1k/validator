@@ -17,6 +17,7 @@ func Test_StringAreNotEqualDive(t *testing.T) {
 		Field:     sl,
 	}
 	e := validator.NewErrorsP()
+
 	v.Validate(e)
 	r.Equal(3, e.Count())
 

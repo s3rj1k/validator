@@ -45,6 +45,7 @@ func Test_SliceIsNotEmpty(t *testing.T) {
 
 	v := &SliceIsNotEmpty{Name: "Slice", Field: nil}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{ErrNilValue.Error()}, e.Get(v.Name))

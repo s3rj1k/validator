@@ -67,8 +67,8 @@ func Test_NumberIsValidUserGID(t *testing.T) {
 			Name:  tc.name,
 			Field: tc.field,
 		}
-
 		e := validator.NewErrors()
+
 		v.Validate(e)
 		r.Equal(tc.errNum, e.Count(), fmt.Sprintf("tc %d element is wrong %v", index, e))
 	}

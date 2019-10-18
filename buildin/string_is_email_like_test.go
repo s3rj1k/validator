@@ -35,8 +35,10 @@ func Test_StringIsEmailLike(t *testing.T) {
 	for _, test := range tests {
 		v := &StringIsEmailLike{Name: "email", Field: test.email}
 		e := validator.NewErrors()
+
 		v.Validate(e)
 		r.Equal(test.valid, !e.HasAny(), test.email)
+
 		if !test.valid {
 			r.Equal(e.Get("email"), []string{StringIsEmailLikeError(v)})
 		}
@@ -44,12 +46,14 @@ func Test_StringIsEmailLike(t *testing.T) {
 
 	v := &StringIsEmailLike{Name: "email", Field: "foo@bar"}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(e.Count(), 1)
 	r.Equal(e.Get("email"), []string{StringIsEmailLikeError(v)})
 
 	v = &StringIsEmailLike{Name: "email", Field: ""}
 	e = validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(e.Count(), 1)
 	r.Equal(e.Get("email"), []string{StringIsEmailLikeError(v)})

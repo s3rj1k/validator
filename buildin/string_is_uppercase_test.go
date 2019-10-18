@@ -12,6 +12,7 @@ func Test_StringIsUpperCase(t *testing.T) {
 
 	v := &StringIsUpperCase{Name: "Name", Field: "ASFADG44"}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(0, e.Count())
 

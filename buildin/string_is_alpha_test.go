@@ -12,6 +12,7 @@ func Test_StringIsAlpha(t *testing.T) {
 
 	v := &StringIsAlpha{Name: "Name", Field: "abcZXC"}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(0, e.Count())
 

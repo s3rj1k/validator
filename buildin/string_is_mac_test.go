@@ -12,6 +12,7 @@ func Test_StringIsMAC(t *testing.T) {
 
 	v := &StringIsMAC{Name: "Name", Field: "01:23:45:67:89:ab"} // MAC is OK
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(0, e.Count())
 

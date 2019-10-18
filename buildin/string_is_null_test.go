@@ -12,6 +12,7 @@ func Test_StringIsNull(t *testing.T) {
 
 	v := &StringIsNull{Name: "Name", Field: ""}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(0, e.Count())
 

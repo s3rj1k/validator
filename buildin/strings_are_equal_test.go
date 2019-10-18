@@ -24,6 +24,7 @@ func Test_StringsAreEqual(t *testing.T) {
 	for _, testCase := range cases {
 		v := &StringsAreEqual{Name: "strings", Field: testCase.str1, ComparedField: testCase.str2}
 		e := validator.NewErrors()
+
 		v.Validate(e)
 		r.Equal(testCase.expected, !e.HasAny(), "Str1: %s, Str2: %s", testCase.str1, testCase.str2)
 	}
@@ -31,8 +32,10 @@ func Test_StringsAreEqual(t *testing.T) {
 	for _, testCase := range cases {
 		v := &StringsAreEqual{Name: "strings1", Field: testCase.str1, ComparedField: testCase.str2, ComparedName: "strings2"}
 		e := validator.NewErrors()
+
 		v.Validate(e)
 		r.Equal(testCase.expected, !e.HasAny(), "Str1: %s, Str2: %s", testCase.str1, testCase.str2)
+
 		if !testCase.expected {
 			r.Contains(e.Get("strings1"), StringsAreEqualError(v))
 		}
@@ -40,6 +43,7 @@ func Test_StringsAreEqual(t *testing.T) {
 
 	v := &StringsAreEqual{Name: "strings", Field: "test_fail", ComparedField: "test"}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{StringsAreEqualError(v)}, e.Get("strings"))
@@ -62,6 +66,7 @@ func Test_StringsAreIEqual(t *testing.T) {
 	for _, testCase := range cases {
 		v := &StringsAreEqual{Name: "strings", Field: testCase.str1, ComparedField: testCase.str2, CaseInsensitive: true}
 		e := validator.NewErrors()
+
 		v.Validate(e)
 		r.Equal(testCase.expected, !e.HasAny(), "Str1: %s, Str2: %s", testCase.str1, testCase.str2)
 	}
@@ -69,8 +74,10 @@ func Test_StringsAreIEqual(t *testing.T) {
 	for _, testCase := range cases {
 		v := &StringsAreEqual{Name: "strings1", Field: testCase.str1, ComparedField: testCase.str2, ComparedName: "strings2", CaseInsensitive: true}
 		e := validator.NewErrors()
+
 		v.Validate(e)
 		r.Equal(testCase.expected, !e.HasAny(), "Str1: %s, Str2: %s", testCase.str1, testCase.str2)
+
 		if !testCase.expected {
 			r.Contains(e.Get("strings1"), StringsAreEqualError(v))
 		}
@@ -78,6 +85,7 @@ func Test_StringsAreIEqual(t *testing.T) {
 
 	v := &StringsAreEqual{Name: "strings", Field: "test_fail", ComparedField: "test", CaseInsensitive: true}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(1, e.Count())
 	r.Equal([]string{StringsAreEqualError(v)}, e.Get("strings"))

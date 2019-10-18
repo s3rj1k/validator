@@ -13,6 +13,7 @@ func Test_TimeIsPresent(t *testing.T) {
 
 	v := &TimeIsPresent{Name: "CreatedAt", Field: time.Now()}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(0, e.Count())
 

@@ -18,6 +18,7 @@ func Test_TimeIsAfterTime(t *testing.T) {
 	}
 
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(0, e.Count())
 

@@ -32,8 +32,8 @@ func Test_StringIsIPLinkLocalMulticast(t *testing.T) {
 	for index, test := range tests {
 		v := &StringIsIPLinkLocalMulticast{Name: "IPLink", Field: test.field}
 		e := validator.NewErrors()
-		v.Validate(e)
 
+		v.Validate(e)
 		r.Equalf(!test.valid, e.HasAny(), "tc %d expecting error=%v got=%v", index, !test.valid, e.HasAny())
 
 		if !test.valid {

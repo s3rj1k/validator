@@ -17,6 +17,7 @@ func Test_StringsArePathsNotInTheSameDirDive(t *testing.T) {
 		Field:     sl,
 	}
 	e := validator.NewErrorsP()
+
 	v.Validate(e)
 	r.Equal(1, e.Count())
 }

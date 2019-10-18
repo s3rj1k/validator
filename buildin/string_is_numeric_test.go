@@ -12,6 +12,7 @@ func Test_StringIsNumeric(t *testing.T) {
 
 	v := &StringIsNumeric{Name: "Name", Field: "0123456789"}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(0, e.Count())
 

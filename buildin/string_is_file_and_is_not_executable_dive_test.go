@@ -12,18 +12,18 @@ import (
 func Test_StringIsFileAndIsNotExecutableDive(t *testing.T) {
 	r := require.New(t)
 
-	_ = os.Remove("/tmp/executable_file")
+	_ = os.Remove(executableFile)
 
-	fd, err := os.Create("/tmp/executable_file") // nolint: gosec
+	fd, err := os.Create(executableFile) // nolint: gosec
 	r.Nil(err)
 	err = fd.Chmod(0777)
 	r.Nil(err)
 	err = fd.Close()
 	r.Nil(err)
 
-	_ = os.Remove("/tmp/not_executable_file")
+	_ = os.Remove(notExecutableFile)
 
-	fd2, err := os.Create("/tmp/not_executable_file") // nolint: gosec
+	fd2, err := os.Create(notExecutableFile) // nolint: gosec
 	r.Nil(err)
 	err = fd2.Close()
 	r.Nil(err)
@@ -33,7 +33,7 @@ func Test_StringIsFileAndIsNotExecutableDive(t *testing.T) {
 		valid          bool
 		invalidIndexes []int
 	}{
-		{[]string{"/tmp/not_exists_i_hope", "/tmp/executable_file", "/tmp", "/tmp/not_executable_file"}, false, []int{1}},
+		{[]string{notExists, executableFile, "/tmp", notExecutableFile}, false, []int{1}},
 		{[]string{" ", ""}, true, []int{}}, // not a file is OK
 		{nil, true, []int{}},               // not a file is OK
 	}
@@ -47,8 +47,8 @@ func Test_StringIsFileAndIsNotExecutableDive(t *testing.T) {
 			Field:     test.field,
 		}
 		e := validator.NewErrors()
-		v.Validate(e)
 
+		v.Validate(e)
 		r.Equalf(!test.valid, e.HasAny(), "tc %d expecting error=%v got=%v", index, !test.valid, e.HasAny())
 
 		if !test.valid {
@@ -65,9 +65,9 @@ func Test_StringIsFileAndIsNotExecutableDive(t *testing.T) {
 		}
 	}
 
-	err = os.Remove("/tmp/executable_file")
+	err = os.Remove(executableFile)
 	r.Nil(err)
 
-	err = os.Remove("/tmp/not_executable_file")
+	err = os.Remove(notExecutableFile)
 	r.Nil(err)
 }

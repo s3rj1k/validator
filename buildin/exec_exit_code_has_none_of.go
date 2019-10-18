@@ -60,6 +60,7 @@ func (v *ExecExitCodeHasNoneOf) Validate(e *validator.Errors) {
 
 	if ctx.Err() == context.DeadlineExceeded {
 		e.Add(v.Name, ExecExitCodeHasNoneOfError(v))
+
 		return
 	}
 

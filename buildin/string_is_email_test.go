@@ -34,8 +34,10 @@ func Test_StringIsEmail(t *testing.T) {
 	for _, test := range tests {
 		v := &StringIsEmail{Name: "email", Field: test.email}
 		e := validator.NewErrors()
+
 		v.Validate(e)
 		r.Equal(test.valid, !e.HasAny())
+
 		if !test.valid {
 			r.Equal([]string{StringIsEmailError(v)}, e.Get("email"))
 		}
@@ -43,6 +45,7 @@ func Test_StringIsEmail(t *testing.T) {
 
 	v := &StringIsEmail{Name: "email", Field: ""}
 	e := validator.NewErrors()
+
 	v.Validate(e)
 	r.Equal(e.Count(), 1)
 	r.Equal([]string{StringIsEmailError(v)}, e.Get("email"))
