@@ -2,49 +2,45 @@ package buildin
 
 import (
 	"fmt"
+	"math/big"
 )
 
 // Number represents a casted integer
 type Number struct {
-	Value      uint64
-	isNegative bool
+	Value *big.Int
+}
+
+// NewNumber creates new Number object as pointer
+func NewNumber(x int64) *Number {
+	n := new(Number)
+	n.Value = big.NewInt(x)
+
+	return n
+}
+
+// SetUint64 sets uint64 to Number object
+func (x *Number) SetUint64(u uint64) {
+	x.Value.SetUint64(u)
+}
+
+// SetInt64 sets int64 to Number object
+func (x *Number) SetInt64(i int64) {
+	x.Value.SetInt64(i)
 }
 
 // IsGreater returns true if x > y
 func (x *Number) IsGreater(y *Number) bool {
-	switch {
-	case x.isNegative && !y.isNegative:
-		return false
-	case !x.isNegative && y.isNegative:
-		return true
-	case !x.isNegative && !y.isNegative:
-		return x.Value > y.Value
-	case x.isNegative && y.isNegative:
-		return x.Value < y.Value
-	}
-
-	return false
+	return x.Value.Cmp(y.Value) == 1
 }
 
 // IsLess returns true if x < y
 func (x *Number) IsLess(y *Number) bool {
-	switch {
-	case x.isNegative && !y.isNegative:
-		return true
-	case !x.isNegative && y.isNegative:
-		return false
-	case !x.isNegative && !y.isNegative:
-		return x.Value < y.Value
-	case x.isNegative && y.isNegative:
-		return x.Value > y.Value
-	}
-
-	return false
+	return x.Value.Cmp(y.Value) == -1
 }
 
 // IsEqual returns true if x == y
 func (x *Number) IsEqual(y *Number) bool {
-	return x.Value == y.Value && x.isNegative == y.isNegative
+	return x.Value.Cmp(y.Value) == 0
 }
 
 // IsGreaterOrEqual returns true if x >= y
@@ -75,76 +71,73 @@ func (x *Number) IsLessOrEqual(y *Number) bool {
 
 // InRange returns true if min < x < y
 func (x *Number) InRange(min, max *Number) bool {
-	if x.IsGreater(min) && x.IsLess(max) {
-		return true
-	}
-
-	return false
+	return x.IsGreater(min) && x.IsLess(max)
 }
 
 // InRangeOrEqual returns true if min <= x <= y
 func (x *Number) InRangeOrEqual(min, max *Number) bool {
-	if x.IsGreaterOrEqual(min) && x.IsLessOrEqual(max) {
-		return true
-	}
+	return x.IsGreaterOrEqual(min) && x.IsLessOrEqual(max)
+}
 
-	return false
+// IsNegative returns true when x < 0
+func (x *Number) IsNegative() bool {
+	return x.Value.Sign() == -1
+}
+
+// IsPositive returns true when x >= 0
+func (x *Number) IsPositive() bool {
+	return !x.IsNegative()
 }
 
 // casts a into Number. Returns error if a is nil or not a integer
 func cast(a interface{}) (*Number, error) {
+	n := NewNumber(0)
+
 	if a == nil {
-		return &Number{uint64(0), false}, nil
+		return n, nil
 	}
 
 	switch a := a.(type) {
 	case int8:
-		if a < 0 {
-			return &Number{uint64(a * -1), true}, nil
-		}
+		n.SetInt64(int64(a))
 
-		return &Number{uint64(a), false}, nil
-
+		return n, nil
 	case int16:
-		if a < 0 {
-			return &Number{uint64(a * -1), true}, nil
-		}
+		n.SetInt64(int64(a))
 
-		return &Number{uint64(a), false}, nil
-
+		return n, nil
 	case int32:
-		if a < 0 {
-			return &Number{uint64(a * -1), true}, nil
-		}
+		n.SetInt64(int64(a))
 
-		return &Number{uint64(a), false}, nil
-
+		return n, nil
 	case int:
-		if a < 0 {
-			return &Number{uint64(a * -1), true}, nil
-		}
+		n.SetInt64(int64(a))
 
-		return &Number{uint64(a), false}, nil
-
+		return n, nil
 	case int64:
-		if a < 0 {
-			return &Number{uint64(a * -1), true}, nil
-		}
+		n.SetInt64(a)
 
-		return &Number{uint64(a), false}, nil
-
-	case uintptr:
-		return &Number{uint64(a), false}, nil
-	case uint:
-		return &Number{uint64(a), false}, nil
+		return n, nil
 	case uint8:
-		return &Number{uint64(a), false}, nil
+		n.SetUint64(uint64(a))
+
+		return n, nil
 	case uint16:
-		return &Number{uint64(a), false}, nil
+		n.SetUint64(uint64(a))
+
+		return n, nil
 	case uint32:
-		return &Number{uint64(a), false}, nil
+		n.SetUint64(uint64(a))
+
+		return n, nil
+	case uint:
+		n.SetUint64(uint64(a))
+
+		return n, nil
 	case uint64:
-		return &Number{a, false}, nil
+		n.SetUint64(a)
+
+		return n, nil
 	}
 
 	return nil, ErrBadNumType
