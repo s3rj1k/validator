@@ -2,16 +2,16 @@ package buildin
 
 import (
 	"bufio"
+	"bytes"
 	"fmt"
-	"os"
+	"io/ioutil"
 	"strconv"
 	"strings"
 
 	"github.com/s3rj1k/validator"
 )
 
-// nolint: gochecknoglobals
-var (
+const (
 	// DefaultMinUserGID is a default value for MinUserGID, used then parsing of 'login.defs' fails.
 	DefaultMinUserGID uint64 = 1000
 
@@ -79,19 +79,12 @@ func (v *NumberIsValidUserGID) GetName() string {
 
 // ReadUserGIDRange parses 'login.defs' file.
 func ReadUserGIDRange(path string) (minUserGID uint64, maxUserGID uint64) {
-	minUserGID = DefaultMinUserGID
-	maxUserGID = DefaultMaxUserGID
-
-	fd, err := os.Open(path)
+	b, err := ioutil.ReadFile(path)
 	if err != nil {
-		return minUserGID, maxUserGID
+		return DefaultMinUserGID, DefaultMaxUserGID
 	}
 
-	defer func(fd *os.File) {
-		_ = fd.Close()
-	}(fd)
-
-	scanner := bufio.NewScanner(fd)
+	scanner := bufio.NewScanner(bytes.NewReader(b))
 
 	for scanner.Scan() {
 		fields := strings.Fields(scanner.Text())
@@ -110,6 +103,10 @@ func ReadUserGIDRange(path string) (minUserGID uint64, maxUserGID uint64) {
 				maxUserGID = i
 			}
 		}
+	}
+
+	if err := scanner.Err(); err != nil {
+		return DefaultMinUserGID, DefaultMaxUserGID
 	}
 
 	return minUserGID, maxUserGID
