@@ -30,8 +30,6 @@ func Test_NumberInRange(t *testing.T) {
 			max:        31,
 			valid:      true,
 		},
-		{true, uintptr(20), -100, 100, true},
-
 		{false, 1, nil, 999999999, true}, // nil == 0
 		{false, int64(1), 0, 1, false},
 

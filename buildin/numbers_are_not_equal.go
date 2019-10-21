@@ -46,7 +46,7 @@ func (v *NumbersAreNotEqual) Validate(e *validator.Errors) {
 		return
 	}
 
-	if fNum.Value != cfNum.Value {
+	if !fNum.IsEqual(cfNum) {
 		return
 	}
 

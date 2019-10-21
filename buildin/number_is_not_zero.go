@@ -33,7 +33,7 @@ func (v *NumberIsNotZero) Validate(e *validator.Errors) {
 		return
 	}
 
-	if fNum.Value != uint64(0) {
+	if !fNum.IsEqual(NewNumber(0)) {
 		return
 	}
 

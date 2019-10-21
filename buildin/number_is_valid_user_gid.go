@@ -39,23 +39,43 @@ type NumberIsValidUserGID struct {
 
 // Validate adds an error if the Field is in range of GID_MIN, GID_MAX from '/etc/login.defs'.
 func (v *NumberIsValidUserGID) Validate(e *validator.Errors) {
-	fNum, err := cast(v.Field)
+	var (
+		minUserGIDNum *Number
+		maxUserGIDNum *Number
+		fNum          *Number
+		err           error
+	)
+
+	minUserGID, maxUserGID := ReadUserGIDRange(LoginDefsPath)
+
+	minUserGIDNum, err = cast(minUserGID)
 	if err != nil {
 		e.Add(v.Name, err.Error())
 
 		return
 	}
 
-	minUserGID, maxUserGID := ReadUserGIDRange(LoginDefsPath)
+	maxUserGIDNum, err = cast(maxUserGID)
+	if err != nil {
+		e.Add(v.Name, err.Error())
 
-	//  for os.Chown func a uid or gid of -1 means to not change that value
-	if fNum.isNegative && fNum.Value == 1 {
 		return
 	}
 
-	if fNum.Value >= minUserGID &&
-		fNum.Value <= maxUserGID &&
-		!fNum.isNegative {
+	fNum, err = cast(v.Field)
+	if err != nil {
+		e.Add(v.Name, err.Error())
+
+		return
+	}
+
+	// for os.Chown func a uid or gid of -1 means to not change that value
+	if fNum.IsEqual(NewNumber(-1)) {
+		return
+	}
+
+	if fNum.InRangeOrEqual(minUserGIDNum, maxUserGIDNum) &&
+		fNum.IsPositive() {
 		return
 	}
 

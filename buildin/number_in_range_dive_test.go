@@ -26,8 +26,6 @@ func Test_NumberInRangeDive(t *testing.T) {
 			valid:          false,
 			invalidIndexes: []int{0},
 		},
-		{true, []uintptr{0, 1, 10, 100}, -100, 100, true, []int{}},
-
 		{false, []uint64{59999, 60000, 60001}, nil, 999999999, true, []int{}},
 		{true, []int32{0x1, 1, 200}, 0, 1, false, []int{2}},
 
