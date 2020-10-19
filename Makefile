@@ -1,6 +1,7 @@
 GO_BIN ?= go
 CURL_BIN ?= curl
 MAKE_BIN ?= make
+
 export PATH := $(PATH):/usr/local/go/bin
 
 all: lint test
