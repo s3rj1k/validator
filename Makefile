@@ -1,5 +1,6 @@
 GO_BIN ?= go
 CURL_BIN ?= curl
+MAKE_BIN ?= make
 export PATH := $(PATH):/usr/local/go/bin
 
 all: lint test
@@ -12,6 +13,7 @@ update:
 
 test:
 	$(GO_BIN) test -failfast ./...
+	$(MAKE_BIN) test -C ./buildin
 
 lint:
 	golangci-lint run ./...
