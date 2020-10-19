@@ -6,7 +6,7 @@ all: lint test
 
 update:
 	$(GO_BIN) get -u
-	$(GO_BIN) get -u github.com/golangci/golangci-lint/cmd/golangci-lint
+	curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.31.0
 	$(GO_BIN) get -u github.com/mgechev/revive
 	$(GO_BIN) mod tidy
 
