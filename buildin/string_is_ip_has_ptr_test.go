@@ -20,7 +20,7 @@ func Test_StringIsIPHasPTR(t *testing.T) {
 		{"91.198.174.192", true},
 		{"72.247.244.88", true},
 
-		{"5.255.253.0", false},
+		{"169.254.0.1", false},
 		{"220.181.0.0", false},
 		{" 5.255.253.0", false},
 		{"http://www.google.com", false},
