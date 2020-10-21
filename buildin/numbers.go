@@ -79,6 +79,16 @@ func (x *Number) InRangeOrEqual(min, max *Number) bool {
 	return x.IsGreaterOrEqual(min) && x.IsLessOrEqual(max)
 }
 
+// InSlice returns true if x presents in slice
+func (x *Number) InSlice(slice []*Number) bool {
+	for _, el := range slice {
+		if x.IsEqual(el) {
+			return true
+		}
+	}
+	return false
+}
+
 // IsNegative returns true when x < 0
 func (x *Number) IsNegative() bool {
 	return x.Value.Sign() == -1
@@ -141,6 +151,108 @@ func cast(a interface{}) (*Number, error) {
 	}
 
 	return nil, ErrBadNumType
+}
+
+// casts slice into Number slice. Returns error if a is nil or not a integer slice
+func castSlice(slice interface{}) ([]*Number, error) {
+	n := make([]*Number, 0)
+
+	if slice == nil {
+		return n, nil
+	}
+
+	switch field := slice.(type) {
+	case []int8:
+		for _, val := range field {
+			m := NewNumber(0)
+			m.SetInt64(int64(val))
+			n = append(n, m)
+		}
+
+		return n, nil
+	case []int16:
+		for _, val := range field {
+			m := NewNumber(0)
+			m.SetInt64(int64(val))
+			n = append(n, m)
+		}
+
+		return n, nil
+	case []int32:
+		for _, val := range field {
+			m := NewNumber(0)
+			m.SetInt64(int64(val))
+			n = append(n, m)
+		}
+
+		return n, nil
+	case []int:
+		for _, val := range field {
+			m := NewNumber(0)
+			m.SetInt64(int64(val))
+			n = append(n, m)
+		}
+
+		return n, nil
+	case []int64:
+		for _, val := range field {
+			m := NewNumber(0)
+			m.SetInt64(val)
+			n = append(n, m)
+		}
+
+		return n, nil
+	case []uintptr:
+		for _, val := range field {
+			m := NewNumber(0)
+			m.SetUint64(uint64(val))
+			n = append(n, m)
+		}
+
+		return n, nil
+	case []uint8:
+		for _, val := range field {
+			m := NewNumber(0)
+			m.SetUint64(uint64(val))
+			n = append(n, m)
+		}
+
+		return n, nil
+	case []uint16:
+		for _, val := range field {
+			m := NewNumber(0)
+			m.SetUint64(uint64(val))
+			n = append(n, m)
+		}
+
+		return n, nil
+	case []uint32:
+		for _, val := range field {
+			m := NewNumber(0)
+			m.SetUint64(uint64(val))
+			n = append(n, m)
+		}
+
+		return n, nil
+	case []uint:
+		for _, val := range field {
+			m := NewNumber(0)
+			m.SetUint64(uint64(val))
+			n = append(n, m)
+		}
+
+		return n, nil
+	case []uint64:
+		for _, val := range field {
+			m := NewNumber(0)
+			m.SetUint64(val)
+			n = append(n, m)
+		}
+
+		return n, nil
+	}
+
+	return n, ErrBadNumType
 }
 
 // NumFieldToString returns string representation of number field
