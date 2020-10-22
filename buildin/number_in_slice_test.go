@@ -16,14 +16,44 @@ func Test_NumberInSlice(t *testing.T) {
 	}{
 		{
 			field: -10,
-			slice: []int32{3, -10, 8888},
+			slice: []int{3, -10, 8888},
 			valid: true,
 		},
 		{
 			field: -8888,
-			slice: []int32{3, -10, 8888},
+			slice: []int{3, -10, 8888},
 			valid: false,
 		},
+		{-10, []int8{3, -10, 88}, true},
+		{-88, []int8{3, -10, 88}, false},
+
+		{-10, []int16{3, -10, 8888}, true},
+		{-8888, []int16{3, -10, 8888}, false},
+
+		{-10, []int32{3, -10, 8888}, true},
+		{-8888, []int32{3, -10, 8888}, false},
+
+		{-10, []int64{3, -10, 8888}, true},
+		{-8888, []int64{3, -10, 8888}, false},
+
+		{10, []uint{3, 10, 8888}, true},
+		{8887, []uint{3, 10, 8888}, false},
+
+		{10, []uintptr{3, 10, 8888}, true},
+		{8887, []uintptr{3, 10, 8888}, false},
+
+		{10, []uint8{3, 10, 88}, true},
+		{87, []uint8{3, 10, 88}, false},
+
+		{10, []uint16{3, 10, 8888}, true},
+		{8887, []uint16{3, 10, 8888}, false},
+
+		{10, []uint32{3, 10, 8888}, true},
+		{8887, []uint32{3, 10, 8888}, false},
+
+		{10, []uint64{3, 10, 8888}, true},
+		{8887, []uint64{3, 10, 8888}, false},
+
 		{int64(1), []uint32{1, 2}, true},
 		{int64(-1), []uint32{1, 2}, false},
 
