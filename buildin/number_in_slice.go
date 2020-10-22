@@ -27,8 +27,9 @@ type NumberInSlice struct {
 	Message string
 }
 
-// Validate adds an error if the Field is not in range between Min and Max (inclusive).
-// Empty Min/Max values will be treated as 0 (zeros).
+// Validate adds an error if the Field is not in slice.
+// Empty Field value will be treated as 0 (zero).
+// Empty Slice value will be treated as empty []*Number slice.
 func (v *NumberInSlice) Validate(e *validator.Errors) {
 	fNum, err := cast(v.Field)
 	if err != nil {
